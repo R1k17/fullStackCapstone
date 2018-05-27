@@ -91,3 +91,33 @@ function getAndDisplayAllEmployees() {
 $(function() {
 	getAndDisplayAllEmployees();
 })
+
+
+
+
+
+
+
+// 1. create timetable >> week gets loaded 
+const timeTable = 
+'<div class="day border">'+
+  '<p class="dayName border">Mo</p>' +
+  '<div class="shifts"></div>' +
+  '<button id="addShift">Add shift +</button>' +
+'</div>';
+
+$('#createTimeTable').on('click', function(){
+  $('.container').append(timeTable);
+})
+
+// 2. inside the day create shifts
+const newShift = 
+'<span class="border shiftSlots">shift</span>';
+
+$('.container').on('click', '#addShift', function() {
+  // how to add a shift only to the clicked day? >> ids??
+  $('.shifts').append(newShift);
+})
+
+
+//==== employee register entry ====
