@@ -7,16 +7,16 @@ nav > ul > li {
     margin-left: 20px;
 }
 
+.day {
+    margin-bottom: 15px;
+}
+
 .border {
     border: solid 2px black;
 }
 
 .shiftSlots {
     display: block;
-}
-
-.day {
-
 }
 
 .dayName {
