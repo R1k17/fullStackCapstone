@@ -1,0 +1,27 @@
+nav {
+    background: lightblue;
+}
+
+nav > ul > li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.border {
+    border: solid 2px black;
+}
+
+.shiftSlots {
+    display: block;
+}
+
+.day {
+
+}
+
+.dayName {
+    display: inline-block;
+    margin: 0;
+    width: 5%;
+    height: 60px;
+}
