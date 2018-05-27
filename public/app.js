@@ -62,13 +62,14 @@ const MOCK_EMPLOYEES = {
     "hours": 30
   }]}
 
-
-  function getAllEmployees(callbackFn) {
-    // we use a `setTimeout` to make this asynchronous
-    // as it would be with a real AJAX call.
+// get the api
+function getAllEmployees(callbackFn) {
+  // we use a `setTimeout` to make this asynchronous
+  // as it would be with a real AJAX call.
 	setTimeout(function(){ callbackFn(MOCK_EMPLOYEES)}, 1);
 }
 
+// render data to screen
 function displayAllEmployees(data) {
     for (index in data.employees) {
 	   $('body').append(
