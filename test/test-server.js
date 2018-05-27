@@ -1,13 +1,3 @@
-/* 
-Add one test that verifies that when you hit up the root url for your client, you get a 200 status code and HTML.
-
-==== Integration test ====
-So far, we've seen how to write unit tests for small pieces of code. 
-In this assignment, we dive into integration testing. Integration tests 
-target an app's HTTP layer, and, as such, test and document how clients 
-will interact with your API.
-
-*/
 'use strict';
 
 const chai = require('chai');
