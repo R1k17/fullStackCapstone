@@ -16,4 +16,12 @@ describe('Main url', function(){
             expect(res).to.have.status(200);
         });
     });
+
+    it('should list employess on GET', function() {
+        return chai.request(app)
+        .get('/employees')
+        .then(function(res) {
+            expect(res).to.have.status(200);
+        })
+    })
 });
