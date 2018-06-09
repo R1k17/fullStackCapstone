@@ -1,67 +1,3 @@
-const MOCK_EMPLOYEES = {
-    "employees":
-[{
-    "id": 1,
-    "first_name": "Adelbert",
-    "last_name": "Kennealy",
-    "gender": "Male",
-    "hours": 20
-  }, {
-    "id": 2,
-    "first_name": "Arlen",
-    "last_name": "Barnham",
-    "gender": "Female",
-    "hours": 20
-  }, {
-    "id": 3,
-    "first_name": "Audry",
-    "last_name": "Reppaport",
-    "gender": "Female",
-    "hours": 40
-  }, {
-    "id": 4,
-    "first_name": "Rosana",
-    "last_name": "Kipling",
-    "gender": "Female",
-    "hours": 40
-  }, {
-    "id": 5,
-    "first_name": "Gale",
-    "last_name": "Payton",
-    "gender": "Male",
-    "hours": 30
-  }, {
-    "id": 6,
-    "first_name": "Free",
-    "last_name": "Eastment",
-    "gender": "Male",
-    "hours": 30
-  }, {
-    "id": 7,
-    "first_name": "Georgetta",
-    "last_name": "Burghall",
-    "gender": "Female",
-    "hours": 40
-  }, {
-    "id": 8,
-    "first_name": "Benetta",
-    "last_name": "Gartside",
-    "gender": "Female",
-    "hours": 30
-  }, {
-    "id": 9,
-    "first_name": "Sidoney",
-    "last_name": "McReidy",
-    "gender": "Female",
-    "hours": 20
-  }, {
-    "id": 10,
-    "first_name": "Hasheem",
-    "last_name": "Christy",
-    "gender": "Male",
-    "hours": 30
-  }]}
-
 // get the api
 function getAllEmployees(callbackFn) {
   // we use a `setTimeout` to make this asynchronous
@@ -94,30 +30,35 @@ $(function() {
 
 
 
-
+//==== id logic ====
+let dayCounter = 0;
+let shiftCounter = 0;
 
 
 
 // 1. create timetable >> week gets loaded 
-const timeTable = 
-'<div class="day border">'+
+const weekDay = 
+`<div class="day border">`+
   '<p class="dayName border">Mo</p>' +
   '<div class="shifts"></div>' +
-  '<button id="addShift">Add shift +</button>' +
+  '<button class="addShift">Add shift +</button>' +
 '</div>';
 
-$('#createTimeTable').on('click', function(){
-  $('.container').append(timeTable);
+
+$('#createDay').on('click', function(){
+  dayCounter += 1;
+  $('.container').append(weekDay);
+  $('.container > div').last("div").attr('id', 'd'+dayCounter);
+  // it is changing the value of all buttons in every day container
+  $('button').attr('value', 'd'+dayCounter);
 })
 
 // 2. inside the day create shifts
 const newShift = 
 '<span class="border shiftSlots">shift</span>';
 
-$('.container').on('click', '#addShift', function() {
-  // how to add a shift only to the clicked day? >> ids??
+$('.container').on('click', '.addShift', function() {
+  shiftCounter += 1;
   $('.shifts').append(newShift);
+  $('.shifts > span').last("span").attr('id', 'd'+dayCounter+'s'+shiftCounter);
 })
-
-
-//==== employee register entry ====
