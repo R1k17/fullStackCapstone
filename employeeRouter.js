@@ -12,17 +12,15 @@ const {Employee} = require('./models');
 
 // implementing the get endpoint
 router.get('/', (req,res) => {
-    console.log(res.body);
-    
+// res.json({respone: "A GET request was sent"});
     Employee
     .find()
-    
     .then(employees => {
         res.json(employees.map(employee => employee.serialize()))
-        /* res.json({
+        res.json({
             employees: employees.map(
               (employee) => employee.serialize())
-          }); */
+        });
     })
 });
 
@@ -30,7 +28,7 @@ router.post('/', jsonParser, (req, res) => {
     // add required fields
     /* https://courses.thinkful.com/node-001v5/project/1.4.3 */
     // test if required fields are filled
-    const requiredFields = ['first_name', 'last_name', 'gender', 'hours'];
+    /* const requiredFields = ['first_name', 'last_name', 'gender', 'hours'];
     for (let i=0; i<requiredFields.length; i++) {
       const field = requiredFields[i];
       if (!(field in req.body)) {
@@ -50,7 +48,8 @@ router.post('/', jsonParser, (req, res) => {
         .catch(err => {
             console.log(err);
             res.status(500).json({error: 'Something went wrong'});
-        });
+        }); */
+        res.json({response: 'POST request is send'});
 });
 
 router.delete('/:id', jsonParser, (req,res) => {
