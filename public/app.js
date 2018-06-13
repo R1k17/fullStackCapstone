@@ -1,33 +1,54 @@
-// get the api
-function getAllEmployees(callbackFn) {
-  // we use a `setTimeout` to make this asynchronous
-  // as it would be with a real AJAX call.
-	setTimeout(function(){ callbackFn(MOCK_EMPLOYEES)}, 1);
+/* API variables */
+const TIMEPLANER_API = 'https://timeplaner.herokuapp.com/';
+
+function getEmployeesFromAPI(callback) {
+  $.ajax({
+    method: 'GET',
+    dataType: 'jsonp',
+    url: TIMEPLANER_API + 'employees',
+    success: callback,
+    error: () => console.log('GET states failed')
+  });
 }
 
-// render data to screen
+function renderEmployee(result) {
+  return `
+    <div>
+      <h2>${result.first_name} ${result.last_name}</h2>
+      <ul>
+        <li>ID: ${result.id}</li>
+        <li>Gender: ${result.gender}</li>
+        <li>Hours: ${result.hours}</li>
+      </ul>
+    </div>
+  `
+}
+
 function displayAllEmployees(data) {
-    for (index in data.employees) {
-	   $('body').append(
-        '<ul>' + 
-            '<li>' + data.employees[index].id + '</li>' +
-            '<li>' + data.employees[index].first_name + '</li>' +
-            '<li>' + data.employees[index].last_name + '</li>' +
-            '<li>' + data.employees[index].gender + '</li>' +
-            '<li>' + data.employees[index].hours + '</li>' +
-        '<ul>'
-    );
-    }
+  const result = data.map((employee) => renderEmployee(employee));
+  $('#employeeContainer').html(result);
 }
 
-function getAndDisplayAllEmployees() {
-	getAllEmployees(displayAllEmployees);
+function watchGetEmployees() {
+  $('#testbtn').on('click', function() {
+    getEmployeesFromAPI(displayAllEmployees);
+  })
 }
 
-$(function() {
-	getAndDisplayAllEmployees();
-})
+function startApp() {
+  watchGetEmployees();
+}
 
+$(startApp());
+/* function getDataFromAPI(callback) {
+  const query = {
+    first_name: first_name,
+    last_name: last_name,
+    gender: gender,
+    hours: horus
+  }
+  $.getJSON(TIMEPLANER_API+'employees', query, callback);
+} */
 
 
 //==== id logic ====
