@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors')
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -12,6 +13,12 @@ const {PORT, DATABASE_URL} = require('./config');
 
 const employeeRouter = require('./employeeRouter');
 
+let corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions))
 
 app.use(jsonParser);
 app.use(morgan('common'));
