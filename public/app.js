@@ -4,7 +4,7 @@ const TIMEPLANER_API = 'https://timeplaner.herokuapp.com/';
 function getEmployeesFromAPI(callback) {
   $.ajax({
     method: 'GET',
-    dataType: 'jsonp',
+    dataType: 'json',
     url: TIMEPLANER_API + 'employees',
     success: callback,
     error: () => console.log('GET states failed')
