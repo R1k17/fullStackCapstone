@@ -10,40 +10,51 @@
 <nav>
     <ul>
         <!-- how to link to my other endpoints? -->
-        <li id="timeTableBtn">time table</li>
-        <li id="employeeListBtn"><a href="https://timeplaner.herokuapp.com/employees">employees</a></li>
+        <li id="timeTableBtn"><a href="#">time table</a></li>
+        <li id="employeeListBtn"><a href="#">employees</a></li>
     </ul>
 </nav>
 <body>
-    <p>Hello World</p>
-    <button id="testbtn">testingtesting</button>
-    <!-- TimeTable -->
-    <div class="container">
-        
+    <div class="mainPage">
+        <p>Hello World</p>
+        <div class="container"></div>
     </div>
-    <!-- Frame -->
-    <div class="ttCreate">
-        <button id="createDay" >Add day +</button>
-        <button id="saveTimeTable" >Save timetable</button>
-    </div>
-    
+<!-- ========================================================== -->
+<!-- ==== timetable creation ==== -->
+<!-- 
+<div class="ttCreate">
+    <button id="createDay" >Add day +</button>
+    <button id="saveTimeTable" >Save timetable</button>
+</div> -->
+<!-- ========================================================== -->
+
+
+
+<!-- ========================================================== -->
 <!-- ==== employee register entry ==== -->
-<form action="">
+<form action="/employees" method="post">
 ID: <span>Test</span>
 First Name:
-    <input placeholder="first name" type="text">
+    <input placeholder="first name" type="text" id="firstName">
 Last Name:
-    <input placeholder="last name" type="text">
+    <input placeholder="last name" type="text" id="lastName">
 Gender:
     <input type="radio" name="female" id="f1">female</input>
     <input type="radio" name="male" id="m1">male</input>
 Working hours:
-    <input type="text" placeholder="working hours">
-    <button type="submit">Save</button>
+    <input type="text" placeholder="working hours" id="workHours">
+    <button type="submit" id="employeeSubmit">Save</button>
+</form>
+<!-- ========================================================== -->
+<!-- ==== get specific employee ==== -->
+<!-- https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data -->
+<form action="/employees" method="get">
+    <input type="text" name="id" value="5b1ea258fb6fc033f881b385">
+    <button type="submit">Search</button>
 </form>
 
-<div id="employeeContainer"></div>
-
+<!-- ========================================================== -->
+<!-- ========================================================== -->
 </body>
 <script
     src="https://code.jquery.com/jquery-3.3.1.js"

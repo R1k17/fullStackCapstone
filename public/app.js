@@ -1,6 +1,8 @@
 /* API variables */
 const TIMEPLANER_API = 'https://timeplaner.herokuapp.com/';
 
+// ==========================================================
+// Employee API Interaction
 function getEmployeesFromAPI(callback) {
   $.ajax({
     method: 'GET',
@@ -10,7 +12,26 @@ function getEmployeesFromAPI(callback) {
     error: () => console.log('GET states failed')
   });
 }
+// What to do for post?
+// > attach query string to url
+function postEmployeesToAPI(query) {
+  console.log(query);
+  $.ajax({
+    method: 'POST',
+    dataType: 'json',
+    url: TIMEPLANER_API + 'employees' + query,
+    // success: callback,
+    error: () => console.log('GET states failed')
+  });
+}
+// > send url to post endpoint
+// > retrieve data 
+// > model retrieved data
+/* ===  Post endpoint ===
 
+==> How to modify the querryString?
+
+*/
 function renderEmployee(result) {
   return `
     <div>
@@ -26,20 +47,21 @@ function renderEmployee(result) {
 
 function displayAllEmployees(data) {
   const result = data.map((employee) => renderEmployee(employee));
-  $('#employeeContainer').html(result);
+  $('.mainPage').html(result);
 }
+// ====         ====         ====
+// posting/updating/deleting employees
+// ====         ====         ====        
+/*    what to do?
+// How to send data from form to api?
 
-function watchGetEmployees() {
-  $('#testbtn').on('click', function() {
-    getEmployeesFromAPI(displayAllEmployees);
-  })
-}
+// create query string
+// get current id
+// watch for submit
 
-function startApp() {
-  watchGetEmployees();
-}
 
-$(startApp());
+*/
+
 /* function getDataFromAPI(callback) {
   const query = {
     first_name: first_name,
@@ -50,7 +72,43 @@ $(startApp());
   $.getJSON(TIMEPLANER_API+'employees', query, callback);
 } */
 
+// ==========================================================
+// TimeTable API Interaction
 
+
+// ==========================================================
+// Basic page behaviour
+
+function watchNavBtns() {
+  $('#employeeListBtn').on('click', function() {
+    getEmployeesFromAPI(displayAllEmployees);
+  })
+  $('#timeTableBtn').on('click', function() {
+    alert('Second nav button connected!')
+  })
+}
+
+function watchEmployeeSubmit() {
+  $('#employeeSubmit').on('click', function(event) {
+    event.preventDefault();
+    const query = {
+      first_name: $('#firstName').val(),
+      last_name: $('#lastName').val(),
+      gender: $('#f1').val() || $('#m1').val(),
+      hours: $('#workHours').val()
+    }
+    postEmployeesToAPI(query);
+  })
+}
+
+function startApp() {
+  watchNavBtns();
+  watchEmployeeSubmit();
+}
+
+$(startApp());
+
+// ==========================================================
 //==== id logic ====
 let dayCounter = [0];
 let shiftCounter = 0;
