@@ -33,7 +33,7 @@ const employeeSchema = mongoose.Schema({
 
   employeeSchema.virtual('employeeName').get(function() {
     // return `${this.employee.first_name} ${this.employee.last_name}`.trim();
-    return `${this.first_name} + ' ' + ${this.last_name}`.trim();
+    return this.first_name + ' ' + this.last_name;
   });
   
   employeeSchema.methods.serialize = function() {
