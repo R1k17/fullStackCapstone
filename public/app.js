@@ -9,7 +9,7 @@ function getEmployeesFromAPI(callback) {
     dataType: 'json',
     url: TIMEPLANER_API + 'employees',
     success: callback,
-    error: () => console.log('GET states failed')
+    error: () => console.log('GET employees failed')
   });
 }
 // What to do for post?
@@ -19,9 +19,10 @@ function postEmployeesToAPI(query) {
   $.ajax({
     method: 'POST',
     dataType: 'json',
-    url: TIMEPLANER_API + 'employees' + query,
+    data: query,
+    url: TIMEPLANER_API + 'employees',
     // success: callback,
-    error: () => console.log('GET states failed')
+    error: () => console.log('POST employee failed')
   });
 }
 // > send url to post endpoint
@@ -94,6 +95,13 @@ function watchEmployeeSubmit() {
     const query = {
       first_name: $('#firstName').val(),
       last_name: $('#lastName').val(),
+      /* how to set gender 
+      if (f1 === on){
+        value = female
+      }else {
+        value = male
+      }
+      */
       gender: $('#f1').val() || $('#m1').val(),
       hours: $('#workHours').val()
     }
