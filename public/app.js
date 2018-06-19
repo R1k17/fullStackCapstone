@@ -19,7 +19,7 @@ function postEmployeesToAPI(query) {
   $.ajax({
     method: 'POST',
     dataType: 'json',
-    data: query,
+    data: JSON.stringify(query),
     url: TIMEPLANER_API + 'employees',
     // success: callback,
     error: () => console.log('POST employee failed')
