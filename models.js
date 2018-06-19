@@ -41,8 +41,7 @@ const employeeSchema = mongoose.Schema({
       // Do I want to display the ID for the user?
       id: this._id,
       employee: this.employeeName,
-      firstName: this.first_name,
-      lastName: this.last_name,
+      test: this.id,
       gender: this.gender,
       hours: this.hours,
     };
