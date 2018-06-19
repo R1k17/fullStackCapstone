@@ -37,7 +37,7 @@ function postEmployeesToAPI(query) {
 function renderEmployee(result) {
   return `
     <div>
-      <h2>${result.employee} ${result.employee}</h2>
+      <h2>${result.employee}</h2>
       <ul>
         <li>ID: ${result.id}</li>
         <li>Gender: ${result.gender}</li>
