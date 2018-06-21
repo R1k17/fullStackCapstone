@@ -12,8 +12,7 @@ function getEmployeesFromAPI(callback) {
     error: () => console.log('GET employees failed')
   });
 }
-// What to do for post?
-// > attach query string to url
+
 function postEmployeesToAPI(query) {
   console.log(query);
   $.ajax({
@@ -26,23 +25,31 @@ function postEmployeesToAPI(query) {
     error: () => console.log('POST employee failed')
   });
 }
-// > send url to post endpoint
-// > retrieve data 
-// > model retrieved data
-/* ===  Post endpoint ===
 
-==> How to modify the querryString?
+function deleteEmployee(employeeId, getEmployeesFromAPI) {
+  $.ajax({
+    method: 'DELETE',
+    dataType: 'json',
+    contentType: 'application/json',
+    url: TIMEPLANER_API + 'employees/' + employeeId,
+    // reload the page when obj deleted
+    // success: $('.deleteBtn').on('click', function() {
+    //   location.reload();
+    // }),
+    error: () => console.log('DELETE employee failed')
+  });
+}
 
-*/
 function renderEmployee(result) {
   return `
-    <div>
+    <div  data-index-number="${result.id}">
       <h2>${result.employee}</h2>
       <ul>
         <li>ID: ${result.id}</li>
         <li>Gender: ${result.gender}</li>
         <li>Hours: ${result.hours}</li>
       </ul>
+      <button class="deleteBtn">delete</button>
     </div>
   `
 }
@@ -50,29 +57,8 @@ function renderEmployee(result) {
 function displayAllEmployees(data) {
   const result = data.map((employee) => renderEmployee(employee));
   $('.mainPage').html(result);
+  deleteBtn(data);
 }
-// ====         ====         ====
-// posting/updating/deleting employees
-// ====         ====         ====        
-/*    what to do?
-// How to send data from form to api?
-
-// create query string
-// get current id
-// watch for submit
-
-
-*/
-
-/* function getDataFromAPI(callback) {
-  const query = {
-    first_name: first_name,
-    last_name: last_name,
-    gender: gender,
-    hours: horus
-  }
-  $.getJSON(TIMEPLANER_API+'employees', query, callback);
-} */
 
 // ==========================================================
 // TimeTable API Interaction
@@ -117,6 +103,16 @@ function startApp() {
 
 $(startApp());
 
+// ==== delete employee button logic ====
+// if button with class="deleteBtn" is clicked 
+function deleteBtn(data) {
+  // $(".mainPage").on('click', 'button', function() {
+  $('.deleteBtn').on('click', function() {
+  //  > get parent ID
+  const employeeId = $(this).parent().attr("data-index-number");
+  deleteEmployee(employeeId);
+  })
+}
 // ==========================================================
 //==== id logic ====
 let dayCounter = [0];
