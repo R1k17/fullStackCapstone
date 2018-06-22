@@ -50,6 +50,7 @@ function renderEmployee(result) {
         <li>Hours: ${result.hours}</li>
       </ul>
       <button class="deleteBtn">delete</button>
+      <button class="updateBtn">update</button>
     </div>
   `
 }
@@ -57,8 +58,16 @@ function renderEmployee(result) {
 function displayAllEmployees(data) {
   const result = data.map((employee) => renderEmployee(employee));
   $('.mainPage').html(result);
-  deleteBtn(data);
+  deleteBtn();
+  updateBtn(data);
 }
+// ==========================================================
+// Employee updating functionality
+
+
+
+// ==========================================================
+
 
 // ==========================================================
 // TimeTable API Interaction
@@ -105,12 +114,58 @@ $(startApp());
 
 // ==== delete employee button logic ====
 // if button with class="deleteBtn" is clicked 
-function deleteBtn(data) {
+function deleteBtn() {
   // $(".mainPage").on('click', 'button', function() {
   $('.deleteBtn').on('click', function() {
   //  > get parent ID
   const employeeId = $(this).parent().attr("data-index-number");
   deleteEmployee(employeeId);
+  })
+}
+// ==== update employee button logic ====
+function updateBtn(data) {
+  $('.updateBtn').on('click', function() {
+    const employeeId = $(this).parent().attr("data-index-number");
+    // console.log(data[1].employee);
+   let updatedObj = {};
+
+    for(let i=0; i<data.length; i++) {
+      if(data[i].id === employeeId) {
+         updatedObj = {
+           name: data[i].employee,
+           first_name: data[i].first_name,
+           last_name: data[i].last_name,
+           gender: data[i].gender,
+           hours: data[i].hours
+         }
+      }
+    }
+    console.log(data[2]);
+    
+    console.log('Found someone: ' + updatedObj.name);
+    
+  
+    
+  // if clicked load blank new page only populated with form
+    const updateForm = `
+    <form action="/employees" method="post">
+    ID: <span>Test</span>
+    First Name:
+        <input placeholder="${updatedObj.first_name}" type="text" id="firstName">
+    Last Name:
+        <input placeholder="${updatedObj.last_name}" type="text" id="lastName">
+    Gender:
+        <input type="radio" name="female" id="f1">female</input>
+        <input type="radio" name="male" id="m1">male</input>
+    Working hours:
+        <input type="text" placeholder="${updatedObj.hours}" id="workHours">
+        <button type="submit" id="employeeSubmit">Save</button>
+    </form>
+    `;
+    $('.mainPage').html('');
+    $('.mainPage').html(updateForm);
+  // show current values of obj in fields
+    
   })
 }
 // ==========================================================
