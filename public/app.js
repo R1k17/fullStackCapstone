@@ -216,6 +216,7 @@ function updateBtn(data, updateForm) {
 // if update btn is clicked >>> load blank new page >> populate it with form
 $('.mainPage').html('');
 $('.mainPage').html(updateForm);
+console.log(data);
 
 // get current employee id 
 const employeeId = $(this).parent().attr("data-index-number");
