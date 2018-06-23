@@ -59,7 +59,7 @@ function displayAllEmployees(data) {
   const result = data.map((employee) => renderEmployee(employee));
   $('.mainPage').html(result);
   deleteBtn();
-  updateBtn(data);
+  updateBtn(data,updateForm);
 }
 // ==========================================================
 // Employee updating functionality
@@ -122,52 +122,7 @@ function deleteBtn() {
   deleteEmployee(employeeId);
   })
 }
-// ==== update employee button logic ====
-function updateBtn(data) {
-  $('.updateBtn').on('click', function() {
-    const employeeId = $(this).parent().attr("data-index-number");
-    // console.log(data[1].employee);
-   let updatedObj = {};
 
-    for(let i=0; i<data.length; i++) {
-      if(data[i].id === employeeId) {
-         updatedObj = {
-           name: data[i].employee,
-           first_name: data[i].first_name,
-           last_name: data[i].last_name,
-           gender: data[i].gender,
-           hours: data[i].hours
-         }
-      }
-    }
-    console.log(data[2]);
-    
-    console.log('Found someone: ' + updatedObj.name);
-    
-  
-    
-  // if clicked load blank new page only populated with form
-    const updateForm = `
-    <form action="/employees" method="post">
-    ID: <span>Test</span>
-    First Name:
-        <input placeholder="${updatedObj.first_name}" type="text" id="firstName">
-    Last Name:
-        <input placeholder="${updatedObj.last_name}" type="text" id="lastName">
-    Gender:
-        <input type="radio" name="female" id="f1">female</input>
-        <input type="radio" name="male" id="m1">male</input>
-    Working hours:
-        <input type="text" placeholder="${updatedObj.hours}" id="workHours">
-        <button type="submit" id="employeeSubmit">Save</button>
-    </form>
-    `;
-    $('.mainPage').html('');
-    $('.mainPage').html(updateForm);
-  // show current values of obj in fields
-    
-  })
-}
 // ==========================================================
 //==== id logic ====
 let dayCounter = [0];
@@ -214,3 +169,93 @@ $('.container').on('click', '.addShift', function() {
   }
   
 })
+
+
+
+
+
+
+
+
+// updating Employee
+
+// update Form
+function updateEmployee() {
+
+
+
+}
+
+const updateForm = `
+<form id="update">
+    <fieldset class="employee-update-form">
+        First name:<br>
+        <input type="text" name="firstName" value="">
+        <br><br>
+        Last name:<br>
+        <input type="text" name="lastName" value="">
+        <br><br>
+        Available hours per week: <br>
+        <input type="number" name="hours" value="">
+        <br><br>
+        <div>
+            <input type="radio" name="gender_female" value="Female">Female<br>
+            <input type="radio" name="gender_male" value="Male">Male<br>
+        </div>
+        <div>
+            <input class="submit-button" type="submit" value="Submit">
+        </div>
+    </fieldset>
+</form>
+`;
+
+
+// ==== update employee button logic ====
+function updateBtn(data, updateForm) {
+  $('.updateBtn').on('click', function() {
+// if update btn is clicked >>> load blank new page >> populate it with form
+$('.mainPage').html('');
+$('.mainPage').html(updateForm);
+
+// get current employee id 
+const employeeId = $(this).parent().attr("data-index-number");
+
+// find current employee
+let selectedEmployee = 
+  data.find((obj) => {
+    return employeeId === obj.id;
+  });
+// read values of form inputs of currentEmployee
+console.log('Selected Employee: ' + selectedEmployee.employee);
+
+
+
+/* 
+console.log(data[1].employee);
+
+
+
+   let updatedObj = {};
+
+    for(let i=0; i<data.length; i++) {
+      if(data[i].id === employeeId) {
+         updatedObj = {
+           name: data[i].employee,
+           first_name: data[i].first_name,
+           last_name: data[i].last_name,
+           gender: data[i].gender,
+           hours: data[i].hours
+         }
+      }
+    }
+    console.log(data[2]);
+    
+    console.log('Found someone: ' + updatedObj.name);
+    
+  
+    
+  
+  // show current values of obj in fields
+     */
+  })
+}
