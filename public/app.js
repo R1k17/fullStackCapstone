@@ -85,28 +85,6 @@ function watchNavBtns() {
   })
 }
 
- // find selected gender
-      /* 
-        if radio btn is selected return its gender value
-        else return gender value of the second radio btn
-      */
-
-      // find selected gender radio btn
-
-      // read its value and store it 
-  $('#testingForm input').on('change', function() {
-      console.log('checked radio: '+ $('input[name=gender]:checked', '#testingForm').val());
-    $('input[name=gender]:checked', '#testingForm').val();
-
-  })
-
-  /* function genderChecker() {
-       
-
-      // $('input[type="radio"]')
-  } */
-
-
 function watchEmployeeSubmit() {
   $('#employeeSubmit').on('click', function(event) {
     event.preventDefault();
@@ -126,6 +104,7 @@ function watchEmployeeSubmit() {
 function startApp() {
   watchNavBtns();
   watchEmployeeSubmit();
+  watchUdateEmployee();
 }
 
 $(startApp());
@@ -198,14 +177,39 @@ $('.container').on('click', '.addShift', function() {
 // updating Employee
 
 // update Form
-function updateEmployee() {
+function watchUdateEmployee() {
+  $('#updateEmployee').on('click', function(event) {
+    event.preventDefault();
+    console.log('this works');
+    
+    let bigGender;
+    bigGender = $('input[name=gender]:checked', '#updateForm').val();
+    
+    const query = {
+        first_name: $('input[name="firstName"]').val(),
+        last_name: $('input[name="lastName"]').val(),
+        gender: bigGender,
+        hours: $('input[name="hours"]').val()
+    }
+    sendUpdatedEmployeeToAPI(query);
+  })
+}
 
 
-
+function sendUpdatedEmployeeToAPI(employeeId, query) {
+  console.log(query);
+  $.ajax({
+    method: 'PUT',
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify(query),
+    url: TIMEPLANER_API + 'employees' + employeeId,
+    error: () => console.log('PUT employee failed')
+  })
 }
 
 const updateForm = `
-<form id="update">
+<form id="updateForm">
     <fieldset class="employee-update-form">
         First name:<br>
         <input type="text" name="firstName" value="">
@@ -217,11 +221,11 @@ const updateForm = `
         <input type="number" name="hours" value="">
         <br><br>
         <div>
-            <input type="radio" name="gender_female" value="Female">Female<br>
-            <input type="radio" name="gender_male" value="Male">Male<br>
+            <input type="radio" name="gender" id="female" value="Female">Female<br>
+            <input type="radio" name="gender" id="male" value="Male">Male<br>
         </div>
         <div>
-            <input class="submit-button" type="submit" value="Submit">
+            <input class="submit-button" id="updateEmployee" type="submit" value="Submit">
         </div>
     </fieldset>
 </form>
@@ -231,66 +235,27 @@ const updateForm = `
 // ==== update employee button logic ====
 function updateBtn(data, updateForm) {
   $('.updateBtn').on('click', function() {
-// if update btn is clicked >>> load blank new page >> populate it with form
-$('.mainPage').html('');
-$('.mainPage').html(updateForm);
-console.log(data);
-
-// get current employee id 
-const employeeId = $(this).parent().attr("data-index-number");
-
-// find current employee and read data
-let selectedEmployee = 
-  data.find((obj) => {
-    return employeeId === obj.id;
-  });
-
-// load old values as placeholders into the form
-$('input[name="firstName"]').attr('placeholder', selectedEmployee.first_name);
-$('input[name="lastName"]').attr('placeholder', selectedEmployee.last_name);
-$('input[name="hours"]').attr('placeholder', selectedEmployee.hours);
-// use info of current gender to set the radio btn to checked
-$('input[name="gender"]').checked.attr('placeholder', selectedEmployee.gender);
-$('input[name="gender"]').attr('placeholder', selectedEmployee.gender);
-/* 
-let bigGender;
-    bigGender = $('input[name=gender]:checked', '#testingForm').val();
+    $('.mainPage').html('');
+    $('.mainPage').html(updateForm);
+    startApp();
     
-    const query = {
-        first_name: $('#firstName').val(),
-        last_name: $('#lastName').val(),
-        gender: bigGender,
-        hours: $('#workHours').val()
+    const employeeId = $(this).parent().attr("data-index-number");
+
+    let selectedEmployee = 
+      data.find((obj) => {
+        return employeeId === obj.id;
+      });
+
+    $('input[name="firstName"]').attr('placeholder', selectedEmployee.first_name);
+    $('input[name="lastName"]').attr('placeholder', selectedEmployee.last_name);
+    $('input[name="hours"]').attr('placeholder', selectedEmployee.hours);
+
+    if(selectedEmployee.gender === 'Female') {
+      $('#female').attr('checked', true);
+    } else {
+      $('#male').attr('checked', true);
     }
 
-*/
-
-/* 
-console.log(data[1].employee);
-
-
-
-   let updatedObj = {};
-
-    for(let i=0; i<data.length; i++) {
-      if(data[i].id === employeeId) {
-         updatedObj = {
-           name: data[i].employee,
-           first_name: data[i].first_name,
-           last_name: data[i].last_name,
-           gender: data[i].gender,
-           hours: data[i].hours
-         }
-      }
-    }
-    console.log(data[2]);
-    
-    console.log('Found someone: ' + updatedObj.name);
-    
-  
-    
-  
-  // show current values of obj in fields
-     */
+    sendUpdatedEmployeeToAPI(employeeId);
   })
 }
