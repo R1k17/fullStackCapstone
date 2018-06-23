@@ -85,21 +85,39 @@ function watchNavBtns() {
   })
 }
 
+ // find selected gender
+      /* 
+        if radio btn is selected return its gender value
+        else return gender value of the second radio btn
+      */
+
+      // find selected gender radio btn
+
+      // read its value and store it 
+  $('#testingForm input').on('change', function() {
+      console.log('checked radio: '+ $('input[name=gender]:checked', '#testingForm').val());
+    $('input[name=gender]:checked', '#testingForm').val();
+
+  })
+
+  /* function genderChecker() {
+       
+
+      // $('input[type="radio"]')
+  } */
+
+
 function watchEmployeeSubmit() {
   $('#employeeSubmit').on('click', function(event) {
     event.preventDefault();
+    let bigGender;
+    bigGender = $('input[name=gender]:checked', '#testingForm').val();
+    
     const query = {
-      first_name: $('#firstName').val(),
-      last_name: $('#lastName').val(),
-      /* how to set gender 
-      if (f1 === on){
-        value = female
-      }else {
-        value = male
-      }
-      */
-      gender: $('#f1').val() || $('#m1').val(),
-      hours: $('#workHours').val()
+        first_name: $('#firstName').val(),
+        last_name: $('#lastName').val(),
+        gender: bigGender,
+        hours: $('#workHours').val()
     }
     postEmployeesToAPI(query);
   })
@@ -221,15 +239,31 @@ console.log(data);
 // get current employee id 
 const employeeId = $(this).parent().attr("data-index-number");
 
-// find current employee
+// find current employee and read data
 let selectedEmployee = 
   data.find((obj) => {
     return employeeId === obj.id;
   });
-// read values of form inputs of currentEmployee
-console.log('Selected Employee: ' + selectedEmployee.employee);
 
+// load old values as placeholders into the form
+$('input[name="firstName"]').attr('placeholder', selectedEmployee.first_name);
+$('input[name="lastName"]').attr('placeholder', selectedEmployee.last_name);
+$('input[name="hours"]').attr('placeholder', selectedEmployee.hours);
+// use info of current gender to set the radio btn to checked
+$('input[name="gender"]').checked.attr('placeholder', selectedEmployee.gender);
+$('input[name="gender"]').attr('placeholder', selectedEmployee.gender);
+/* 
+let bigGender;
+    bigGender = $('input[name=gender]:checked', '#testingForm').val();
+    
+    const query = {
+        first_name: $('#firstName').val(),
+        last_name: $('#lastName').val(),
+        gender: bigGender,
+        hours: $('#workHours').val()
+    }
 
+*/
 
 /* 
 console.log(data[1].employee);
