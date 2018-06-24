@@ -101,10 +101,98 @@ function watchEmployeeSubmit() {
   })
 }
 
+/* ============ Employee updating functionality ============ */
+
+function updateBtn(data, updateForm) {
+  $('.updateBtn').on('click', function() {
+    $('.mainPage').html('');
+    $('.mainPage').html(updateForm);
+    
+    const employeeId = $(this).parent().attr("data-index-number");
+    console.log(employeeId);
+    
+    let selectedEmployee = 
+      data.find((obj) => {
+        return employeeId === obj.id;
+      });
+
+    $('input[name="firstName"]').attr('placeholder', selectedEmployee.first_name);
+    $('input[name="lastName"]').attr('placeholder', selectedEmployee.last_name);
+    $('input[name="hours"]').attr('placeholder', selectedEmployee.hours);
+
+    if(selectedEmployee.gender === 'Female') {
+      $('#female').attr('checked', true);
+    } else {
+      $('#male').attr('checked', true);
+    }
+    generateUpdateQuery(employeeId)
+  })
+}
+// generating query string and initiating updateEmployee()
+function generateUpdateQuery(employeeId) {
+  $('#updateEmployee').on('click', function(event) {
+    event.preventDefault();
+        
+    let bigGender;
+    bigGender = $('input[name=gender]:checked', '#updateForm').val();
+    
+    const query = {
+        // first_name: $('input[name="firstName"]').val(),
+        employee: $('input[name="firstName"]').val() + ' ' + $('input[name="lastName"]').val(),
+        first_name: $('input[name="firstName"]').val(),
+        last_name: $('input[name="lastName"]').val(),
+        gender: bigGender,
+        hours: $('input[name="hours"]').val()
+    }
+    console.log('we have the id: ' + employeeId + 'and the query: ');
+    console.log(query);
+    
+    
+    updateEmployee(employeeId, query);
+  })
+}
+
+
+const updateForm = `
+<form id="updateForm">
+    <fieldset class="employee-update-form">
+        First name:<br>
+        <input type="text" name="firstName" value="">
+        <br><br>
+        Last name:<br>
+        <input type="text" name="lastName" value="">
+        <br><br>
+        Available hours per week: <br>
+        <input type="number" name="hours" value="">
+        <br><br>
+        <div>
+            <input type="radio" name="gender" id="female" value="Female">Female<br>
+            <input type="radio" name="gender" id="male" value="Male">Male<br>
+        </div>
+        <div>
+            <input class="submit-button" id="updateEmployee" type="submit" value="Submit">
+        </div>
+    </fieldset>
+</form>
+`;
+
+function updateEmployee(employeeId, query) {
+  console.log(employeeId);
+  console.log(query);
+  $.ajax({
+    method: 'PUT',
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify(query),
+    url: TIMEPLANER_API + 'employees/' + employeeId,
+    error: () => console.log('PUT employee failed')
+  })
+}
+
 function startApp() {
   watchNavBtns();
   watchEmployeeSubmit();
-  watchUdateEmployee();
+  // updateEmployee();
 }
 
 $(startApp());
@@ -174,18 +262,20 @@ $('.container').on('click', '.addShift', function() {
 
 
 
+
+/* 
 // updating Employee
 
 // update Form
 function watchUdateEmployee() {
   $('#updateEmployee').on('click', function(event) {
     event.preventDefault();
-    console.log('this works');
-    
+        
     let bigGender;
     bigGender = $('input[name=gender]:checked', '#updateForm').val();
     
     const query = {
+        // first_name: $('input[name="firstName"]').val(),
         first_name: $('input[name="firstName"]').val(),
         last_name: $('input[name="lastName"]').val(),
         gender: bigGender,
@@ -197,47 +287,30 @@ function watchUdateEmployee() {
 
 
 function sendUpdatedEmployeeToAPI(employeeId, query) {
+  console.log(employeeId);
   console.log(query);
   $.ajax({
     method: 'PUT',
-    dataType: 'json',
-    contentType: 'application/json',
-    data: JSON.stringify(query),
+    // dataType: 'json',
+    // contentType: 'application/json',
+    // data: JSON.stringify(query),
+    data: query,
     url: TIMEPLANER_API + 'employees' + employeeId,
     error: () => console.log('PUT employee failed')
   })
 }
-
-const updateForm = `
-<form id="updateForm">
-    <fieldset class="employee-update-form">
-        First name:<br>
-        <input type="text" name="firstName" value="">
-        <br><br>
-        Last name:<br>
-        <input type="text" name="lastName" value="">
-        <br><br>
-        Available hours per week: <br>
-        <input type="number" name="hours" value="">
-        <br><br>
-        <div>
-            <input type="radio" name="gender" id="female" value="Female">Female<br>
-            <input type="radio" name="gender" id="male" value="Male">Male<br>
-        </div>
-        <div>
-            <input class="submit-button" id="updateEmployee" type="submit" value="Submit">
-        </div>
-    </fieldset>
-</form>
-`;
-
-
+ */
+/* 
 // ==== update employee button logic ====
 function updateBtn(data, updateForm) {
   $('.updateBtn').on('click', function() {
     $('.mainPage').html('');
     $('.mainPage').html(updateForm);
+    // ====================================
+    // ====================================
     startApp();
+    // ====================================
+    // ====================================
     
     const employeeId = $(this).parent().attr("data-index-number");
 
@@ -259,3 +332,4 @@ function updateBtn(data, updateForm) {
     sendUpdatedEmployeeToAPI(employeeId);
   })
 }
+ */
