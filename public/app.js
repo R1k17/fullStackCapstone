@@ -14,7 +14,6 @@ function getEmployeesFromAPI(callback) {
 }
 
 function postEmployeesToAPI(query) {
-  console.log(query);
   $.ajax({
     method: 'POST',
     dataType: 'json',
@@ -24,6 +23,17 @@ function postEmployeesToAPI(query) {
     // success: callback,
     error: () => console.log('POST employee failed')
   });
+}
+
+function updateEmployee(employeeId, query) {
+  $.ajax({
+    method: 'PUT',
+    dataType: 'json',
+    contentType: 'application/json',
+    data: JSON.stringify(query),
+    url: TIMEPLANER_API + 'employees/' + employeeId,
+    error: () => console.log('PUT employee failed')
+  })
 }
 
 function deleteEmployee(employeeId, getEmployeesFromAPI) {
@@ -61,20 +71,6 @@ function displayAllEmployees(data) {
   deleteBtn();
   updateBtn(data,updateForm);
 }
-// ==========================================================
-// Employee updating functionality
-
-
-
-// ==========================================================
-
-
-// ==========================================================
-// TimeTable API Interaction
-
-
-// ==========================================================
-// Basic page behaviour
 
 function watchNavBtns() {
   $('#employeeListBtn').on('click', function() {
@@ -109,16 +105,15 @@ function updateBtn(data, updateForm) {
     $('.mainPage').html(updateForm);
     
     const employeeId = $(this).parent().attr("data-index-number");
-    console.log(employeeId);
     
     let selectedEmployee = 
       data.find((obj) => {
         return employeeId === obj.id;
       });
 
-    $('input[name="firstName"]').attr('placeholder', selectedEmployee.first_name);
-    $('input[name="lastName"]').attr('placeholder', selectedEmployee.last_name);
-    $('input[name="hours"]').attr('placeholder', selectedEmployee.hours);
+    $('input[name="firstName"]').attr('value', selectedEmployee.first_name);
+    $('input[name="lastName"]').attr('value', selectedEmployee.last_name);
+    $('input[name="hours"]').attr('value', selectedEmployee.hours);
 
     if(selectedEmployee.gender === 'Female') {
       $('#female').attr('checked', true);
@@ -128,7 +123,7 @@ function updateBtn(data, updateForm) {
     generateUpdateQuery(employeeId)
   })
 }
-// generating query string and initiating updateEmployee()
+
 function generateUpdateQuery(employeeId) {
   $('#updateEmployee').on('click', function(event) {
     event.preventDefault();
@@ -137,21 +132,15 @@ function generateUpdateQuery(employeeId) {
     bigGender = $('input[name=gender]:checked', '#updateForm').val();
     
     const query = {
-        // first_name: $('input[name="firstName"]').val(),
-        employee: $('input[name="firstName"]').val() + ' ' + $('input[name="lastName"]').val(),
+        id: employeeId,
         first_name: $('input[name="firstName"]').val(),
         last_name: $('input[name="lastName"]').val(),
         gender: bigGender,
         hours: $('input[name="hours"]').val()
     }
-    console.log('we have the id: ' + employeeId + 'and the query: ');
-    console.log(query);
-    
-    
     updateEmployee(employeeId, query);
   })
 }
-
 
 const updateForm = `
 <form id="updateForm">
@@ -176,26 +165,18 @@ const updateForm = `
 </form>
 `;
 
-function updateEmployee(employeeId, query) {
-  console.log(employeeId);
-  console.log(query);
-  $.ajax({
-    method: 'PUT',
-    dataType: 'json',
-    contentType: 'application/json',
-    data: JSON.stringify(query),
-    url: TIMEPLANER_API + 'employees/' + employeeId,
-    error: () => console.log('PUT employee failed')
-  })
-}
-
 function startApp() {
   watchNavBtns();
   watchEmployeeSubmit();
-  // updateEmployee();
+  generateUpdateQuery();
+  updateBtn();
 }
 
 $(startApp());
+
+
+
+
 
 // ==== delete employee button logic ====
 // if button with class="deleteBtn" is clicked 
@@ -250,86 +231,5 @@ $('.container').on('click', '.addShift', function() {
     $('#' + parentID + '>.shifts').append(newShift);
     // add shift ids 
     // $('.shifts > span').last("span").attr('id', 'd'+dayCounter+'s'+shiftCounter);
-    
   }
-  
 })
-
-
-
-
-
-
-
-
-
-/* 
-// updating Employee
-
-// update Form
-function watchUdateEmployee() {
-  $('#updateEmployee').on('click', function(event) {
-    event.preventDefault();
-        
-    let bigGender;
-    bigGender = $('input[name=gender]:checked', '#updateForm').val();
-    
-    const query = {
-        // first_name: $('input[name="firstName"]').val(),
-        first_name: $('input[name="firstName"]').val(),
-        last_name: $('input[name="lastName"]').val(),
-        gender: bigGender,
-        hours: $('input[name="hours"]').val()
-    }
-    sendUpdatedEmployeeToAPI(query);
-  })
-}
-
-
-function sendUpdatedEmployeeToAPI(employeeId, query) {
-  console.log(employeeId);
-  console.log(query);
-  $.ajax({
-    method: 'PUT',
-    // dataType: 'json',
-    // contentType: 'application/json',
-    // data: JSON.stringify(query),
-    data: query,
-    url: TIMEPLANER_API + 'employees' + employeeId,
-    error: () => console.log('PUT employee failed')
-  })
-}
- */
-/* 
-// ==== update employee button logic ====
-function updateBtn(data, updateForm) {
-  $('.updateBtn').on('click', function() {
-    $('.mainPage').html('');
-    $('.mainPage').html(updateForm);
-    // ====================================
-    // ====================================
-    startApp();
-    // ====================================
-    // ====================================
-    
-    const employeeId = $(this).parent().attr("data-index-number");
-
-    let selectedEmployee = 
-      data.find((obj) => {
-        return employeeId === obj.id;
-      });
-
-    $('input[name="firstName"]').attr('placeholder', selectedEmployee.first_name);
-    $('input[name="lastName"]').attr('placeholder', selectedEmployee.last_name);
-    $('input[name="hours"]').attr('placeholder', selectedEmployee.hours);
-
-    if(selectedEmployee.gender === 'Female') {
-      $('#female').attr('checked', true);
-    } else {
-      $('#male').attr('checked', true);
-    }
-
-    sendUpdatedEmployeeToAPI(employeeId);
-  })
-}
- */
