@@ -8,7 +8,7 @@ mongoose.Promise = global.Promise;
 
 const timeTableSchema = mongoose.Schema({
   dayName: {type: String, required: true},
-  shift: {type: Object, required: true}
+  // shift: {type: Object, required: true}
 })
 
 timeTableSchema.virtual('timeTableName').get(function() {
