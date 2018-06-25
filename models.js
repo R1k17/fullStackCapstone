@@ -7,7 +7,7 @@ mongoose.Promise = global.Promise;
 
 
 const timeTableSchema = mongoose.Schema({
-  dayName: {type: String, required: true},
+  dayName: {type: String, required: true}
   // shift: {type: Object, required: true}
 })
 
@@ -17,8 +17,8 @@ timeTableSchema.virtual('timeTableName').get(function() {
 
 timeTableSchema.methods.serialize = function() {
   return {
-    dayName: this.dayName,
-    shift: this.shift
+    dayName: this.dayName
+    // shift: this.shift
   };
 };
 /* 
