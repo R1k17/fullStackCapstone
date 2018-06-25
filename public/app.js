@@ -76,9 +76,9 @@ function watchNavBtns() {
   $('#employeeListBtn').on('click', function() {
     getEmployeesFromAPI(displayAllEmployees);
   })
-  $('#timeTableBtn').on('click', function() {
+  /* $('#timeTableBtn').on('click', function() {
     alert('Second nav button connected!')
-  })
+  }) */
 }
 
 function watchEmployeeSubmit() {
