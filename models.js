@@ -53,6 +53,6 @@ const employeeSchema = mongoose.Schema({
   };
 
 const Employee = mongoose.model('Employee', employeeSchema);
-const TimeTable = mongoose.model('TimeTable', timeTableSchema);
+const TimeTable = mongoose.model('timeTables', timeTableSchema);
 
 module.exports = {Employee, TimeTable};
