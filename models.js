@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise;
 const timeTableSchema = mongoose.Schema({
   dayName: {type: String, required: true}
   // shift: {type: Object, required: true}
-})
+}, {collection: "timeTables"})
 
 timeTableSchema.virtual('timeTableName').get(function() {
   return this.dayName;
@@ -53,6 +53,6 @@ const employeeSchema = mongoose.Schema({
   };
 
 const Employee = mongoose.model('Employee', employeeSchema);
-const TimeTable = mongoose.model('timeTables', timeTableSchema);
+const TimeTable = mongoose.model('TimeTable', timeTableSchema);
 
 module.exports = {Employee, TimeTable};
