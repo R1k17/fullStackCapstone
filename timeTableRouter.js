@@ -13,11 +13,8 @@ router.get('/', (req, res) => {
     TimeTable
     .find()
     .then(timeTables => {
+        console.log(timeTables);
         res.json(timeTables.map(timeTable => timeTable.serialize()))
-        res.json({
-            timeTables: timeTables.map(
-                (timeTable) => timeTable.serialize())
-        });
     })
     .catch(err => {
         console.log(err);
