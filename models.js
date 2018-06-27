@@ -8,6 +8,10 @@ mongoose.Promise = global.Promise;
 
 const timeTableSchema = mongoose.Schema({
   dayName: String,
+  shift: {
+    start: Number,
+    end: Number
+  },
   shiftStart: Number,
   shiftEnd: Number,
   hours: Number,
@@ -24,7 +28,11 @@ timeTableSchema.methods.serialize = function() {
     shiftStart: this.shiftStart,
     shiftEnd: this.shiftEnd,
     hours: this.hours,
-    employee: this.employee
+    employee: this.employee,
+    shift: {
+      start: this.shift.start,
+      end: this.shift.end,
+    }
   };
 };
 /* 
