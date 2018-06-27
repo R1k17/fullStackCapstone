@@ -5,6 +5,27 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
+const shiftSchema = mongoose.Schema({
+  id: String,
+  start: Number,
+  end: Number,
+  hours: Number,
+  employee: String
+}, {collection: "shifts"})
+
+shiftSchema.virtual('shiftName').get(function() {
+  return this.employee;
+})
+
+shiftSchema.methods.serialize = function() {
+  return {
+    id: this.id,
+    start: this.start,
+    end: this.end,
+    hours: this.hours,
+    employee: this.employee
+  }
+}
 
 const timeTableSchema = mongoose.Schema({
   dayName: String,
@@ -33,13 +54,6 @@ timeTableSchema.methods.serialize = function() {
     }
   };
 };
-/* 
-const shiftSchema = mongoose.Schema({
-  shiftName: {type: String, required: true},
-  time: {type: Number, required: true},
-  employee: {type: Object, required: true}
-})
- */
 
 const employeeSchema = mongoose.Schema({
     first_name: {type: String, required: true},
@@ -66,5 +80,6 @@ const employeeSchema = mongoose.Schema({
 
 const Employee = mongoose.model('Employee', employeeSchema);
 const TimeTable = mongoose.model('TimeTable', timeTableSchema);
+const Shift = mongoose.model('Shift', shiftSchema);
 
-module.exports = {Employee, TimeTable};
+module.exports = {Employee, TimeTable, Shift};
