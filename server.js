@@ -13,6 +13,7 @@ const {PORT, DATABASE_URL} = require('./config');
 
 const employeeRouter = require('./employeeRouter');
 const timeTableRouter = require('./timeTableRouter');
+const shiftRouter = require('./shiftRouter');
 
 let corsOptions = {
   origin: '*',
@@ -25,6 +26,8 @@ app.use(jsonParser);
 app.use(morgan('common'));
 app.use('/employees', employeeRouter);
 app.use('/timeTables', timeTableRouter);
+// do I need line 30?
+app.use('/shifts', shiftRouter);
 
 app.use(express.static('public'));
 // app.listen(process.env.PORT || 8080);
