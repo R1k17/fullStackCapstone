@@ -10,12 +10,10 @@ const timeTableSchema = mongoose.Schema({
   dayName: String,
   shift: {
     start: Number,
-    end: Number
+    end: Number,
+    hours: Number,
+    employee: String
   },
-  shiftStart: Number,
-  shiftEnd: Number,
-  hours: Number,
-  employee: String
 }, {collection: "timeTables"})
 
 timeTableSchema.virtual('timeTableName').get(function() {
@@ -25,13 +23,11 @@ timeTableSchema.virtual('timeTableName').get(function() {
 timeTableSchema.methods.serialize = function() {
   return {
     dayName: this.dayName,
-    shiftStart: this.shiftStart,
-    shiftEnd: this.shiftEnd,
-    hours: this.hours,
-    employee: this.employee,
     shift: {
       start: this.shift.start,
       end: this.shift.end,
+      hours: this.hours,
+      employee: this.employee,
     }
   };
 };
