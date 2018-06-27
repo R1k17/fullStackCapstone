@@ -24,7 +24,7 @@ timeTableSchema.methods.serialize = function() {
   return {
     dayName: this.dayName,
     shift: {
-      shiftStart: this.shiftStart,
+      shiftStart: this.shift.shiftStart,
       shiftEnd: this.shiftEnd,
       hours: this.hours,
       employee: this.employee
