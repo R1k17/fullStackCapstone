@@ -2,7 +2,7 @@
 // const TIMEPLANER_API = 'https://timeplaner.herokuapp.com/';
 
 // ==========================================================
-// Employee API Interaction
+// TimeTable API Interaction
 function getTimeTablesFromAPI(callback) {
   $.ajax({
     method: 'GET',

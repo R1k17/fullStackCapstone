@@ -7,8 +7,13 @@ mongoose.Promise = global.Promise;
 
 
 const timeTableSchema = mongoose.Schema({
-  dayName: {type: String, required: true}
-  // shift: {type: Object, required: true}
+  dayName: {type: String, required: true},
+  shift: {
+    shiftStart: {type: Number, required: true},
+    shiftEnd: {type: Number, required: true},
+    hours: {type: Number, required: true},
+    employee: {type: String, required: true}
+  }
 }, {collection: "timeTables"})
 
 timeTableSchema.virtual('timeTableName').get(function() {
@@ -17,8 +22,13 @@ timeTableSchema.virtual('timeTableName').get(function() {
 
 timeTableSchema.methods.serialize = function() {
   return {
-    dayName: this.dayName
-    // shift: this.shift
+    dayName: this.dayName,
+    shift: {
+      shiftStart: this.shiftStart,
+      shiftEnd: this.shiftEnd,
+      hours: this.hours,
+      employee: this.employee
+    }
   };
 };
 /* 
