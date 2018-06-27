@@ -26,8 +26,8 @@ timeTableSchema.methods.serialize = function() {
     shift: {
       start: this.shift.start,
       end: this.shift.end,
-      hours: this.hours,
-      employee: this.employee,
+      hours: this.shift.hours,
+      employee: this.shift.employee,
     }
   };
 };
