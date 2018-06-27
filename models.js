@@ -21,7 +21,7 @@ timeTableSchema.virtual('timeTableName').get(function() {
 timeTableSchema.methods.serialize = function() {
   return {
     dayName: this.dayName,
-    shiftStart: this.shift.shiftStart,
+    shiftStart: this.shiftStart,
     shiftEnd: this.shiftEnd,
     hours: this.hours,
     employee: this.employee
