@@ -28,30 +28,46 @@ shiftSchema.methods.serialize = function() {
 }
 
 const timeTableSchema = mongoose.Schema({
-  dayName: String,
-  shift: {
-    id: String,
-    start: Number,
-    end: Number,
-    hours: Number,
-    employee: String
+  // shift: {
+  //   id: String,
+  //   start: Number,
+  //   end: Number,
+  //   hours: Number,
+  //   employee: String
+  days: {
+    monday: String,
+    tuesday: String,
+    wednesday: String,
+    thursday: String,
+    friday: String,
+    saturday: String,
+    sunday: String,
   },
 }, {collection: "timeTables"})
 
-timeTableSchema.virtual('timeTableName').get(function() {
-  return this.dayName;
-})
+
+// timeTableSchema.virtual('timeTableName').get(function() {
+//   return this.dayName;
+// })
 
 timeTableSchema.methods.serialize = function() {
   return {
-    dayName: this.dayName,
-    shift: {
-      id: this.shift.id,
-      start: this.shift.start,
-      end: this.shift.end,
-      hours: this.shift.hours,
-      employee: this.shift.employee,
+    days: {
+      monday: this.days.monday,
+      tuesday: this.days.tuesday,
+      wednesday: this.days.wednesday,
+      thursday: this.days.thursday,
+      friday: this.days.friday,
+      saturday: this.days.saturday,
+      sunday: this.days.sunday,
     }
+    // shift: {
+    //   id: this.shift.id,
+    //   start: this.shift.start,
+    //   end: this.shift.end,
+    //   hours: this.shift.hours,
+    //   employee: this.shift.employee,
+    // }
   };
 };
 
