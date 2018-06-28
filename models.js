@@ -34,7 +34,7 @@ const timeTableSchema = mongoose.Schema({
   //   end: Number,
   //   hours: Number,
   //   employee: String
-  // days: {
+  tableName: String,
   monday: String,
   tuesday: String,
   wednesday: String,
@@ -42,7 +42,6 @@ const timeTableSchema = mongoose.Schema({
   friday: String,
   saturday: String,
   sunday: String,
-// },
 }, {collection: "timeTables"})
 
 
@@ -52,7 +51,7 @@ const timeTableSchema = mongoose.Schema({
 
 timeTableSchema.methods.serialize = function() {
   return {
-    // days: {
+      tableName: this.tableName,
       monday: this.monday,
       tuesday: this.tuesday,
       wednesday: this.wednesday,
@@ -60,7 +59,6 @@ timeTableSchema.methods.serialize = function() {
       friday: this.friday,
       saturday: this.saturday,
       sunday: this.sunday,
-    // }
     // shift: {
     //   id: this.shift.id,
     //   start: this.shift.start,
