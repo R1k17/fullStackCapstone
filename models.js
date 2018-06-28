@@ -53,13 +53,13 @@ const timeTableSchema = mongoose.Schema({
 timeTableSchema.methods.serialize = function() {
   return {
     // days: {
-      monday: this.days.monday,
-      tuesday: this.days.tuesday,
-      wednesday: this.days.wednesday,
-      thursday: this.days.thursday,
-      friday: this.days.friday,
-      saturday: this.days.saturday,
-      sunday: this.days.sunday,
+      monday: this.monday,
+      tuesday: this.tuesday,
+      wednesday: this.wednesday,
+      thursday: this.thursday,
+      friday: this.friday,
+      saturday: this.saturday,
+      sunday: this.sunday,
     // }
     // shift: {
     //   id: this.shift.id,
