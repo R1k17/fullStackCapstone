@@ -110,31 +110,31 @@ timeTableSchema.methods.serialize = function() {
       id: this._id,
       tableName: this.tableName,
       monday: {
-        dayName: this.dayName,
+        dayName: this.monday.dayName,
         shifts: {}
       },
       tuesday: {
-        dayName: this.dayName,
+        dayName: this.tuesday.dayName,
         shifts: {}
       },
       wednesday: {
-        dayName: this.dayName,
+        dayName: this.wednesday.dayName,
         shifts: {}
       },
       thursday: {
-        dayName: this.dayName,
+        dayName: this.thursday.dayName,
         shifts: {}
       },
       friday: {
-        dayName: this.dayName,
+        dayName: this.friday.dayName,
         shifts: {}
       },
       saturday: {
-        dayName: this.dayName,
+        dayName: this.saturday.dayName,
         shifts: {}
       },
       sunday: {
-        dayName: this.dayName,
+        dayName: this.sunday.dayName,
         shifts: {}
       },
     // shift: {
