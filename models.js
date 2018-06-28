@@ -51,6 +51,7 @@ const timeTableSchema = mongoose.Schema({
 
 timeTableSchema.methods.serialize = function() {
   return {
+      id: this._id,
       tableName: this.tableName,
       monday: this.monday,
       tuesday: this.tuesday,
