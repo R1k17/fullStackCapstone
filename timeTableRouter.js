@@ -21,19 +21,20 @@ router.get('/', (req, res) => {
         res.status(500).json({message: 'Internal server error'});
     });
 });
-/* 
+
 router.get('/:id', (req, res) => {
     TimeTable
     .findById(req.params.id)
-    .then(timeTable => res.json(employee.serialize()))
+    .then(timeTable => res.json(timeTable.serialize()))
     .catch(err => {
         console.log(err);
         res.status(500).json({message: 'Internal server error'})
     });
 });
 
+
 router.post('/', jsonParser, (req, res) => {
-    const requiredFields = ['dayName'];
+    const requiredFields = ['dayName', 'start', 'end', 'hours', 'employee'];
     for(let i=0; i<requiredFields.length; i++) {
         const field = requiredFields[i];
         if(!(field in req.body)) {
@@ -45,6 +46,12 @@ router.post('/', jsonParser, (req, res) => {
     TimeTable
         .create({
             dayName: req.body.dayName,
+            shifts: {
+                start: req.body.shifts.start,
+                end: req.body.shifts.end,
+                hours: req.body.shifts.hours,
+                employee: req.body.shifts.employee
+            }
         })
         .then(timeTable => res.status(201).json(timeTable.serialize()))
         .catch(err => {
@@ -52,7 +59,7 @@ router.post('/', jsonParser, (req, res) => {
             res.status(500).json({error: 'Something went wrong'});
         });
 });
-
+/*
 router.put('/:id', (req, res) => {
     if(!(req.params.id && req.body.id && req.params.id === req.body.id)) {
         const message = (`Request path id (${req.params.id}) and request body id ` + `(${req.body.id}) must match`);
