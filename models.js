@@ -37,6 +37,10 @@ const timeTableSchema = mongoose.Schema({
   tableName: String,
   monday: {
     dayName: String,
+    shifts: []
+  }
+  /* monday: {
+    dayName: String,
     shifts: {
       startTime: Number,
       endTime: Number,
@@ -97,7 +101,7 @@ const timeTableSchema = mongoose.Schema({
       hours: Number,
       employee: String
     }
-  },
+  }, */
 }, {collection: "timeTables"})
 
 
@@ -111,9 +115,9 @@ timeTableSchema.methods.serialize = function() {
       tableName: this.tableName,
       monday: {
         dayName: this.monday.dayName,
-        shifts: {}
+        shifts: []
       },
-      tuesday: {
+      /* tuesday: {
         dayName: this.tuesday.dayName,
         shifts: {}
       },
@@ -136,7 +140,7 @@ timeTableSchema.methods.serialize = function() {
       sunday: {
         dayName: this.sunday.dayName,
         shifts: {}
-      },
+      }, */
     // shift: {
     //   id: this.shift.id,
     //   start: this.shift.start,
