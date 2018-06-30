@@ -36,6 +36,7 @@ const timeTableSchema = mongoose.Schema({
   //   employee: String
   tableName: String,
   monday: {
+    dayId: String,
     dayName: String,
     shifts: []
   }
@@ -114,6 +115,7 @@ timeTableSchema.methods.serialize = function() {
       id: this._id,
       tableName: this.tableName,
       monday: {
+        dayId: this.monday.dayId + this.monday.dayName,
         dayName: this.monday.dayName,
         shifts: []
       },
