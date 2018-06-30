@@ -115,7 +115,7 @@ timeTableSchema.methods.serialize = function() {
       id: this._id,
       tableName: this.tableName,
       monday: {
-        dayId: this.monday.dayId + this.monday.dayName,
+        dayId: this._id + this.monday.dayName,
         dayName: this.monday.dayName,
         shifts: []
       },
