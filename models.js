@@ -6,20 +6,20 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const shiftSchema = mongoose.Schema({
-  id: String,
+  dayId: String,
   start: Number,
   end: Number,
   hours: Number,
   employee: String
 }, {collection: "shifts"})
 
-shiftSchema.virtual('shiftName').get(function() {
-  return this.employee;
-})
+// shiftSchema.virtual('shiftName').get(function() {
+//   return this.employee;
+// })
 
 shiftSchema.methods.serialize = function() {
   return {
-    id: this.id,
+    dayId: this.dayId,
     start: this.start,
     end: this.end,
     hours: this.hours,
