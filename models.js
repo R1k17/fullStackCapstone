@@ -125,7 +125,7 @@ timeTableSchema.methods.serialize = function() {
       day: {
         // dayId: this._id + this.monday.dayName,
         // dayId: this.day._id + this.day.dayName,
-        dayId: this.day._id + this.day.dayId,
+        dayId: this.day.dayId,
         dayName: this.day.dayName,
         
       },
