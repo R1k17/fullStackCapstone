@@ -28,6 +28,10 @@ shiftSchema.methods.serialize = function() {
 }
 
 const timeTableSchema = mongoose.Schema({
+  day: {
+    dayId: String,
+    dayName: String,
+  }
 /* monday: {
     dayName: String,
     shifts: {
@@ -92,20 +96,19 @@ const timeTableSchema = mongoose.Schema({
     }
   }, */
   // tableName: String,
-  day: {
-    dayName: String,
-    shifts: [
-      {
-        shiftId: String,
-        start: Number,
-        end: Number,
-        hours: Number,
-        firstName: String,
-        lastName: String,
-        employee: String
-      }
-    ]
-  }
+  
+    // shifts: [
+    //   {
+    //     shiftId: String,
+    //     start: Number,
+    //     end: Number,
+    //     hours: Number,
+    //     firstName: String,
+    //     lastName: String,
+    //     employee: String
+    //   }
+    // ]
+  
   
 }, {collection: "timeTables"})
 
@@ -114,24 +117,16 @@ const timeTableSchema = mongoose.Schema({
 //   return this.dayName;
 // })
 
+
 timeTableSchema.methods.serialize = function() {
   return {
       id: this._id,
       // tableName: this.tableName,
       day: {
         // dayId: this._id + this.monday.dayName,
+        dayId: this.day._id + this.day.dayName,
         dayName: this.day.dayName,
-        shifts: [
-          {
-            shiftId: this._id + this.day.dayName + this.day.shifts.firstName + this.day.shifts.lastName,
-            start: this.day.shifts.start,
-            end: this.day.shifts.end,
-            hours: this.day.shifts.hours,
-            firstName: this.day.shifts.firstName,
-            lastName: this.day.shifts.lastName,
-            employee: this.day.shifts.employee
-          }
-        ]
+        
       },
 
       // shift: {
