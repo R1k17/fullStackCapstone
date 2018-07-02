@@ -34,6 +34,7 @@ router.post('/', jsonParser, (req, res) => {
     }
     Shift
         .create({
+            dayId: req.body.dayId,
             start: req.body.start,
             end: req.body.end,
             hours: req.body.hours,
