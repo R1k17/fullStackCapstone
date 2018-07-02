@@ -47,4 +47,11 @@ router.post('/', jsonParser, (req, res) => {
         });
 });
 
+router.delete('/:id', jsonParser, (req,res) => {
+    Shift
+        .findByIdAndRemove(req.params.id)
+        .then(() => res.status(204).end())
+        .catch(err => res.status(500).json({message: 'Internal server error'}));
+});
+
 module.exports = router;
