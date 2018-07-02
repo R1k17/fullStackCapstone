@@ -167,6 +167,7 @@ timeTableSchema.methods.serialize = function() {
 };
 
 const employeeSchema = mongoose.Schema({
+    employee : {type: String, required: true},
     first_name: {type: String, required: true},
     last_name: {type: String, required: true},
     gender: {type: String, required: true},
