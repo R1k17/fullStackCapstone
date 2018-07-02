@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', jsonParser, (req, res) => {
-    const requiredFields = ['firstName', 'lastName', 'startTime', 'endTime','hours'];
+    const requiredFields = ['employee', , 'start', 'end','hours'];
     for (let i=0; i<requiredFields.length; i++) {
       const field = requiredFields[i];
       if (!(field in req.body)) {
@@ -34,11 +34,10 @@ router.post('/', jsonParser, (req, res) => {
     }
     Shift
         .create({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            startTime: req.body.startTime,
-            endTime: req.body.endTime,
-            hours: req.body.hours
+            start: req.body.startTime,
+            end: req.body.endTime,
+            hours: req.body.hours,
+            employee: req.body.employee
         })
         .then(shift => res.status(201).json(shift.serialize()))
         .catch(err => {
