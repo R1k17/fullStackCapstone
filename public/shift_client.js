@@ -59,25 +59,9 @@ function modifyShift() {
 
 function displayAllShifts(data) {
     data.map((shifts) => {
-        // this finds the div with the id
-        // $('div').find(`[data-index-number='${shifts.dayId}']`);
-        // let test = $('div').find(`[data-index-number='5b31061ee7179a5b7ab926abMonday']`).attr('data-index-number');
-        // let currentId = shifts.dayId
-        // parentIds.map((id) => {
-        //     currentId = id;
-        // })
-        $(`div[data-index-number="${shifts.dayId}"]`).find(".shiftsContainer").append(renderShifts(shifts));
-        // if(shifts.dayId === currentId) {
-            //     console.log(currentId);
-            //     console.log('true');
-            
-            // }
-            
-            
-            // if(shifts.dayId === "5b31061ee7179a5b7ab926abMonday") {
-                //     $('div[data-index-number="5b31061ee7179a5b7ab926abMonday"]').find(".shiftsContainer").append(renderShifts(shifts));
-                // }
+      $(`div[data-index-number="${shifts.dayId}"]`).find(".shiftsContainer").append(renderShifts(shifts));
     })
+    // addShift(addShiftForm);
 }
 
 function renderShifts(result) {
@@ -93,31 +77,53 @@ function renderShifts(result) {
     </div>
     `
 }
+let employees = [];
+let employee = '';
+
+function employeeListCreator(data){
+  employees = data;
+  employee = employees[0];
+  employeeListMenuCreator();
+}
+
+function employeeListMenuCreator() {
+  let result = employees.map(function(menuEmployee){
+    return renderEmployeeOption(menuEmployee);
+  })
+  
+  $('#emplyoeeList').html(result);
+  displaySelectedEmployee();
+  employeeUpdate();
+}
+
+function renderEmployeeOption(menuEmployee){
+  return `<option value="${menuEmployee}">${menuEmployee}</option>`;
+}
+
+function employeeSelectHandler() {
+  $('#employeeList').on('change', function() {
+    employeeUpdate(this);
+  });
+}
+
+function employeeUpdate(currentEmployee = employee){
+  if (typeof currentEmployee !== "string") {
+    let selectedEmployee = $("option:selected", currentEmployee);
+    employee = selectedEmployee[0].innerText;
+  }
+  displaySelectedEmployee();
+}
+
+function displaySelectedEmployee() {
+  $('#employeeList').val(employee);
+}
 
 function addShift(addShiftForm) {
     $('.addShift').on('click', function() {
-      
-      // ===========================  
-      // ===========================
-      // Get back to day obj model
-  
-      // How to add a shift to the array?
-      // 1. get the whole week
-  
-      // 2. find the right day you want to update
       const dayId = $(this).parent().attr("data-index-number");
-      
-      // 3. 
-      // 1. make get request to get all the data in array,
-        // 1.1 addShift btn is clicked >> get request for getting the array
-      // 2. add new shift to old array
-      // 3. put request with updated array
-      
-      
-    //   const weekId = "5b31061ee7179a5b7ab926abMonday"
   
       $(`div[data-index-number=${dayId}]`).find('.shiftsContainer').append(addShiftForm);
-      // fill out form
+      getEmployeesListFromAPI();
       watchShiftSubmit(dayId);
     })
   }
@@ -133,7 +139,6 @@ function addShift(addShiftForm) {
         hours: $("#hoursSub").val(),
         employee: $("#employeeSub").val()
     }
-    console.log(query);
 
     postShiftToAPI(query);
     })
@@ -148,26 +153,21 @@ function addShift(addShiftForm) {
             <input placeholder="start time" type="number" id="startTimeSub">
           End:
             <input placeholder="end time" type="number" id="endTimeSub">
-          Emplyoee:
-            <input placeholder="employee" name="employee" id="employeeSub" value="employee">
+          Employee:
+          <select name="emplyoeeList" id="emplyoeeList" alt="select an employee" class='selectionLists'>
+          </select>
           Working hours:
-            <input type="number" id="hoursSub" placeholder="endTime - startTime" >
-            <button type="submit" id="shiftSubmit">Save</button>
+          <span id="hoursSub">0</span>
+          <button type="submit" id="shiftSubmit">Save</button>
           </form>
-        </fieldset>
-        `
+          </fieldset>
+          `
     }
+          // <input placeholder="employee" name="employee" id="employeeSub" value="employee">
+          // <input type="number" id="hoursSub" placeholder="endTime - startTime" >
  
 function deleteShiftBtn() {
-    // deleteShift
     $('.delete-shift-btn').on('click', () => {
         const shiftId = $('.delete-shift-btn').parent().attr('data-index-number');
     })
 }
-
-
-    // function startShifts() {
-    //     watchShiftSubmit();
-    // }
-
-    // startShifts();

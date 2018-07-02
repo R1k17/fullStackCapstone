@@ -13,6 +13,23 @@ function getEmployeesFromAPI(callback) {
   });
 }
 
+function getEmployeesListFromAPI() {
+  $.ajax({
+    method: 'GET',
+    dataType: 'json',
+    url: TIMEPLANER_API + 'employees',
+    success: (data) => {
+              let list = data.map(obj => {
+                    return obj.employee;
+                });
+                employeeListCreator(list);
+                console.log(list);
+                
+            },
+    error: () => console.log('GET employees failed')
+  });
+}
+
 function postEmployeesToAPI(query) {
   $.ajax({
     method: 'POST',
