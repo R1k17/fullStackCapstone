@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const shiftSchema = mongoose.Schema({
+  shiftId: String,
   dayId: String,
   start: Number,
   end: Number,
@@ -19,6 +20,7 @@ const shiftSchema = mongoose.Schema({
 
 shiftSchema.methods.serialize = function() {
   return {
+    shiftId: this._id,
     dayId: this.dayId,
     start: this.start,
     end: this.end,
