@@ -19,6 +19,12 @@ nav > ul > li {
     display: block;
 }
 
+.tableName {
+    color: red;
+    display: block;
+    font-size: 2rem;
+}
+
 .dayName {
     display: inline-block;
     margin: 0;
