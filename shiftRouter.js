@@ -22,4 +22,29 @@ router.get('/', (req, res) => {
     });
 });
 
+router.post('/', jsonParser, (req, res) => {
+    const requiredFields = ['firstName', 'lastName', 'startTime', 'endTime','hours'];
+    for (let i=0; i<requiredFields.length; i++) {
+      const field = requiredFields[i];
+      if (!(field in req.body)) {
+        const message = `Missing \`${field}\` in request body`
+        console.error(message);
+        return res.status(400).send(message);
+      }
+    }
+    Shift
+        .create({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            startTime: req.body.startTime,
+            endTime: req.body.endTime,
+            hours: req.body.hours
+        })
+        .then(shift => res.status(201).json(shift.serialize()))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({error: 'Something went wrong'});
+        });
+});
+
 module.exports = router;
