@@ -66,6 +66,8 @@ function renderEmployee(result) {
 }
 
 function displayAllEmployees(data) {
+  console.log(data);
+  
   const result = data.map((employee) => renderEmployee(employee));
   $('.mainPage').html(result);
   deleteBtn();

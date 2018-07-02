@@ -31,3 +31,9 @@ nav > ul > li {
     width: 5%;
     height: 60px;
 }
+
+.delete-shift-btn {
+    background-color: red;
+    border: solid 1px black;
+    border-radius: 5px;
+}

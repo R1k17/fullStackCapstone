@@ -20,10 +20,44 @@ function postShiftToAPI(query) {
   });
 }
 
+function updateShift(shiftId, query) {
+    $.ajax({
+      method: 'PUT',
+      dataType: 'json',
+      contentType: 'application/json',
+      data: JSON.stringify(query),
+      url: TIMEPLANER_API + 'shift/' + shiftId,
+      error: () => console.log('PUT shift failed')
+    })
+}
+
+function deleteShift(shiftId) {
+    $.ajax({
+      method: 'DELETE',
+      dataType: 'json',
+      contentType: 'application/json',
+      url: TIMEPLANER_API + 'shifts/' + shiftId,
+      // reload the page when obj deleted
+      // success: $('.deleteBtn').on('click', function() {
+      //   location.reload();
+      // }),
+      error: () => console.log('DELETE shift failed')
+    });
+}
+
+function modifyShift() {
+    /* 
+    const query = {
+            id: shift.id,
+            employee
+            start
+            end
+            hours
+        }
+ */
+}
 
 function displayAllShifts(data) {
-    console.log(parentIds);
-    
     data.map((shifts) => {
         // this finds the div with the id
         // $('div').find(`[data-index-number='${shifts.dayId}']`);
@@ -34,26 +68,29 @@ function displayAllShifts(data) {
         // })
         $(`div[data-index-number="${shifts.dayId}"]`).find(".shiftsContainer").append(renderShifts(shifts));
         // if(shifts.dayId === currentId) {
-        //     console.log(currentId);
-        //     console.log('true');
+            //     console.log(currentId);
+            //     console.log('true');
             
-        // }
-      
-
-        // if(shifts.dayId === "5b31061ee7179a5b7ab926abMonday") {
-        //     $('div[data-index-number="5b31061ee7179a5b7ab926abMonday"]').find(".shiftsContainer").append(renderShifts(shifts));
-        // }
+            // }
+            
+            
+            // if(shifts.dayId === "5b31061ee7179a5b7ab926abMonday") {
+                //     $('div[data-index-number="5b31061ee7179a5b7ab926abMonday"]').find(".shiftsContainer").append(renderShifts(shifts));
+                // }
     })
 }
 
 function renderShifts(result) {
     return `
-    <span>${result.dayId}</span>
-    <span>${result.start}</span>
-    <span>${result.end}</span>
-    <span>${result.hours}</span>
-    <span>${result.employee}</span>
-    <br>
+    <div data-index-number="${result.shiftId}">
+        <span>${result.dayId}</span>
+        <span>${result.start}</span>
+        <span>${result.end}</span>
+        <span>${result.hours}</span>
+        <span>${result.employee}</span>
+        <button class="delete-shift-btn">X</button>
+        <button class="modify-shift-btn">modify</button>
+    </div>
     `
 }
 
@@ -69,6 +106,7 @@ function addShift(addShiftForm) {
   
       // 2. find the right day you want to update
       const dayId = $(this).parent().attr("data-index-number");
+      
       // 3. 
       // 1. make get request to get all the data in array,
         // 1.1 addShift btn is clicked >> get request for getting the array
@@ -80,16 +118,16 @@ function addShift(addShiftForm) {
   
       $(`div[data-index-number=${dayId}]`).find('.shiftsContainer').append(addShiftForm);
       // fill out form
-      watchShiftSubmit();
-      
+      watchShiftSubmit(dayId);
     })
   }
 
-  function watchShiftSubmit() {
+  function watchShiftSubmit(dayId) {
     $('#shiftSubmit').on('click', function(event) {
       event.preventDefault();
 
     const query = {
+        dayId: dayId,
         start: $("#startTimeSub").val(),
         end: $("#endTimeSub").val(),
         hours: $("#hoursSub").val(),
@@ -105,7 +143,7 @@ function addShift(addShiftForm) {
       return `
       <fieldset>
         <legend>Add a shift</legend>
-        <form id="testingForm" action="/employees" method="post">
+        <form id="testingForm" action="/shifts" method="post">
           Start:
             <input placeholder="start time" type="number" id="startTimeSub">
           End:
@@ -119,9 +157,17 @@ function addShift(addShiftForm) {
         </fieldset>
         `
     }
-    
-    function startShifts() {
-        watchShiftSubmit();
-    }
+ 
+function deleteShiftBtn() {
+    // deleteShift
+    $('.delete-shift-btn').on('click', () => {
+        const shiftId = $('.delete-shift-btn').parent().attr('data-index-number');
+    })
+}
 
-    startShifts();
+
+    // function startShifts() {
+    //     watchShiftSubmit();
+    // }
+
+    // startShifts();
