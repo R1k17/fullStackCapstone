@@ -34,8 +34,8 @@ router.post('/', jsonParser, (req, res) => {
     }
     Shift
         .create({
-            start: req.body.startTime,
-            end: req.body.endTime,
+            start: req.body.start,
+            end: req.body.end,
             hours: req.body.hours,
             employee: req.body.employee
         })
