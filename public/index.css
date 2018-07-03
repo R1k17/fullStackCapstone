@@ -1,5 +1,15 @@
+html {
+    background: lightcoral;
+}
+
 nav {
-    background: lightblue;
+    /* background: lightblue; */
+    padding: 2px 2px;
+    border-bottom: solid 2px #D82038;
+}
+
+nav > ul {
+    margin: 0;
 }
 
 nav > ul > li {
@@ -17,12 +27,19 @@ nav > ul > li {
 
 .shiftSlots {
     display: block;
+    margin-bottom: 10px;
+    /* background: #71AD9B; */
+    padding: 8px 5px;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
 }
 
-.tableName {
-    color: red;
-    display: block;
-    font-size: 2rem;
+.shiftParts {
+    color: #E5E6E7;
+    padding: 3px 3px;
+    margin: 2px 2px;
+    /* background: #66A390; */
+    border-left: solid 1px black;
 }
 
 .dayName {
@@ -32,8 +49,51 @@ nav > ul > li {
     height: 60px;
 }
 
-.delete-shift-btn {
-    background-color: red;
+.shift-btns {
     border: solid 1px black;
     border-radius: 5px;
+    float: right;
+    margin: 0 2px;
 }
+
+.delete-shift-btn {
+    background-color: red;
+}
+
+.modify-shift-btn {
+    background: #888A8C;
+}
+
+
+.startTime {}
+.endTime {}
+.totalHours {}
+.employeeName {}
+
+body
+    > background: #6272C0
+
+
+
+    /* fancy stuff */
+    /* 
+    
+#pointer {
+    width: 200px;
+    height: 40px;
+    position: relative;
+    background: red;
+  }
+  #pointer:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-left: 20px solid white;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+  }
+    
+    */

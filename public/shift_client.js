@@ -64,16 +64,16 @@ function displayAllShifts(data) {
     // addShift(addShiftForm);
 }
 
+{/* <span>${result.dayId}</span> */}
 function renderShifts(result) {
     return `
-    <div data-index-number="${result.shiftId}">
-        <span>${result.dayId}</span>
-        <span>${result.start}</span>
-        <span>${result.end}</span>
-        <span>${result.hours}</span>
-        <span>${result.employee}</span>
-        <button class="delete-shift-btn">X</button>
-        <button class="modify-shift-btn">modify</button>
+    <div class="shiftSlots" data-index-number="${result.shiftId}">
+        <span class="shiftParts " >${result.start}</span>
+        <span class="shiftParts " >${result.end}</span>
+        <span class="shiftParts " >${result.hours}</span>
+        <span class="shiftParts " >${result.employee}</span>
+        <button class="shift-btns delete-shift-btn">X</button>
+        <button class="shift-btns modify-shift-btn">M</button>
     </div>
     `
 }
