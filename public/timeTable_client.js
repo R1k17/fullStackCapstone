@@ -23,43 +23,41 @@ $('#timeTableBtn').on('click', function() {
 function displayAllTimeTables(data) {
   getShiftsFromAPI(displayAllShifts);
   const result = data.map((timeTable) => renderTimeTable(timeTable));
-    
+  $('.mainPage').html(result);
+  
   parentIds = data.map((days) => {
-    return days.day.dayId;
+    watchShiftSubmit(days.id);    
+    // return days.day.dayId;
+    // getEmployeesListFromAPI();
   });
-    
-    $('.mainPage').html(result);
-
-    // addShift(addShiftForm);
     
   }
   
 
 function renderTimeTable(result) {
   return `
-      <div class="day border" data-index-number="${result.id + result.day.dayName}">
+      <div class="day border" id="${result.id}">
           <h2 class="dayName">${result.day.dayName}</h2>
           <br>
           <div class="shiftsContainer">
 
           </div>
           <br>
+      <form action="/shifts" method="post">
           <fieldset>
         <legend>Add a shift</legend>
-        <form id="testingForm" action="/shifts" method="post">
           Start:
-            <input placeholder="start time" type="number" id="startTimeSub">
+            <input name="startingTime" placeholder="start time" type="number">
           End:
-            <input placeholder="end time" type="number" id="endTimeSub">
+            <input name="endingTime" placeholder="end time" type="number">
           Employee:
-          <select name="emplyoeeList" id="emplyoeeList" alt="select an employee" class='selectionLists'>
+          <select name="emplyoeeList" alt="select an employee" class='selectionLists'>
           </select>
           Working hours:
-          <span id="hoursSub">0</span>
-          <button type="submit" id="shiftSubmit">Save</button>
-          </form>
+          <span name="hoursSub">0</span>
           </fieldset>
-          <button class="addShift">Add shift +</button>
+          <button type="submit" class="addShift">Add shift +</button>
+        </form>
       </div>
       `
     }

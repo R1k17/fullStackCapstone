@@ -58,7 +58,9 @@ function modifyShift() {
 }
 
 function displayAllShifts(data) {
-    data.map((shifts) => {
+  console.log(data);
+    
+  data.map((shifts) => {
       $(`div[data-index-number="${shifts.dayId}"]`).find(".shiftsContainer").append(renderShifts(shifts));
     })
     // addShift(addShiftForm);
@@ -91,7 +93,7 @@ function employeeListMenuCreator() {
     return renderEmployeeOption(menuEmployee);
   })
   
-  $('#emplyoeeList').html(result);
+  $('select[name="emplyoeeList"]').html(result);
   displaySelectedEmployee();
   employeeUpdate();
 }
@@ -101,7 +103,7 @@ function renderEmployeeOption(menuEmployee){
 }
 
 function employeeSelectHandler() {
-  $('#employeeList').on('change', function() {
+  $('select[name="employeeList"]').on('change', function() {
     employeeUpdate(this);
   });
 }
@@ -115,57 +117,47 @@ function employeeUpdate(currentEmployee = employee){
 }
 
 function displaySelectedEmployee() {
-  $('#employeeList').val(employee);
+  $('select[name="employeeList"]').val(employee);
+  console.log(employee);
+  
+}
+console.log(employee);
+console.log(employees);
+
+
+function objectifyForm(formArray) {//serialize data function
+
+  var returnArray = {};
+  for (var i = 0; i < formArray.length; i++){
+    returnArray[formArray[i]['name']] = formArray[i]['value'];
+  }
+  return returnArray;
 }
 
-function addShift(addShiftForm) {
-    $('.addShift').on('click', function() {
-      const dayId = $(this).parent().attr("data-index-number");
-  
-      $(`div[data-index-number=${dayId}]`).find('.shiftsContainer').append(addShiftForm);
-      getEmployeesListFromAPI();
-      watchShiftSubmit(dayId);
-    })
-  }
-
   function watchShiftSubmit(dayId) {
-    $('#shiftSubmit').on('click', function(event) {
+    console.log($(`#${dayId}`));
+    
+    $(`#${dayId} form`).on('submit', function(event) {
       event.preventDefault();
-
+      const data = objectifyForm($(this).serializeArray());
+      // console.log(event);
+      
+// http://api.prototypejs.org/language/Object/extend/
+// use this to post my data
+    // const query = Object.extend(data, ) {
     const query = {
         dayId: dayId,
-        start: $("#startTimeSub").val(),
-        end: $("#endTimeSub").val(),
-        hours: $("#hoursSub").val(),
-        employee: $("#employeeSub").val()
+        start: $("input[name='startingTime']").val(),
+        end: $("input[name='endingTime']").val(),
+        hours: $("span[name='hoursSub']").val(),
+        // employee: $("select[name='employeeList']").val()
+        employee: $(".selectionLists").val()
     }
 
     postShiftToAPI(query);
     })
   }
   
-  function addShiftForm() {
-      return `
-      <fieldset>
-        <legend>Add a shift</legend>
-        <form id="testingForm" action="/shifts" method="post">
-          Start:
-            <input placeholder="start time" type="number" id="startTimeSub">
-          End:
-            <input placeholder="end time" type="number" id="endTimeSub">
-          Employee:
-          <select name="emplyoeeList" id="emplyoeeList" alt="select an employee" class='selectionLists'>
-          </select>
-          Working hours:
-          <span id="hoursSub">0</span>
-          <button type="submit" id="shiftSubmit">Save</button>
-          </form>
-          </fieldset>
-          `
-    }
-          // <input placeholder="employee" name="employee" id="employeeSub" value="employee">
-          // <input type="number" id="hoursSub" placeholder="endTime - startTime" >
- 
 function deleteShiftBtn() {
     $('.delete-shift-btn').on('click', () => {
         const shiftId = $('.delete-shift-btn').parent().attr('data-index-number');

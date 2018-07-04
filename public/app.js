@@ -23,8 +23,6 @@ function getEmployeesListFromAPI() {
                     return obj.employee;
                 });
                 employeeListCreator(list);
-                console.log(list);
-                
             },
     error: () => console.log('GET employees failed')
   });
@@ -94,10 +92,8 @@ function displayAllEmployees(data) {
 function watchNavBtns() {
   $('#employeeListBtn').on('click', function() {
     getEmployeesFromAPI(displayAllEmployees);
+    getEmployeesListFromAPI();
   })
-  /* $('#timeTableBtn').on('click', function() {
-    alert('Second nav button connected!')
-  }) */
 }
 
 function watchEmployeeSubmit() {
