@@ -61,7 +61,8 @@ function displayAllShifts(data) {
   console.log(data);
     
   data.map((shifts) => {
-      $(`div[data-index-number="${shifts.dayId}"]`).find(".shiftsContainer").append(renderShifts(shifts));
+      // $(`div[data-index-number="${shifts.dayId}"]`).find(".shiftsContainer").append(renderShifts(shifts));
+      $(`div[id="${shifts.dayId}"]`).find(".shiftsContainer").append(renderShifts(shifts));
     })
     // addShift(addShiftForm);
 }
@@ -118,12 +119,7 @@ function employeeUpdate(currentEmployee = employee){
 
 function displaySelectedEmployee() {
   $('select[name="employeeList"]').val(employee);
-  console.log(employee);
-  
 }
-console.log(employee);
-console.log(employees);
-
 
 function objectifyForm(formArray) {//serialize data function
 
