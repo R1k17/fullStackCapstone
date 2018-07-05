@@ -199,5 +199,6 @@ function deleteBtn() {
   //  > get parent ID
   const employeeId = $(this).parent().attr("data-index-number");
   deleteEmployee(employeeId);
+  // $(`div[id="${employeeId}"]`).remove();
   })
 }

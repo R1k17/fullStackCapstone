@@ -1,11 +1,12 @@
 html {
-    background: lightcoral;
+    /* background: lightcoral; */
 }
 
 nav {
     /* background: lightblue; */
     padding: 2px 2px;
     border-bottom: solid 2px #D82038;
+    margin-bottom: 20px;
 }
 
 nav > ul {
@@ -16,6 +17,15 @@ nav > ul > li {
     display: inline-block;
     margin-left: 20px;
 }
+
+.navBtn {
+    color: black;
+}
+
+.navBtn:hover {
+    background: #D82038;
+}
+
 
 .day {
     margin-bottom: 15px;

@@ -68,9 +68,10 @@ function displayAllShifts(data) {
 function deleteShiftBtn() {
   $(`.delete-shift-btn`).on('click', function() {
     const shiftId = $(this).parent().attr('id');
-    alert(shiftId);
+    console.log(shiftId);
     
     deleteShift(shiftId);
+    $(`div[id="${shiftId}"]`).remove();
   })
 }
 
@@ -138,6 +139,7 @@ function objectifyForm(formArray) {//serialize data function
 
   function watchShiftSubmit(dayId) {
     $(`#${dayId} form`).on('submit', function(event) {
+      alert(dayId)
       event.preventDefault();
       const data = objectifyForm($(this).serializeArray());
     
