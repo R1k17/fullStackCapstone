@@ -45,6 +45,7 @@ function deleteShift(shiftId) {
     });
 }
 
+
 function modifyShift() {
     /* 
     const query = {
@@ -58,19 +59,24 @@ function modifyShift() {
 }
 
 function displayAllShifts(data) {
-  console.log(data);
-    
   data.map((shifts) => {
-      // $(`div[data-index-number="${shifts.dayId}"]`).find(".shiftsContainer").append(renderShifts(shifts));
-      $(`div[id="${shifts.dayId}"]`).find(".shiftsContainer").append(renderShifts(shifts));
-    })
-    // addShift(addShiftForm);
+    $(`div[id="${shifts.dayId}"]`).find(".shiftsContainer").append(renderShifts(shifts));
+  });
+  deleteShiftBtn();
 }
 
-{/* <span>${result.dayId}</span> */}
+function deleteShiftBtn() {
+  $(`.delete-shift-btn`).on('click', function() {
+    const shiftId = $(this).parent().attr('id');
+    alert(shiftId);
+    
+    deleteShift(shiftId);
+  })
+}
+
 function renderShifts(result) {
     return `
-    <div class="shiftSlots" data-index-number="${result.shiftId}">
+    <div class="shiftSlots" id="${result.shiftId}">
         <span class="shiftParts " >${result.start}</span>
         <span class="shiftParts " >${result.end}</span>
         <span class="shiftParts " >${result.hours}</span>
@@ -131,17 +137,11 @@ function objectifyForm(formArray) {//serialize data function
 }
 
   function watchShiftSubmit(dayId) {
-    console.log($(`#${dayId}`));
-    
     $(`#${dayId} form`).on('submit', function(event) {
       event.preventDefault();
       const data = objectifyForm($(this).serializeArray());
-      // console.log(event);
-      
-// http://api.prototypejs.org/language/Object/extend/
-// use this to post my data
-    // const query = Object.extend(data, ) {
-    const query = {
+    
+      const query = {
         dayId: dayId,
         start: $("input[name='startingTime']").val(),
         end: $("input[name='endingTime']").val(),
@@ -154,8 +154,4 @@ function objectifyForm(formArray) {//serialize data function
     })
   }
   
-function deleteShiftBtn() {
-    $('.delete-shift-btn').on('click', () => {
-        const shiftId = $('.delete-shift-btn').parent().attr('data-index-number');
-    })
-}
+
