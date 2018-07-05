@@ -31,87 +31,9 @@ shiftSchema.methods.serialize = function() {
 
 const timeTableSchema = mongoose.Schema({
   day: {
-    dayId: String,
+    // dayId: String,
     dayName: String,
   }
-/* monday: {
-    dayName: String,
-    shifts: {
-      startTime: Number,
-      endTime: Number,
-      hours: Number,
-      employee: String
-    }
-  },
-  tuesday: {
-    dayName: String,
-    shifts: {
-      startTime: Number,
-      endTime: Number,
-      hours: Number,
-      employee: String
-    }
-  },
-  wednesday: {
-    dayName: String,
-    shifts: {
-      startTime: Number,
-      endTime: Number,
-      hours: Number,
-      employee: String
-    }
-  },
-  thursday: {
-    dayName: String,
-    shifts: {
-      startTime: Number,
-      endTime: Number,
-      hours: Number,
-      employee: String
-    }
-  },
-  friday: {
-    dayName: String,
-    shifts: {
-      startTime: Number,
-      endTime: Number,
-      hours: Number,
-      employee: String
-    }
-  },
-  saturday: {
-    dayName: String,
-    shifts: {
-      startTime: Number,
-      endTime: Number,
-      hours: Number,
-      employee: String
-    }
-  },
-  sunday: {
-    dayName: String,
-    shifts: {
-      startTime: Number,
-      endTime: Number,
-      hours: Number,
-      employee: String
-    }
-  }, */
-  // tableName: String,
-  
-    // shifts: [
-    //   {
-    //     shiftId: String,
-    //     start: Number,
-    //     end: Number,
-    //     hours: Number,
-    //     firstName: String,
-    //     lastName: String,
-    //     employee: String
-    //   }
-    // ]
-  
-  
 }, {collection: "timeTables"})
 
 
@@ -125,44 +47,10 @@ timeTableSchema.methods.serialize = function() {
       id: this._id,
       // tableName: this.tableName,
       day: {
-        dayId: this.day.dayId,
+        // dayId: this.day.dayId,
         dayName: this.day.dayName,
         
       },
-
-      // shift: {
-    //   id: this.shift.id,
-    //   start: this.shift.start,
-    //   end: this.shift.end,
-    //   hours: this.shift.hours,
-    //   employee: this.shift.employee,
-    // }
-
-      /* tuesday: {
-        dayName: this.tuesday.dayName,
-        shifts: {}
-      },
-      wednesday: {
-        dayName: this.wednesday.dayName,
-        shifts: {}
-      },
-      thursday: {
-        dayName: this.thursday.dayName,
-        shifts: {}
-      },
-      friday: {
-        dayName: this.friday.dayName,
-        shifts: {}
-      },
-      saturday: {
-        dayName: this.saturday.dayName,
-        shifts: {}
-      },
-      sunday: {
-        dayName: this.sunday.dayName,
-        shifts: {}
-      }, */
-    
   };
 };
 
