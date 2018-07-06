@@ -25,13 +25,13 @@ function displayAllTimeTables(data) {
   const result = data.map((timeTable) => renderTimeTable(timeTable));
   $('.mainPage').html(result);
   parentIds = data.map((days) => {
-    watchShiftSubmit(days.id);    
-    // return days.day.dayId;
+    // watchShiftSubmit(days.id);    
+    return days;
     // getEmployeesListFromAPI();
   });
   
-  }
-  
+  createShiftBtn()
+}
 
 function renderTimeTable(result) {
   return `
@@ -41,26 +41,13 @@ function renderTimeTable(result) {
           <div class="shiftsContainer">
 
           </div>
+          <div class="addShiftForm"></div>
           <br>
-      <form action="/shifts" method="post">
-          <fieldset>
-        <legend>Add a shift</legend>
-          Start:
-            <input name="startingTime" placeholder="start time" type="number">
-          End:
-            <input name="endingTime" placeholder="end time" type="number">
-          Employee:
-          <select name="emplyoeeList" alt="select an employee" class='selectionLists'>
-          </select>
-          Working hours:
-          <span name="hoursSub">0</span>
-          </fieldset>
-          <button type="submit" class="addShift">Add shift +</button>
-        </form>
+          <button type="button" class="createShiftForm">Create Shift</button>
       </div>
       `
     }
-      
+
 
 function startApp() {
     watchTimeTableNavBtn();

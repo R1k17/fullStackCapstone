@@ -1,3 +1,7 @@
+/* ToDo 
+[ ] on submitting the shift reload page so that an id is available for the shift 
+
+*/
 function getShiftsFromAPI(callback) {
     $.ajax({
       method: 'GET',
@@ -8,14 +12,17 @@ function getShiftsFromAPI(callback) {
     });
   }
 
-function postShiftToAPI(query) {
+function postShiftToAPI(query, currentDayId) {
   $.ajax({
     method: 'POST',
     dataType: 'json',
     contentType: "application/json",
     data: JSON.stringify(query),
     url: TIMEPLANER_API + 'shifts',
-    // success: callback,
+    // success: () => {
+    //   $(`div[id="${currentDay}"]`).find('.shiftsContainer').append(renderShifts(query));
+    //   getShiftsFromAPI(displayAllShifts);
+    // },
     error: () => console.log('POST shift failed')
   });
 }
@@ -68,7 +75,6 @@ function displayAllShifts(data) {
 function deleteShiftBtn() {
   $(`.delete-shift-btn`).on('click', function() {
     const shiftId = $(this).parent().attr('id');
-    console.log(shiftId);
     
     deleteShift(shiftId);
     $(`div[id="${shiftId}"]`).remove();
@@ -137,22 +143,55 @@ function objectifyForm(formArray) {//serialize data function
   return returnArray;
 }
 
+function createShiftBtn() {
+  $('.createShiftForm').on('click', function() {
+    const parentId = $(this).parent().attr('id');
+
+   $(`div[id="${parentId}"]`).find('.addShiftForm').append(renderAddShiftForm)
+   $('.createShiftForm').remove();
+   getEmployeesListFromAPI();
+   watchShiftSubmit(parentId);    
+  })}
+
+  function renderAddShiftForm() {
+    return `
+    <form action="/shifts" method="post">
+      <fieldset>
+        <legend>Add a shift</legend>
+      Start:
+        <input name="startingTime" placeholder="start time" type="number">
+      End:
+        <input name="endingTime" placeholder="end time" type="number">
+      Employee:
+      <select name="emplyoeeList" alt="select an employee" class='selectionLists'>
+      </select>
+      Working hours:
+      <span name="hoursSub">0</span>
+      </fieldset>
+      <button type="submit" class="addShift">Add shift +</button>
+    </form>
+    `
+  }
+
   function watchShiftSubmit(dayId) {
+    const currentDayId = dayId;
+    // #${dayId} form >> old version when I had a form for every day
     $(`#${dayId} form`).on('submit', function(event) {
-      alert(dayId)
       event.preventDefault();
       const data = objectifyForm($(this).serializeArray());
-    
+      
+      const shiftLength = $("input[name='endingTime']").val() - $("input[name='startingTime']").val();
+
       const query = {
         dayId: dayId,
         start: $("input[name='startingTime']").val(),
         end: $("input[name='endingTime']").val(),
-        hours: $("span[name='hoursSub']").val(),
-        // employee: $("select[name='employeeList']").val()
+        hours: shiftLength,
         employee: $(".selectionLists").val()
     }
 
-    postShiftToAPI(query);
+    postShiftToAPI(query, currentDayId);
+    deleteShiftBtn();
     })
   }
   

@@ -94,11 +94,21 @@ function watchNavBtns() {
   })
 }
 
+$('#employeeSubmit').on('click', function(event) {
+  event.preventDefault();
+  let bigGender;
+  bigGender = $('input[name=gender]:checked', '#testingForm').val();
+  console.log($('#firstName').val());
+  
+})
+
 function watchEmployeeSubmit() {
   $('#employeeSubmit').on('click', function(event) {
     event.preventDefault();
     let bigGender;
     bigGender = $('input[name=gender]:checked', '#testingForm').val();
+    
+    console.log(bigGender);
     
     const query = {
         first_name: $('#firstName').val(),
@@ -106,6 +116,8 @@ function watchEmployeeSubmit() {
         gender: bigGender,
         hours: $('#workHours').val()
     }
+    console.log(query);
+    
     postEmployeesToAPI(query);
   })
 }
@@ -180,7 +192,7 @@ const updateForm = `
 
 function startApp() {
   watchNavBtns();
-  watchEmployeeSubmit();
+  // watchEmployeeSubmit();
   generateUpdateQuery();
   updateBtn();
 }
