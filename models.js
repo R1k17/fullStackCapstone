@@ -25,7 +25,7 @@ shiftSchema.methods.serialize = function() {
     start: this.start,
     end: this.end,
     hours: this.hours,
-    employee: this.employee
+    employee: this.employeeName
   }
 }
 
