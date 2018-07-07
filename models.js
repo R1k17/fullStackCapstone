@@ -55,7 +55,6 @@ timeTableSchema.methods.serialize = function() {
 };
 
 const employeeSchema = mongoose.Schema({
-    employee : {type: String, required: true},
     first_name: {type: String, required: true},
     last_name: {type: String, required: true},
     gender: {type: String, required: true},
@@ -70,7 +69,7 @@ const employeeSchema = mongoose.Schema({
     return {
       // Do I want to display the ID for the user?
       id: this._id,
-      employee: this.first_name + ' ' + this.last_name,
+      employeeName: this.employeeName,
       first_name: this.first_name,
       last_name: this.last_name,
       gender: this.gender,
