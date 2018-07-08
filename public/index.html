@@ -19,14 +19,13 @@
 <body>
         <!-- <select name="emplyoeeList" id="emplyoeeList" alt="select an employee" class='selectionLists'>
             </select> -->
-            <i class="fas fa-edit"></i>
     <div class="mainPage">
         
     </div>
-
 <!-- ==== employee register entry ==== -->
 
 <!-- <form id="testingForm" action="/employees" method="post"></form> -->
+<!-- <div id="anim">
 <form id="testingForm"></form>
 ID: <span>Test</span>
 First Name:
@@ -40,6 +39,30 @@ Working hours:
     <input type="text" placeholder="working hours" id="workHours">
     <button type="submit" id="employeeSubmit">Save</button>
 </form>
+</div> -->
+
+<div id="anim">
+<form id="employeeSubmitForm">
+    <fieldset class="employee-update-form">
+        First name:<br>
+        <input type="text" name="firstName" value="" placeholder="Jane" required>
+        <br><br>
+        Last name:<br>
+        <input type="text" name="lastName" value="" placeholder="Doe" required>
+        <br><br>
+        Available hours per week: <br>
+        <input type="number" name="hours" value="" placeholder="40" required>
+        <br><br>
+        <div>
+            <input type="radio" name="gender" id="female" value="Female">Female<br>
+            <input type="radio" name="gender" id="male" value="Male">Male<br>
+        </div>
+        <div>
+            <input class="submit-button" id="employeeSubmit" type="submit" value="Submit">
+        </div>
+    </fieldset>
+</form>
+</div>
 <!-- ========================================================== -->
 <!-- ==== get specific employee ==== -->
 <!-- https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data -->

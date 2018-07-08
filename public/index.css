@@ -169,3 +169,26 @@ body
   }
     
     */
+
+
+    #anim {
+        width: 50px;
+        padding: 50px;
+        background: gold;
+        text-align: center;
+    }
+    #anim:hover {    
+        -webkit-animation: shake 0.1s ease-in-out 0.1s;
+        /* -o-animation-iteration-count: infinite; */
+    }
+    
+    @-webkit-keyframes shake {
+     from {
+        -webkit-transform: rotate(10deg);
+     }
+     to {
+       -webkit-transform-origin:center center;
+       -webkit-transform: rotate(-10deg);
+     }
+    
+    }
