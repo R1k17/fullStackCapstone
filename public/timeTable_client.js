@@ -39,11 +39,16 @@ function renderTimeTable(result) {
           <h2 class="dayName">${result.day.dayName}</h2>
           <br>
           <div class="shiftsContainer">
-
+            <div class="shifts-header gridContainer">
+              <span>begin</span>
+              <span>end</span>
+              <span>hours</span>
+              <span>employee</span>
+            </div>
           </div>
           <div class="addShiftForm"></div>
           <br>
-          <button type="button" class="createShiftForm">Create Shift</button>
+          <button type="button" class="createShiftForm">Create Shift <i class="fas fa-plus"></i></button>
       </div>
       `
     }

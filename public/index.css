@@ -1,5 +1,6 @@
 html {
     /* background: lightcoral; */
+    background: #363946;
 }
 
 nav {
@@ -18,21 +19,40 @@ nav > ul > li {
     margin-left: 20px;
 }
 
+nav ul > li > a {
+    color: #14D8D2;
+}
+
 .navBtn {
-    color: black;
+    color: #14D8D2;
 }
 
-.navBtn:hover {
-    background: #D82038;
-}
+/* .navBtn:hover {
+    background: #14D8D2;
+    color:  black;
+} */
 
+nav ul > li > a:hover {
+    background: #14D8D2;
+    color:  black;
+}
 
 .day {
     margin-bottom: 15px;
+    color: #14D8D2;
 }
 
 .border {
     border: solid 2px black;
+}
+
+.shifts-header {
+    border-bottom: solid 1px #14D8D2;
+
+}
+
+.shifts-header > span {
+    padding-right: 10px;
 }
 
 .shiftSlots {
@@ -40,16 +60,25 @@ nav > ul > li {
     margin-bottom: 10px;
     /* background: #71AD9B; */
     padding: 8px 5px;
-    border-top: solid 1px black;
-    border-bottom: solid 1px black;
+    /* border-top: solid 1px black; */
+    border-bottom: solid 1px #14D8D2;
+}
+
+.shiftSlots:hover {
+    background: lightgrey;
+}
+
+.shiftSlots:focus {
+    background: lightgrey;
 }
 
 .shiftParts {
-    color: #E5E6E7;
-    padding: 3px 3px;
+    /* color: #E5E6E7; */
+    color: #14D8D2;
+    padding: 0px 3px;
     margin: 2px 2px;
     /* background: #66A390; */
-    border-left: solid 1px black;
+    /* border-left: solid 1px black; */
 }
 
 .dayName {
@@ -59,21 +88,54 @@ nav > ul > li {
     height: 60px;
 }
 
-.shift-btns {
+/* .shift-btns {
     border: solid 1px black;
     border-radius: 5px;
     float: right;
     margin: 0 2px;
-}
+} 
+*/
 
 .delete-shift-btn {
-    background-color: red;
+    /* background-color: red; */
+    color: #ff7979;
 }
 
 .modify-shift-btn {
-    background: #888A8C;
+    /* background: #888A8C; */
+    color: #14D8D2;
 }
 
+.createShiftForm {
+    color: white;
+    background: border-box;
+    margin: auto;
+    display: block;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: [first] 15% [line2] 15% [line3] 15% [line4] 35% [end] 20%;
+    grid-template-rows: [first] 50% [last] 50%;
+}
+.gridItems {
+    /* grid-column: 5;
+    grid-row: 1; */
+    place-self: auto;
+}
+
+.gridItem-a {
+    grid-row: first;
+    grid-column: 5;
+    justify-self: center;
+    align-self: center;
+}
+.gridItem-b {
+    grid-row: last;
+    grid-column: 5;
+    justify-self: center;
+    align-self: center;
+}
 
 .startTime {}
 .endTime {}

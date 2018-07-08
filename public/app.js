@@ -20,9 +20,9 @@ function getEmployeesListFromAPI() {
     url: TIMEPLANER_API + 'employees',
     success: (data) => {
               let list = data.map(obj => {
-                    return obj.employee;
-                });
-                employeeListCreator(list);
+                    return obj.employeeName;
+                  });
+                  employeeListCreator(list);
             },
     error: () => console.log('GET employees failed')
   });
@@ -67,8 +67,8 @@ function deleteEmployee(employeeId, getEmployeesFromAPI) {
 
 function renderEmployee(result) {
   return `
-    <div  data-index-number="${result.id}">
-      <h2>${result.employee}</h2>
+    <div  id="${result.id}">
+      <h2>${result.employeeName}</h2>
       <ul>
         <li>ID: ${result.id}</li>
         <li>Gender: ${result.gender}</li>
@@ -94,21 +94,21 @@ function watchNavBtns() {
   })
 }
 
-$('#employeeSubmit').on('click', function(event) {
-  event.preventDefault();
-  let bigGender;
-  bigGender = $('input[name=gender]:checked', '#testingForm').val();
-  console.log($('#firstName').val());
+// $('#employeeSubmit').on('click', function(event) {
+//   event.preventDefault();
+//   let bigGender;
+//   bigGender = $('input[name=gender]:checked', '#testingForm').val();
+//   console.log($('#firstName').val());
   
-})
+// })
 
 function watchEmployeeSubmit() {
   $('#employeeSubmit').on('click', function(event) {
     event.preventDefault();
-    let bigGender;
-    bigGender = $('input[name=gender]:checked', '#testingForm').val();
     
-    console.log(bigGender);
+    let bigGender;
+    bigGender = $('input[name="gender"]:checked').val();
+    console.log($('input[name="gender"]:checked').val());
     
     const query = {
         first_name: $('#firstName').val(),
@@ -129,7 +129,8 @@ function updateBtn(data, updateForm) {
     $('.mainPage').html('');
     $('.mainPage').html(updateForm);
     
-    const employeeId = $(this).parent().attr("data-index-number");
+    // const employeeId = $(this).parent().attr("data-index-number");
+    const employeeId = $(this).parent().attr("id");
     
     let selectedEmployee = 
       data.find((obj) => {
@@ -154,7 +155,7 @@ function generateUpdateQuery(employeeId) {
     event.preventDefault();
         
     let bigGender;
-    bigGender = $('input[name=gender]:checked', '#updateForm').val();
+    bigGender = $('input[name="gender"]:checked', '#updateForm').val();
     
     const query = {
         id: employeeId,
@@ -192,7 +193,7 @@ const updateForm = `
 
 function startApp() {
   watchNavBtns();
-  // watchEmployeeSubmit();
+  watchEmployeeSubmit();
   generateUpdateQuery();
   updateBtn();
 }

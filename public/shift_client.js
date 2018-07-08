@@ -1,5 +1,5 @@
 /* ToDo 
-[ ] on submitting the shift reload page so that an id is available for the shift 
+[ ] on submitting the shift, reload page so that an id is available for the shift 
 
 */
 function getShiftsFromAPI(callback) {
@@ -12,15 +12,17 @@ function getShiftsFromAPI(callback) {
     });
   }
 
-function postShiftToAPI(query, currentDayId) {
+function postShiftToAPI(query, currentDay) {
   $.ajax({
     method: 'POST',
     dataType: 'json',
     contentType: "application/json",
     data: JSON.stringify(query),
     url: TIMEPLANER_API + 'shifts',
+    success: function (data) {
+      $(`div[id="${data.shiftId}"]`).find('.shiftsContainer').append(renderShifts(query))
+    },
     // success: () => {
-    //   $(`div[id="${currentDay}"]`).find('.shiftsContainer').append(renderShifts(query));
     //   getShiftsFromAPI(displayAllShifts);
     // },
     error: () => console.log('POST shift failed')
@@ -82,14 +84,15 @@ function deleteShiftBtn() {
 }
 
 function renderShifts(result) {
+  
     return `
-    <div class="shiftSlots" id="${result.shiftId}">
-        <span class="shiftParts " >${result.start}</span>
-        <span class="shiftParts " >${result.end}</span>
-        <span class="shiftParts " >${result.hours}</span>
-        <span class="shiftParts " >${result.employee}</span>
-        <button class="shift-btns delete-shift-btn">X</button>
-        <button class="shift-btns modify-shift-btn">M</button>
+    <div class="shiftSlots gridContainer" id="${result.shiftId}">
+        <span class="shiftParts" >${result.start}</span>
+        <span class="shiftParts" >${result.end}</span>
+        <span class="shiftParts" >${result.hours}</span>
+        <span class="shiftParts" >${result.employee}</span>
+        <button class="shift-btns delete-shift-btn gridItem-a"><i class="fas fa-trash"></i></button>
+        <button class="modify-shift-btn gridItem-b"><i class="fas fa-edit"></i></button>
     </div>
     `
 }
@@ -99,6 +102,7 @@ let employee = '';
 function employeeListCreator(data){
   employees = data;
   employee = employees[0];
+  console.log(data);
   employeeListMenuCreator();
 }
 
