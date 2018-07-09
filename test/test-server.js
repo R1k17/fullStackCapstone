@@ -1,11 +1,10 @@
 'use strict';
 
+const faker = require('faker');
 const express = require('express');
 const mongoose = require('mongoose');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const faker = require('faker');
-
 
 const {Employee} = require('../models');
 const {app, runServer, closeServer} = require('../server');
