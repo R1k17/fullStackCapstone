@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors')
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const passport = require('passport')
 mongoose.Promise = global.Promise;
 
 const bodyParser = require('body-parser');
@@ -10,6 +11,8 @@ const jsonParser = bodyParser.json();
 
 const {PORT, DATABASE_URL} = require('./config');
 
+const { router: usersRouter } = require('./users');
+const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
 const employeeRouter = require('./employeeRouter');
 const timeTableRouter = require('./timeTableRouter');
@@ -32,7 +35,24 @@ app.use('/shifts', shiftRouter);
 app.use(express.static('public'));
 // app.listen(process.env.PORT || 8080);
 
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
+app.use('/users', usersRouter);
+app.use('/auth', authRouter);
+
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
+// A protected endpoint which needs a valid JWT to access it
+app.get('/api/protected', jwtAuth, (req, res) => {
+  return res.json({
+    data: 'rosebud'
+  });
+});
+
+app.use('*', (req, res) => {
+  return res.status(404).json({ message: 'Not Found' });
+});
 
 let server;
 
