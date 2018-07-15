@@ -10,8 +10,10 @@
     <title>Document</title>
 </head>
 <nav>
+    <div id="logo"></div>
+    <div id="mainHeader"></div>
     <ul>
-        <!-- how to link to my other endpoints? -->
+        how to link to my other endpoints?
         <li id="timeTableBtn" class="navBtn"><a href="#">time table</a></li>
         <li id="employeeListBtn" class="navBtn"><a href="#">employees</a></li>
     </ul>
@@ -19,9 +21,33 @@
 <body>
         <!-- <select name="emplyoeeList" id="emplyoeeList" alt="select an employee" class='selectionLists'>
             </select> -->
-    <div class="mainPage">
+    <div class="mainPage" id="mainPage">
         
     </div>
+
+    <!-- <section id="login-newUser-page" class="col-12">
+        <h2>Sign In</h2>
+        <section class="row" id="login-newUser-row">
+            <form id="login-form" method="" action="">
+                <fieldset>
+                    <legend></legend>
+                    <label for="username-input">Username:</label>
+                    <input type="text" name="username-input" id="username-input" required="true">
+                    <label for="password-input">Password:</label>
+                    <input type="password" name="password-input" id="password-input" required="true">
+                    <button class="button-blue">Login</button>
+                    <p id="password-username-error"></p>
+                </fieldset>
+            </form>
+        </section>
+        <p class="extra-text">Don't have an account? Create one <b id="to-newUser" tabindex="0" role="button">here</b>!</p>
+    </section> -->
+
+
+
+
+
+
 <!-- ==== employee register entry ==== -->
 
 <!-- <form id="testingForm" action="/employees" method="post"></form> -->
@@ -40,7 +66,7 @@ Working hours:
     <button type="submit" id="employeeSubmit">Save</button>
 </form>
 </div> -->
-
+<!-- 
 <div id="anim">
 <form id="employeeSubmitForm">
     <fieldset class="employee-update-form">
@@ -63,6 +89,7 @@ Working hours:
     </fieldset>
 </form>
 </div>
+ -->
 <!-- ========================================================== -->
 <!-- ==== get specific employee ==== -->
 <!-- https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data -->
@@ -79,6 +106,7 @@ Working hours:
     integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous">
 </script>
+<script type="text/javascript" src="login.js"></script>
 <script type="text/javascript" src="app.js"></script>
 <script type="text/javascript" src="timeTable_client.js"></script>
 <script type="text/javascript" src="shift_client.js"></script>

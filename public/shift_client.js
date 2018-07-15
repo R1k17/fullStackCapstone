@@ -163,16 +163,16 @@ function createShiftBtn() {
       <fieldset>
         <legend>Add a shift</legend>
       Start:
-        <input name="startingTime" placeholder="start time" type="number">
+        <input class="add-shift-form-elem" name="startingTime" placeholder="start time" type="number">
       End:
-        <input name="endingTime" placeholder="end time" type="number">
+        <input class="add-shift-form-elem" name="endingTime" placeholder="end time" type="number">
       Employee:
-      <select name="emplyoeeList" alt="select an employee" class='selectionLists'>
+      <select class="add-shift-form-elem" name="emplyoeeList" alt="select an employee" class='selectionLists'>
       </select>
       Working hours:
-      <span name="hoursSub">0</span>
+      <span class="add-shift-form-elem" name="hoursSub">0</span>
       </fieldset>
-      <button type="submit" class="addShift">Add shift +</button>
+      <button type="submit" class="addShift submit-form-btn">Add shift +</button>
     </form>
     `
   }
