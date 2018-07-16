@@ -167,7 +167,7 @@ function createShiftBtn() {
       End:
         <input class="add-shift-form-elem" name="endingTime" placeholder="end time" type="number">
       Employee:
-      <select class="add-shift-form-elem" name="emplyoeeList" alt="select an employee" class='selectionLists'>
+      <select class="add-shift-form-elem selectionLists" name="emplyoeeList" alt="select an employee">
       </select>
       Working hours:
       <span class="add-shift-form-elem" name="hoursSub">0</span>
