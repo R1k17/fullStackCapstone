@@ -9,6 +9,7 @@ nav {
     padding: 2px 2px;
     border-bottom: solid 2px #D82038;
     margin-bottom: 20px;
+    background: #ffffff;
 }
 
 nav > ul {
@@ -36,6 +37,10 @@ nav ul > li > a {
 nav ul > li > a:hover {
     background: #14D8D2;
     color:  black;
+}
+
+.header {
+    display: inline-block;
 }
 
 .day {
@@ -120,21 +125,45 @@ nav ul > li > a:hover {
     color: #1A86E0;
 }
 
-.submit-form-btn {
+.deleteBtn {
     color: white;
-    background: border-box;
+    background: #ff7979;
+    border: #ff7979;
+}
+
+.updateBtn {
+    color: white;
     background: #1BBC7C;
-    border-radius: 5px;
     border: #1BBC7C;
-    margin: auto;
+}
+
+.submit-form-btn {
+    /* color: white; */
+    /* background: border-box; */
+    /* background: #1BBC7C; */
+    border-radius: 5px;
+    /* border: #1BBC7C; */
+    margin: 5px auto;
     width: -webkit-fill-available;
     display: block;
     padding: 5px;
 }
-
 .add-shift-form-elem {
     display: block;
     color: #ffffff;
+
+}
+.add-shift-form-select {
+    display: block;
+    color: #1A86E0;
+    background: #ffffff;
+    padding: 2px;
+    border-radius: 0;
+}
+
+.add-shift-form-name {
+    color: #1A86E0;
+    margin-bottom: 10px;
 }
 
 .addShiftForm fieldset {
@@ -148,6 +177,28 @@ nav ul > li > a:hover {
 
 .addShiftForm fieldset legend {
     padding-top: 30px;
+}
+
+.form-template {
+    color: #1A86E0;
+    background: #ffffff;
+    border: #1A86E0 1px solid;
+    border-radius: 5px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.form-input-field {
+    border: none;
+    padding: 5px 10px;
+    margin-top: 5px;
+    background: #1A86E0;
+    color: #ffffff;
+}
+
+.employeeDetails{
+    list-style: none;
+    margin-top: 5px;    
 }
 
 .gridContainer {

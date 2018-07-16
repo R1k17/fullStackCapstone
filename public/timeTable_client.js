@@ -48,7 +48,7 @@ function renderTimeTable(result) {
           </div>
           <div class="addShiftForm"></div>
           <br>
-          <button type="button" class="createShiftForm submit-form-btn">Create Shift <i class="fas fa-plus"></i></button>
+          <button type="button" class="updateBtn createShiftForm submit-form-btn">Create Shift <i class="fas fa-plus"></i></button>
       </div>
       `
     }

@@ -67,15 +67,15 @@ function deleteEmployee(employeeId, getEmployeesFromAPI) {
 
 function renderEmployee(result) {
   return `
-    <div  id="${result.id}">
-      <h2>${result.employeeName}</h2>
-      <ul>
+    <div class="day border" id="${result.id}">
+      <h2 class="dayName">${result.employeeName}</h2>
+      <ul class="employeeDetails">
         <li>ID: ${result.id}</li>
         <li>Gender: ${result.gender}</li>
         <li>Hours: ${result.hours}</li>
       </ul>
-      <button class="deleteBtn">delete</button>
-      <button class="updateBtn">update</button>
+      <button class="deleteBtn submit-form-btn"><i class="fas fa-trash"></i></button>
+      <button class="updateBtn submit-form-btn"><i class="fas fa-edit"></i></button>
     </div>
   `
 }
@@ -170,22 +170,22 @@ function generateUpdateQuery(employeeId) {
 
 const updateForm = `
 <form id="updateForm">
-    <fieldset class="employee-update-form">
+    <fieldset class="employee-update-form form-template">
         First name:<br>
-        <input type="text" name="firstName" value="">
+        <input class="form-input-field" type="text" name="firstName" value="">
         <br><br>
         Last name:<br>
-        <input type="text" name="lastName" value="">
+        <input class="form-input-field" type="text" name="lastName" value="">
         <br><br>
         Available hours per week: <br>
-        <input type="number" name="hours" value="">
+        <input class="form-input-field" type="number" name="hours" value="">
         <br><br>
         <div>
             <input type="radio" name="gender" id="female" value="Female">Female<br>
             <input type="radio" name="gender" id="male" value="Male">Male<br>
         </div>
         <div>
-            <input class="submit-button" id="updateEmployee" type="submit" value="Submit">
+            <input class="updateBtn submit-form-btn submit-button" id="updateEmployee" type="submit" value="Submit">
         </div>
     </fieldset>
 </form>

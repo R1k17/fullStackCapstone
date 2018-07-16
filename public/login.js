@@ -43,9 +43,9 @@ function loadHeader(){
 	// loadRecentEntries();
 
 	$('#mainHeader').html(`
-		<p id="about-page-btn" tabindex="0">About</p>
-		<p id="home-page-btn" tabindex="0">Home</p>
-		<p id="login-page-btn" tabindex="0">Login</p>
+		<p class="header" id="about-page-btn" tabindex="0">About</p>
+		<p class="header" id="home-page-btn" tabindex="0">Home</p>
+		<p class="header" id="login-page-btn" tabindex="0">Login</p>
 	`);
 }
 

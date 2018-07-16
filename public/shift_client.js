@@ -162,17 +162,24 @@ function createShiftBtn() {
     <form action="/shifts" method="post">
       <fieldset>
         <legend>Add a shift</legend>
-      Start:
-        <input class="add-shift-form-elem" name="startingTime" placeholder="start time" type="number">
-      End:
-        <input class="add-shift-form-elem" name="endingTime" placeholder="end time" type="number">
-      Employee:
-      <select class="add-shift-form-elem selectionLists" name="emplyoeeList" alt="select an employee">
+      Start
+      <br>
+      <input class="add-shift-form-name" name="startingTime" placeholder="start time" type="number">
+      <br>
+      End
+      <br>
+        <input class="add-shift-form-name" name="endingTime" placeholder="end time" type="number">
+      <br>
+      Employee
+      <br>
+      <select class="add-shift-form-select selectionLists" name="emplyoeeList" alt="select an employee">
       </select>
-      Working hours:
+      <br>
+      Working hours
+      <br>
       <span class="add-shift-form-elem" name="hoursSub">0</span>
       </fieldset>
-      <button type="submit" class="addShift submit-form-btn">Add shift +</button>
+      <button type="submit" class="updateBtn addShift submit-form-btn">Add shift +</button>
     </form>
     `
   }
