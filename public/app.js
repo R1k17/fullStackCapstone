@@ -84,6 +84,9 @@ function displayAllEmployees(data) {
   const result = data.map((employee) => renderEmployee(employee));
   $('.mainPage').html(result);
   deleteBtn();
+  console.log("this is display");
+  console.log(data);
+  
   updateBtn(data,updateForm);
 }
 
@@ -126,6 +129,7 @@ function watchEmployeeSubmit() {
 
 function updateBtn(data, updateForm) {
   $('.updateBtn').on('click', function() {
+    alert('clicked')
     $('.mainPage').html('');
     $('.mainPage').html(updateForm);
     
@@ -195,7 +199,7 @@ function startApp() {
   watchNavBtns();
   watchEmployeeSubmit();
   generateUpdateQuery();
-  updateBtn();
+  // updateBtn();
 }
 
 $(startApp());

@@ -83,7 +83,6 @@ nav ul > li > a:hover {
 
 .shiftSlots {
     display: block;
-    margin-bottom: 10px;
     /* background: #71AD9B; */
     padding: 8px 5px;
     /* border-top: solid 1px black; */
@@ -92,7 +91,7 @@ nav ul > li > a:hover {
 }
 
 .shiftSlots:hover {
-    background: lightgrey;
+    background: #99C3C8;
 }
 
 .shiftSlots:focus {

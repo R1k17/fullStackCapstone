@@ -22,7 +22,8 @@ function loginPageElement(){
 
 function loginPageListener(){
 	// $('header').on('click', '#login-page-btn', function(event){
-	$('#login-page-btn').on('click', function(){
+	$('#login-page-btn').on('click', function(event){
+		event.preventDefault();
 		$('#mainPage').html(loginPageElement());
 
 		// underlinePageLabel(this);
@@ -50,7 +51,7 @@ function loadHeader(){
 }
 
 function loginListener(){
-	$('.mainPage').on('submit', '#login-form', function(event){
+	$('#login-form').on('submit', function(event){
 		alert('clicked')
 		event.preventDefault();
 
