@@ -52,15 +52,16 @@ function loadHeader(){
 
 function loginListener(){
 	$('#login-form').on('submit', function(event){
-		alert('clicked')
 		event.preventDefault();
-
+		
 		$.ajax({
 			url: 'auth/login',
-			data: {
+			data: JSON.stringify({
 				username: $('[name="username-input"]').val(),
 				password: $('[name="password-input"]').val()
-			},
+			}),
+			dataType: 'json',
+			contentType: "application/json",
 			type: 'POST',
 			success: function(data){
 				localStorage.setItem('prjToken', data.authToken);
