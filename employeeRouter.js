@@ -13,7 +13,6 @@ router.get('/', (req,res) => {
     Employee
     .find()
     .then(employees => {
-        res.json(employees.map(employee => employee.serialize()))
         res.json({
             employees: employees.map(
               (employee) => employee.serialize())
