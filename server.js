@@ -37,10 +37,9 @@ app.use(cors(corsOptions))
 
 app.use(jsonParser);
 app.use(morgan('common'));
-app.use('/employees', employeeRouter);
-app.use('/timeTables', timeTableRouter);
-// do I need line 30?
-app.use('/shifts', shiftRouter);
+// app.use('/employees', employeeRouter);
+// app.use('/timeTables', timeTableRouter);
+// app.use('/shifts', shiftRouter);
 
 app.use(express.static('public'));
 // app.listen(process.env.PORT || 8080);
@@ -48,15 +47,19 @@ app.use(express.static('public'));
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-app.use('/users', usersRouter);
-app.use('/auth', authRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
+
+app.use('/employees', jwtAuth, employeeRouter);
+app.use('/timeTables', jwtAuth, timeTableRouter);
+app.use('/shifts', jwtAuth, shiftRouter);
 
 // A protected endpoint which needs a valid JWT to access it
 app.get('/api/protected', jwtAuth, (req, res) => {
   return res.json({
-    data: 'rosebud'
+    data: 'protected endpoint'
   });
 });
 
