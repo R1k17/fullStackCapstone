@@ -35,7 +35,7 @@ function loadHeader() {
 }
 
 function loadLoginForm() {
-	$('.mainPage').html(loginPageForm());
+	$('#mainPage').html(loginPageForm());
 }
 
 function loginListener() {
@@ -43,7 +43,7 @@ function loginListener() {
 		event.preventDefault();
 		
 		$.ajax({
-			url: 'auth/login',
+			url: 'api/auth/login',
 			data: JSON.stringify({
 				username: $('[name="username-input"]').val(),
 				password: $('[name="password-input"]').val()
@@ -53,9 +53,7 @@ function loginListener() {
 			type: 'POST',
 			success: function(data) {
 				localStorage.setItem('prjToken', data.authToken);
-				// logIn();
-				console.log(data);
-				
+				logIn();
 			},
 			error: function(err) {
 				$('#password-username-error').html('Sorry, this username or password is incorrect!<br>Please try again.');
@@ -64,11 +62,59 @@ function loginListener() {
 	});
 }
 
+function refreshToken(){
+	$.ajax({
+		url: 'api/auth/refresh',
+		type: 'POST',
+		contentType: 'application/json',
+		dataType: 'json',
+		beforeSend: function(xhr){
+			xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
+		},
+		success: function(data){
+			localStorage.setItem('prjToken', data.authToken);
+		}
+	});
+}
+
+function selectEndpointForm() {
+	return `
+		<div class="gridContainer-home">
+			<div class="select-endpoint gridItem-emp">Employees</div>
+			<div class="select-endpoint gridItem-tt">TimeTable</div>
+		</div>
+	`
+}
+
+function endpointBtnListener() {
+	$('.gridItem-emp').on('click', function() {
+		console.log('employees');
+		getEmployeesFromAPI(displayAllEmployees);
+    	getEmployeesListFromAPI();
+		
+	})
+	$('.gridItem-tt').on('click', function() {
+		console.log('timeTable');
+		getTimeTablesFromAPI(displayAllTimeTables);
+		getEmployeesListFromAPI();
+	})
+}
+
+function loadHomeScreen() {
+	// load navBar with buttons for home, user, about
+	// 2 button >> employees timetable >> both buttons should get the grid too so both are equaly in their size
+	$('#mainPage').html(selectEndpointForm());
+	endpointBtnListener();
+}
+
+// next create an employees and timetable listener, so both buttons are useable
 function logIn() {
 	// get user information
 	$.ajax({
-		url: '/users/logged',
+		url: 'api/protected',
 		type: 'GET',
+		contentType: 'application/json',
+		dataType: 'json',
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
 		},
@@ -78,21 +124,19 @@ function logIn() {
 			profile_basics = data;
 			month_profile_created = data.monthCreated;
 			year_profile_created = data.yearCreated;
+			loadHomeScreen();
 
-			loadAppHome();
-
-			underlinePageLabel('#home-page');
 		},
 		error: function() {
-			$('main').html(loginPageForm());
-			$('#header-right').html(`
-				<p id="about-page" tabindex="0" role="button">About</p>
-				<p id="login-page" tabindex="0" role="button">Login</p>
-			`);
-			underlinePageLabel($('#login-page'));
+			$('#mainPage').html(loginPageForm());
+			// $('#header-right').html(`
+			// 	<p id="about-page" tabindex="0" role="button">About</p>
+			// 	<p id="login-page" tabindex="0" role="button">Login</p>
+			// `);
 		}
 	});
 }
+
 // function createAccountPageListener() {
 function signUpPageListener() {
 	$('#sign-up').on('click', function() {
@@ -151,7 +195,7 @@ function createAccountListener() {
 				password: $('[name="password"]').val()
 			}),
 			success: function(data) {
-				$('.mainPage').html(`
+				$('#mainPage').html(`
 					<div id="new-account-success">
 						<p class="extra-text">Acount was successfully created!</p>
 						<button class="button-blue" onclick="location.reload()">Login</button>
@@ -168,7 +212,8 @@ function createAccountListener() {
 function cancelAccountSignUpListener() {
 	$('#cancel-button').on('click', function() {
 		console.log('cancel is clicked');
-		// $('.mainPage').html(loadLoginForm());
+		$('#mainPage').html(loadLoginForm());
+		signUpPageListener();
 	});
 };
 
@@ -185,3 +230,74 @@ function startLogin() {
 }
 
 $(startLogin());
+
+
+/* 
+Loading animation http://tobiasahlin.com/spinkit/
+
+<div class="spinner">
+  <div class="rect1"></div>
+  <div class="rect2"></div>
+  <div class="rect3"></div>
+  <div class="rect4"></div>
+  <div class="rect5"></div>
+</div>
+
+==================================================
+==================================================
+CSS
+==================================================
+
+.spinner {
+  margin: 100px auto;
+  width: 50px;
+  height: 40px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.spinner > div {
+  background-color: #333;
+  height: 100%;
+  width: 6px;
+  display: inline-block;
+  
+  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+  animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
+  20% { -webkit-transform: scaleY(1.0) }
+}
+
+@keyframes sk-stretchdelay {
+  0%, 40%, 100% { 
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }  20% { 
+    transform: scaleY(1.0);
+    -webkit-transform: scaleY(1.0);
+  }
+}
+*/

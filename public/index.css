@@ -201,6 +201,13 @@ nav ul > li > a:hover {
     margin-top: 5px;    
 }
 
+.select-endpoint {
+    text-align: center;
+    background: #ffffff;
+    margin: 0 8px;
+    line-height: 100px;
+}
+
 .gridContainer {
     display: grid;
     grid-template-columns: [first] 15% [line2] 15% [line3] 15% [line4] 35% [end] 20%;
@@ -223,6 +230,25 @@ nav ul > li > a:hover {
     grid-column: 5;
     justify-self: center;
     align-self: center;
+}
+
+.gridContainer-home {
+    display: grid;
+    grid-template-columns: [col-1] 25% [col-2] 25% [col-3] 25% [col-4] 25%;
+    grid-template-rows: [line1] 50% [line2] 50%;
+    margin: 100px 0;
+}
+
+.gridItem-emp {
+    grid-row: line1;
+    grid-column-start: col-1;
+    grid-column-end: col-3;
+}
+
+.gridItem-tt {
+    grid-row: line1;
+    grid-column-start: col-3;
+    grid-column-end: right;
 }
 
 .startTime {}
