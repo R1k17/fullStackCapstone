@@ -84,9 +84,6 @@ function displayAllEmployees(data) {
   const result = data.map((employee) => renderEmployee(employee));
   $('.mainPage').html(result);
   deleteBtn();
-  console.log("this is display");
-  console.log(data);
-  
   updateBtn(data,updateForm);
 }
 
@@ -200,6 +197,18 @@ function startApp() {
   watchEmployeeSubmit();
   generateUpdateQuery();
   // updateBtn();
+
+  // ========================
+  loadHeader();
+	// loadLoginForm with the header or on page start?
+	loadLoginForm();
+	loginPageListener();
+	loginListener();
+	// homePageBtnListener()
+	// deleteAccountListener()
+	signUpPageListener();
+	// createAccountListener();
+	// cancelAccountSignUpListener()
 }
 
 $(startApp());

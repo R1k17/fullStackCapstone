@@ -28,9 +28,9 @@ function loginPageListener() {
 
 function loadHeader() {
 	$('#mainHeader').html(`
-		<p class="header" id="about-page-btn" tabindex="0">About</p>
-		<p class="header" id="home-page-btn" tabindex="0">Home</p>
-		<p class="header" id="login-page-btn" tabindex="0">Login</p>
+		<p class="header" id="about-page-btn" tabindex="0"><i class="fa fa-info-circle"></i><br>About</p>
+		<p class="header" id="home-page-btn" tabindex="0"><i class="fa fa-home"></i><br>Home</p>	
+		<p class="header" id="login-page-btn" tabindex="0"><i class="fa fa-paper-plane"></i><br>Login</p>
 	`);
 }
 
@@ -80,8 +80,14 @@ function refreshToken(){
 function selectEndpointForm() {
 	return `
 		<div class="gridContainer-home">
-			<div class="select-endpoint gridItem-emp">Employees</div>
-			<div class="select-endpoint gridItem-tt">TimeTable</div>
+			<div class="select-endpoint gridItem-emp">
+				<p class="select-endpoint-icon"><i class="fa fa-users"></i></p>
+				<p class="select-endpoint-text">Team</p>
+			</div>
+			<div class="select-endpoint gridItem-tt">
+				<p class="select-endpoint-icon"><i class="fa fa-calendar"></i></p>
+				<p class="select-endpoint-text">Schedule</p>
+			</div>
 		</div>
 	`
 }
@@ -100,11 +106,91 @@ function endpointBtnListener() {
 	})
 }
 
+function accountPageForm() {
+	console.log(userData);
+	
+	return `
+	<h2>${userData.username}</h2>
+	<h3>Settings</h3>
+	<div>
+		<span>Username: ${userData.username}</span>
+		<span>Firstname: ${userData.firstName}</span>
+		<span>Lastname: ${userData.lastName}</span>
+		<span id="delete-account-btn">delete</span>
+		<span id="logout-account-btn">logout</span>
+	</div>
+	`
+}
+
+function deleteAccount() {
+	$.ajax({
+		url: 'api/users/' + userData.id,
+		type: 'DELETE',
+		beforeSend: function(xhr){
+			xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
+		},
+		success: function(data){
+			localStorage.removeItem('prjToken');
+			location.reload();
+		}
+	});
+}
+
+function deleteAccountListener() {
+	$('#delete-account-btn').on('click', function() {
+		if(confirm('You are about to delete your Account permenantly! Are you sure you want to delete your Account?')){
+			deleteAccount();		
+		}
+		
+	})
+}
+
+function logoutBtnListener() {
+	$('#logout-account-btn').on('click', function(){
+		localStorage.removeItem('prjToken');
+		location.reload();
+	});
+}
+
+function homePageBtnListener() {
+	$('#home-page-btn').on('click', function() {
+		loadHomeScreen();
+		
+	})
+}
+
+function accountPageListener() {
+	$('#account-page-btn').on('click', function() {
+		// set btn active
+		$()
+		$('#account-page-btn').attr('class', 'header active-header-btn')
+		// set all other btns non-active
+		// load page
+		$('#mainPage').html(accountPageForm());
+		// see account firstName/lastName
+		// see username
+		// logoutBtn
+		//deleteBtn
+		deleteAccountListener();
+		logoutBtnListener();
+		
+	})
+}
+
 function loadHomeScreen() {
-	// load navBar with buttons for home, user, about
-	// 2 button >> employees timetable >> both buttons should get the grid too so both are equaly in their size
+	// update navBar with buttons for home, user, about
+		$('#mainHeader').html(`
+			<p class="header" id="about-page-btn" tabindex="0"><i class="fa fa-info-circle"></i><br>About</p>
+			<p class="header" id="home-page-btn" tabindex="0"><i class="fa fa-home"></i><br>Home</p>
+			<p class="header" id="employees-page-btn"><i class="fa fa-users"></i><br>Team</p>
+			<p class="header" id="timeTable-page-btn"><i class="fa fa-calendar"></i><br>Schedule</p>
+			<p class="header" id="account-page-btn" tabindex="0"><i class="fa fa-cog"></i><br>Account</p>
+		`);
+	
+
 	$('#mainPage').html(selectEndpointForm());
 	endpointBtnListener();
+	accountPageListener();
 }
 
 // next create an employees and timetable listener, so both buttons are useable
@@ -121,11 +207,9 @@ function logIn() {
 		success: function(data) {
 			refreshToken();
 
-			profile_basics = data;
-			month_profile_created = data.monthCreated;
-			year_profile_created = data.yearCreated;
+			userData = data;
 			loadHomeScreen();
-
+			homePageBtnListener();
 		},
 		error: function() {
 			$('#mainPage').html(loginPageForm());
@@ -211,20 +295,21 @@ function createAccountListener() {
 
 function cancelAccountSignUpListener() {
 	$('#cancel-button').on('click', function() {
-		console.log('cancel is clicked');
 		$('#mainPage').html(loadLoginForm());
 		signUpPageListener();
 	});
 };
 
 function startLogin() {
-	loadHeader();
+	// loadHeader();
+	// loadLoginForm();
+	// loginPageListener();
+	// loginListener();
+	// signUpPageListener();
+	
 	// loadLoginForm with the header or on page start?
-	loadLoginForm();
-	loginPageListener();
-	loginListener();
-
-	signUpPageListener();
+	// homePageBtnListener()
+	// deleteAccountListener()
 	// createAccountListener();
 	// cancelAccountSignUpListener()
 }
