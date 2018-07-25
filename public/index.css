@@ -3,6 +3,7 @@ html {
     /* background: #74b9ff; */
     /* background: #0984e3; */
     background: #3253A1;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 nav {
@@ -60,7 +61,6 @@ nav > ul > li {
     margin: 0;
     width: -webkit-fill-available;
     height: 30px;
-    /* background: #74b9ff; */
     background: #0984e3;
     padding: 10px;
     color: #ffffff;
@@ -85,7 +85,7 @@ nav > ul > li {
 }
 
 .shiftSlots {
-    display: block;
+    /* display: block; */
     /* background: #71AD9B; */
     padding: 8px 5px;
     /* border-top: solid 1px black; */
@@ -128,10 +128,47 @@ nav > ul > li {
     color: #1A86E0;
 }
 
-.deleteBtn {
+.greyBtn {
+    color: white;
+    background: #888A8C;
+    border: #888A8C;
+    text-align: center;
+}
+/* .cancel-btn {
+    color: white;
+    background: #888A8C;
+    border: #888A8C;
+} */
+
+.redBtn {
     color: white;
     background: #ff7979;
     border: #ff7979;
+    text-align: center;
+}
+
+/* .deleteBtn {
+    color: white;
+    background: #ff7979;
+    border: #ff7979;
+} */
+
+.greenBtn {
+    color: white;
+    background: #1BBC7C;
+    border: #1BBC7C;
+    text-align: center;
+}
+
+.emp-create {
+    color: white;
+    background: #1BBC7C;
+    border: #1BBC7C;
+    text-align: center;
+    border-radius: 5px;
+    margin: 5px auto;
+    display: block;
+    padding: 5px;
 }
 
 .updateBtn {
@@ -151,6 +188,7 @@ nav > ul > li {
     display: block;
     padding: 5px;
 }
+
 .add-shift-form-elem {
     display: block;
     color: #ffffff;
@@ -191,12 +229,80 @@ nav > ul > li {
     margin-bottom: 10px;
 }
 
+#login-form .form-input-field {
+    margin: 5px auto;
+    text-align: center;
+    display: block;
+}
+
+#submit-form .form-input-field {
+    margin: 5px auto;
+    text-align: center;
+    display: block;
+}
+
 .form-input-field {
     border: none;
     padding: 5px 10px;
     margin-top: 5px;
     background: #1A86E0;
     color: #ffffff;
+}
+
+.account-template {
+    color: #1A86E0;
+    background: #ffffff;
+    border: #1A86E0 1px solid;
+    border-radius: 5px;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.account-elems {
+    display: block;
+    margin-bottom: 10px;
+    color: #ffffff;
+    border: #1A86E0 1px solid;
+    border-radius: 5px;
+    background: #1A86E0;
+    text-align: center;
+}
+
+.account-btns {
+    display: block;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.signIn-elem {
+    display: block;
+    color: #1A86E0;
+    text-align: center;
+    margin: 5px auto;
+}
+
+.login-btn {
+    border-radius: 5px;
+    margin: 5px auto;
+    width: 85px;
+    display: block;
+    padding: 5px 5px;
+    background: #1BBC7C;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+#login-form > fieldset {
+    border: none;
+}
+
+.extra-text {
+    text-align: center;
+}
+
+#submit-form > fieldset {
+    border: none;
 }
 
 .employeeDetails{
@@ -229,53 +335,6 @@ nav > ul > li {
     color: #B8FF30;
 }
 
-.gridContainer {
-    display: grid;
-    grid-template-columns: [first] 15% [line2] 15% [line3] 15% [line4] 35% [end] 20%;
-    grid-template-rows: [first] 50% [last] 50%;
-}
-.gridItems {
-    /* grid-column: 5;
-    grid-row: 1; */
-    place-self: auto;
-}
-
-.gridItem-a {
-    grid-row: first;
-    grid-column: 5;
-    justify-self: center;
-    align-self: center;
-}
-.gridItem-b {
-    grid-row: last;
-    grid-column: 5;
-    justify-self: center;
-    align-self: center;
-}
-
-.gridContainer-home {
-    display: grid;
-    grid-template-columns: [col-1] 25% [col-2] 25% [col-3] 25% [col-4] 25%;
-    grid-template-rows: [line1] 50% [line2] 50%;
-    margin: 100px 0;
-}
-
-.gridItem-emp {
-    grid-row: line1;
-    grid-column-start: col-1;
-    grid-column-end: col-3;
-}
-
-.gridItem-tt {
-    grid-row: line1;
-    grid-column-start: col-3;
-    grid-column-end: right;
-}
-
-.startTime {}
-.endTime {}
-.totalHours {}
-.employeeName {}
 /* 
 body
     > background: #6272C0
@@ -304,26 +363,3 @@ body
   }
     
     */
-
-
-    #anim {
-        width: 50px;
-        padding: 50px;
-        background: gold;
-        text-align: center;
-    }
-    #anim:hover {    
-        -webkit-animation: shake 0.1s ease-in-out 0.1s;
-        /* -o-animation-iteration-count: infinite; */
-    }
-    
-    @-webkit-keyframes shake {
-     from {
-        -webkit-transform: rotate(10deg);
-     }
-     to {
-       -webkit-transform-origin:center center;
-       -webkit-transform: rotate(-10deg);
-     }
-    
-    }

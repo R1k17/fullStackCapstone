@@ -1,21 +1,23 @@
+let user = 0;
+
 function loginPageForm() {
 	return `
-		<section id="userLoginPage">
-			<h2>Sign In</h2>
+		<section class="form-template" id="userLoginPage">
+			<h2 class="signIn-elem">Sign In</h2>
 			<section id="userLoginRow">
 				<form id="login-form" method="" action="">
 					<fieldset>
 						<legend></legend>
-						<label for="username-input">Username:</label>
-						<input type="text" name="username-input" id="username-input" required="true">
-						<label for="password-input">Password:</label>
-						<input type="password" name="password-input" id="password-input" required="true">
-						<button>Login</button>
+						<label class="signIn-elem" for="username-input">Username</label>
+						<input aria-label="Username" class="form-input-field" type="text" name="username-input" id="username-input" required="true">
+						<label class="signIn-elem" for="password-input">Password</label>
+						<input aria-label="Password" class="form-input-field" type="password" name="password-input" id="password-input" required="true">
+						<button alt="Button to log into the app" aria-label="Login button" class="signIn-elem greenBtn login-btn">Login</button>
 						<p id="password-username-error"></p>
 					</fieldset>
 				</form>
 			</section>
-			<p class="extra-text">New to Timeplaner?<b id="sign-up" tabindex="0" role="button">Sign up</b></p>
+			<p class="extra-text">New to Timeplaner?<b alt="Button to sign up a new user" aria-label="Sign up button" id="sign-up" tabindex="0" role="button"> Sign up</b></p>
 		</section>
 	`;
 }
@@ -26,11 +28,13 @@ function loginPageListener() {
 	});
 }
 
+// reorganize this header
+//  >> delete the btns and just type in the appName
 function loadHeader() {
 	$('#mainHeader').html(`
-		<p class="header" id="about-page-btn" tabindex="0"><i class="fa fa-info-circle"></i><br>About</p>
-		<p class="header" id="home-page-btn" tabindex="0"><i class="fa fa-home"></i><br>Home</p>	
-		<p class="header" id="login-page-btn" tabindex="0"><i class="fa fa-paper-plane"></i><br>Login</p>
+		<p aria-label="about page" alt="Button to get information about the purpose of this app" class="header" id="about-page-btn" tabindex="0"><i class="fa fa-info-circle"></i><br>About</p>
+		<p aria-label="homepage" alt="Button to load the homepage" class="header" id="home-page-btn" tabindex="0"><i class="fa fa-home"></i><br>Home</p>	
+		<p aria-label="login page" alt="Button to restart the login page" class="header" id="login-page-btn" tabindex="0"><i class="fa fa-paper-plane"></i><br>Login</p>
 	`);
 }
 
@@ -80,11 +84,11 @@ function refreshToken(){
 function selectEndpointForm() {
 	return `
 		<div class="gridContainer-home">
-			<div class="select-endpoint gridItem-emp">
+			<div alt="Button to list all employees" aria-label="Team button" class="select-endpoint gridItem-emp">
 				<p class="select-endpoint-icon"><i class="fa fa-users"></i></p>
 				<p class="select-endpoint-text">Team</p>
 			</div>
-			<div class="select-endpoint gridItem-tt">
+			<div alt="Button to show the timetable" aria-label="Timetable button" class="select-endpoint gridItem-tt">
 				<p class="select-endpoint-icon"><i class="fa fa-calendar"></i></p>
 				<p class="select-endpoint-text">Schedule</p>
 			</div>
@@ -92,40 +96,46 @@ function selectEndpointForm() {
 	`
 }
 
-function endpointBtnListener() {
-	$('.gridItem-emp').on('click', function() {
+function endpointBtnListener(userData) {
+	$('.gridItem-emp, #employees-page-btn').on('click', function() {
 		console.log('employees');
 		getEmployeesFromAPI(displayAllEmployees);
-    	getEmployeesListFromAPI();
-		
+		getEmployeesListFromAPI();
+		loadMainHeader(userData);
+		newEmpBtnListener();
+		activateNewEmpBtn();
 	})
-	$('.gridItem-tt').on('click', function() {
+	$('.gridItem-tt, #timeTable-page-btn').on('click', function() {
 		console.log('timeTable');
 		getTimeTablesFromAPI(displayAllTimeTables);
 		getEmployeesListFromAPI();
+		loadMainHeader(userData);
+		deactivateNewEmpBtn();
 	})
 }
 
-function accountPageForm() {
-	console.log(userData);
-	
+function accountPageForm(userData) {
 	return `
-	<h2>${userData.username}</h2>
-	<h3>Settings</h3>
-	<div>
-		<span>Username: ${userData.username}</span>
-		<span>Firstname: ${userData.firstName}</span>
-		<span>Lastname: ${userData.lastName}</span>
-		<span id="delete-account-btn">delete</span>
-		<span id="logout-account-btn">logout</span>
+	<div class="account-template">
+		<h2>${userData.username}</h2>
+		<h3>Settings</h3>
+		<div>
+			<span alt="Showing Username of logged in user" aria-label="username" class="account-elems">Username: ${userData.username}</span>
+			<span alt="Showing users firstname" aria-label="firstname" class="account-elems">Firstname: ${userData.firstName}</span>
+			<span alt="Showing users lastname" aria-label="lastname" class="account-elems">Lastname: ${userData.lastName}</span>
+			<span alt="Delete button to delete user" aria-label="Delete user" class="account-btns submit-form-btn redBtn" id="delete-account-btn">delete</span>
+			<span alt="Logout button" aria-label="Logout button" class="account-btns submit-form-btn greyBtn" id="logout-account-btn">logout</span>
+		</div>
 	</div>
 	`
 }
 
-function deleteAccount() {
+function deleteAccount(userData) {
 	$.ajax({
 		url: 'api/users/' + userData.id,
 		type: 'DELETE',
+		contentType: 'application/json',
+		dataType: 'json',
 		beforeSend: function(xhr){
 			xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
 		},
@@ -136,10 +146,10 @@ function deleteAccount() {
 	});
 }
 
-function deleteAccountListener() {
+function deleteAccountListener(userData) {
 	$('#delete-account-btn').on('click', function() {
 		if(confirm('You are about to delete your Account permenantly! Are you sure you want to delete your Account?')){
-			deleteAccount();		
+			deleteAccount(userData);		
 		}
 		
 	})
@@ -152,52 +162,68 @@ function logoutBtnListener() {
 	});
 }
 
-function homePageBtnListener() {
+function homePageBtnListener(userData) {
 	$('#home-page-btn').on('click', function() {
-		loadHomeScreen();
-		
+		loadHomeScreen(userData);
+		deactivateNewEmpBtn();
 	})
 }
 
-function accountPageListener() {
+function activeBtnSwitch() {
+		switch (true) {
+			case ($('#employees-page-btn').data( 'clicked', true)):
+				return $('#employees-page-btn').addClass('header active-header-btn');
+			case ($('#timeTable-page-btn').data( 'clicked', true)):
+				return $('#timeTable-page-btn').addClass('header active-header-btn');
+			case ($('#home-page-btn').data( 'clicked', true)):
+				return $('#home-page-btn').addClass('header active-header-btn');
+			case ($('#account-page-btn').data( 'clicked', true)):
+			$('#account-page-btn').addClass('header active-header-btn')
+		}
+	}
+
+function accountPageListener(userData) {
 	$('#account-page-btn').on('click', function() {
 		// set btn active
-		$()
-		$('#account-page-btn').attr('class', 'header active-header-btn')
+		// $()
+		
+		$('#account-page-btn').addClass('header active-header-btn')
 		// set all other btns non-active
 		// load page
-		$('#mainPage').html(accountPageForm());
+		$('#mainPage').html(accountPageForm(userData));
 		// see account firstName/lastName
 		// see username
 		// logoutBtn
 		//deleteBtn
-		deleteAccountListener();
+		deleteAccountListener(userData);
 		logoutBtnListener();
-		
+		deactivateNewEmpBtn();
 	})
 }
 
-function loadHomeScreen() {
-	// update navBar with buttons for home, user, about
-		$('#mainHeader').html(`
-			<p class="header" id="about-page-btn" tabindex="0"><i class="fa fa-info-circle"></i><br>About</p>
-			<p class="header" id="home-page-btn" tabindex="0"><i class="fa fa-home"></i><br>Home</p>
-			<p class="header" id="employees-page-btn"><i class="fa fa-users"></i><br>Team</p>
-			<p class="header" id="timeTable-page-btn"><i class="fa fa-calendar"></i><br>Schedule</p>
-			<p class="header" id="account-page-btn" tabindex="0"><i class="fa fa-cog"></i><br>Account</p>
-		`);
-	
-
-	$('#mainPage').html(selectEndpointForm());
-	endpointBtnListener();
-	accountPageListener();
+function loadMainHeader(userData) {
+	$('#mainHeader').html(`
+	<p aria-label="homepage" alt="Button to load the homepage" class="header" id="home-page-btn" tabindex="0"><i class="fa fa-home"></i><br>Home</p>
+	<p aria-label="employees page" alt="Button to load a list of all employees" class="header" id="employees-page-btn"><i class="fa fa-users"></i><br>Team</p>
+	<p aria-label="timetable page" alt="Button to load the timetable" class="header" id="timeTable-page-btn"><i class="fa fa-calendar"></i><br>Schedule</p>
+	<p aria-label="account page" alt="Button to load the account page of the user" class="header" id="account-page-btn" tabindex="0"><i class="fa fa-cog"></i><br>Account</p>
+`);
+	endpointBtnListener(userData);
+	homePageBtnListener(userData);
+	accountPageListener(userData);
 }
 
-// next create an employees and timetable listener, so both buttons are useable
+function loadHomeScreen(userData) {
+	loadMainHeader(userData);
+	user = userData;
+
+	$('#mainPage').html(selectEndpointForm());
+	endpointBtnListener(userData);
+}
+
 function logIn() {
-	// get user information
 	$.ajax({
-		url: 'api/protected',
+		url: 'api/users/account',
 		type: 'GET',
 		contentType: 'application/json',
 		dataType: 'json',
@@ -207,21 +233,16 @@ function logIn() {
 		success: function(data) {
 			refreshToken();
 
-			userData = data;
-			loadHomeScreen();
-			homePageBtnListener();
+			const userData = data;
+			loadHomeScreen(userData);
+			
 		},
 		error: function() {
 			$('#mainPage').html(loginPageForm());
-			// $('#header-right').html(`
-			// 	<p id="about-page" tabindex="0" role="button">About</p>
-			// 	<p id="login-page" tabindex="0" role="button">Login</p>
-			// `);
 		}
-	});
+	})
 }
 
-// function createAccountPageListener() {
 function signUpPageListener() {
 	$('#sign-up').on('click', function() {
 		$('#userLoginPage').html(signUpForm());
@@ -230,27 +251,26 @@ function signUpPageListener() {
 	});
 }
 
-// function createAccountElement() {
-{/* <label for="firstName">First Name:</label>
-<input type="text" name="firstName" id="firstName" required="true">
-<label for="lastName">Last Name:</label>
-<input type="text" name="lastName" id="lastName" required="true"> */}
 
 function signUpForm() {
 	return `
-			<h2>Sign Up</h2>
+			<h2 class="signIn-elem">Sign Up</h2>
 			<section id="signUpnewUser">
 				<form id="submit-form" method="" action="">
 					<fieldset>
 						<legend></legend>
-						<label for="username">Username:</label>
-						<input type="text" name="username" id="username" required="true">
-						<label for="password">Password:</label>
-						<input type="password" name="password" id="password" required="true">
-						<label for="password-2">Re-type Password:</label>
-						<input type="password" name="password-2" id="password-2" required="true">
-						<button class="submit-form-btn updateBtn">Submit</button>
-						<button type="button" id="cancel-button" class="submit-form-btn deleteBtn">Cancel</button>
+						<label class="signIn-elem" for="username">Username</label>
+						<input aria-label="Username" class="form-input-field" type="text" name="username" id="username" required="true">
+						<label class="signIn-elem" for="firstName">First name</label>
+						<input aria-label="User Firstname" class="form-input-field" type="text" name="firstName" id="firstName" required="true">
+						<label class="signIn-elem" for="lastName">Last name</label>
+						<input aria-label="User lastname" class="form-input-field" type="text" name="lastName" id="lastName" required="true">
+						<label class="signIn-elem" for="password">Password</label>
+						<input aria-label="User password" class="form-input-field" type="password" name="password" id="password" required="true">
+						<label class="signIn-elem" for="password-2">Re-type Password</label>
+						<input aria-label="User password confirm" class="form-input-field" type="password" name="password-2" id="password-2" required="true">
+						<button alt="Button to sign up as a new user" aria-label="Sign up button" class="submit-form-btn greenBtn">Submit</button>
+						<button alt="Button to cancel the sign up process" aria-label="Cancel sign up button" type="button" id="cancel-button" class="greyBtn submit-form-btn">Cancel</button>
 						<p id="password-username-error"></p>
 					</fieldset>
 				</form>
@@ -282,7 +302,7 @@ function createAccountListener() {
 				$('#mainPage').html(`
 					<div id="new-account-success">
 						<p class="extra-text">Acount was successfully created!</p>
-						<button class="button-blue" onclick="location.reload()">Login</button>
+						<button alt="Button to start login process" aria-label="login button" class="button-blue" onclick="location.reload()">Login</button>
 					</div>
 				`);
 			},
@@ -300,21 +320,6 @@ function cancelAccountSignUpListener() {
 	});
 };
 
-function startLogin() {
-	// loadHeader();
-	// loadLoginForm();
-	// loginPageListener();
-	// loginListener();
-	// signUpPageListener();
-	
-	// loadLoginForm with the header or on page start?
-	// homePageBtnListener()
-	// deleteAccountListener()
-	// createAccountListener();
-	// cancelAccountSignUpListener()
-}
-
-$(startLogin());
 
 
 /* 

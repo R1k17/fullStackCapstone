@@ -1,3 +1,6 @@
+let employees = [];
+let employee = '';
+
 /* API variables */
 const TIMEPLANER_API = 'https://timeplaner.herokuapp.com/';
 
@@ -51,6 +54,7 @@ function updateEmployee(employeeId, query) {
     contentType: 'application/json',
     data: JSON.stringify(query),
     url: TIMEPLANER_API + 'employees/' + employeeId,
+    success: getEmployeesFromAPI(displayAllEmployees),
     error: () => console.log('PUT employee failed')
   })
 }
@@ -71,12 +75,12 @@ function renderEmployee(result) {
     <div class="day border" id="${result.id}">
       <h2 class="dayName">${result.employeeName}</h2>
       <ul class="employeeDetails">
-        <li>ID: ${result.id}</li>
-        <li>Gender: ${result.gender}</li>
-        <li>Hours: ${result.hours}</li>
+        <li aria-label="Employee id">ID: ${result.id}</li>
+        <li aria-label="Employee gender">Gender: ${result.gender}</li>
+        <li aria-label="Available hours">Hours: ${result.hours}</li>
       </ul>
-      <button class="redBtn submit-form-btn"><i class="fas fa-trash"></i></button>
-      <button class="greenBtn submit-form-btn"><i class="fas fa-edit"></i></button>
+      <button aria-label="Delete employee" alt="Button to delete employee" class="redBtn submit-form-btn"><i class="fas fa-trash"></i></button>
+      <button aria-label="Edit employee" alt="Button to edit the employee" class="greenBtn submit-form-btn"><i class="fas fa-edit"></i></button>
     </div>
   `
 }
@@ -100,39 +104,39 @@ function empSubmitForm() {
     <form id="employeeSubmitForm">
       <fieldset class="employee-submit-form">
         First name:<br>
-        <input type="text" name="firstName" value="" placeholder="Jane" required>
+        <input aria-label="Firstname of employee" type="text" name="firstName" value="" placeholder="Jane" required>
         <br><br>
         Last name:<br>
-        <input type="text" name="lastName" value="" placeholder="Doe" required>
+        <input aria-label="lastname of employee" type="text" name="lastName" value="" placeholder="Doe" required>
         <br><br>
         Available hours per week: <br>
-        <input type="number" name="hours" value="" placeholder="40" required>
+        <input aria-label="Available hours of employee" type="number" name="hours" value="" placeholder="40" required>
         <br><br>
         <div>
-          <input type="radio" name="gender" id="female" value="Female">Female<br>
-          <input type="radio" name="gender" id="male" value="Male">Male<br>
+          <input aria-label="Female gender selection" type="radio" name="gender" id="female" value="Female">Female<br>
+          <input aria-label="Male gender selection" type="radio" name="gender" id="male" value="Male">Male<br>
         </div>
         <div>
-          <button id="create-emp-btn">Save</button>
+          <button aria-label="Save button" alt="Save employee to database" id="create-emp-btn">Save</button>
           </div>
       </fieldset>
     </form>
-    <button id="submitEmp-cancel" class="cancel-btn submit-form-btn">Cancel</button>
+    <button aria-label="Cancel button" alt="Cancel employee submit" id="submitEmp-cancel" class="cancel-btn submit-form-btn">Cancel</button>
 `
 }
 
 function loadNewEmployeeBtn() {
-	return `<div class="greenBtn submit-form-btn"><span><i class="fa fa-user-plus"></i> Create new Employee</spanp></div>`
+	return `<div aria-label="Create new employee" alt="Button to create a new employee"><span><i class="fa fa-user-plus"></i> Create new Employee</spanp></div>`
 }
 
 function activateNewEmpBtn() {
 	$('#add-emp').html(loadNewEmployeeBtn());
-	$('#add-emp').toggleClass('green-btn submit-form-btn');
+	$('#add-emp').addClass('emp-create');
 }
 
 function deactivateNewEmpBtn() {
 	$('#add-emp').html('');
-	$('#add-emp').toggleClass('green-btn submit-form-btn');
+	$('#add-emp').removeClass('emp-create');
 }
 
 function newEmpBtnListener() {
@@ -169,21 +173,67 @@ function watchEmployeeSubmit() {
   })
 }
 
-/* ============ Employee updating functionality ============ */
+function employeeListCreator(data){
+    employees = data;
+    employee = employees[0];
+    console.log(data);
+    employeeListMenuCreator();
+  }
+  
+  function employeeListMenuCreator() {
+    let result = employees.map(function(menuEmployee){
+      return renderEmployeeOption(menuEmployee);
+    })
+    
+    $('select[name="emplyoeeList"]').html(result);
+    displaySelectedEmployee();
+    employeeUpdate();
+  }
+  
+  function renderEmployeeOption(menuEmployee){
+    return `<option value="${menuEmployee}">${menuEmployee}</option>`;
+  }
+  
+  function employeeSelectHandler() {
+    $('select[name="employeeList"]').on('change', function() {
+      employeeUpdate(this);
+    });
+  }
+  
+  function employeeUpdate(currentEmployee = employee){
+    if (typeof currentEmployee !== "string") {
+      let selectedEmployee = $("option:selected", currentEmployee);
+      employee = selectedEmployee[0].innerText;
+    }
+    displaySelectedEmployee();
+  }
+  
+  function displaySelectedEmployee() {
+    $('select[name="employeeList"]').val(employee);
+  }
+  
+  function objectifyForm(formArray) {//serialize data function
+  
+    var returnArray = {};
+    for (var i = 0; i < formArray.length; i++){
+      returnArray[formArray[i]['name']] = formArray[i]['value'];
+    }
+    return returnArray;
+  }
 
 function updateBtn(data, updateForm) {
+  
   $('.greenBtn').on('click', function() {
     $('.mainPage').html('');
     $('.mainPage').html(updateForm);
     
     const employeeId = $(this).parent().attr("id");
-    console.log(employeeId);
 
     let selectedEmployee = 
-      data.find((obj) => {
-        return employeeId === obj.id;
-      });
-
+    data.find((obj) => {
+      return employeeId === obj.id;
+    });
+    
     $('input[name="firstName"]').attr('value', selectedEmployee.first_name);
     $('input[name="lastName"]').attr('value', selectedEmployee.last_name);
     $('input[name="hours"]').attr('value', selectedEmployee.hours);
@@ -221,24 +271,24 @@ const updateForm = `
 <form id="updateForm">
     <fieldset class="employee-update-form form-template">
         First name:<br>
-        <input class="form-input-field" type="text" name="firstName" value="">
+        <input aria-label="Employee firstname" class="form-input-field" type="text" name="firstName" value="">
         <br><br>
         Last name:<br>
-        <input class="form-input-field" type="text" name="lastName" value="">
+        <input aria-label="Employee lastname" class="form-input-field" type="text" name="lastName" value="">
         <br><br>
         Available hours per week: <br>
-        <input class="form-input-field" type="number" name="hours" value="">
+        <input aria-label="Employee available hours" class="form-input-field" type="number" name="hours" value="">
         <br><br>
         <div>
-            <input type="radio" name="gender" id="female" value="Female">Female<br>
-            <input type="radio" name="gender" id="male" value="Male">Male<br>
+            <input aria-label="Employee gender female" type="radio" name="gender" id="female" value="Female">Female<br>
+            <input aria-label="Employee gender male" type="radio" name="gender" id="male" value="Male">Male<br>
         </div>
         <div>
-            <input class="greenBtn" submit-form-btn submit-button" id="updateEmployee" type="submit" value="Submit">
+            <input aria-label="Update employee" alt="Button to update the employee" class="greenBtn" submit-form-btn submit-button" id="updateEmployee" type="submit" value="Submit">
         </div>
     </fieldset>
 </form>
-<button id="updateEmpForm-cancel" class="cancel-btn submit-form-btn">Cancel</button>
+<button aria-label="Cancel updating employee" alt="Button to cancel the emplyoee update process" id="updateEmpForm-cancel" class="cancel-btn submit-form-btn">Cancel</button>
 `;
 
 function deleteBtn(data) {
@@ -297,11 +347,12 @@ function startApp() {
 	loadLoginForm();
 	loginPageListener();
 	loginListener();
-	homePageBtnListener()
+	homePageBtnListener();
 	// deleteAccountListener()
 	signUpPageListener();
 	// createAccountListener();
-	// cancelAccountSignUpListener()
+  // cancelAccountSignUpListener()
+  activeBtnSwitch();
 }
 
 $(startApp());
