@@ -37,9 +37,6 @@ app.use(cors(corsOptions))
 
 app.use(jsonParser);
 app.use(morgan('common'));
-app.use('/employees', employeeRouter);
-app.use('/timeTables', timeTableRouter);
-app.use('/shifts', shiftRouter);
 
 app.use(express.static('public'));
 // app.listen(process.env.PORT || 8080);
@@ -52,16 +49,9 @@ app.use('/api/auth', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
-// app.use('/employees', jwtAuth, employeeRouter);
-// app.use('/timeTables', jwtAuth, timeTableRouter);
-// app.use('/shifts', jwtAuth, shiftRouter);
-
-// A protected endpoint which needs a valid JWT to access it
-app.get('/api/protected', jwtAuth, (req, res) => {
-  return res.json({
-    data: 'protected endpoint'
-  });
-});
+app.use('/employees', jwtAuth, employeeRouter);
+app.use('/timeTables', jwtAuth, timeTableRouter);
+app.use('/shifts', jwtAuth, shiftRouter);
 
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });

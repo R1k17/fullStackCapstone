@@ -146,6 +146,10 @@ router.get('/', jwtAuth, (req, res) => {
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
+router.get('/account', jwtAuth, (req, res) => {
+  res.json(req.user);
+})
+
 router.delete('/:id', jwtAuth, (req, res) => {
 	User
 		.findByIdAndRemove(req.params.id)
