@@ -14,9 +14,9 @@ const {PORT, DATABASE_URL} = require('./config');
 const { router: usersRouter } = require('./users');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
-const employeeRouter = require('./employeeRouter');
-const timeTableRouter = require('./timeTableRouter');
-const shiftRouter = require('./shiftRouter');
+const employeeRouter = require('../employeeRouter');
+const timeTableRouter = require('../timeTableRouter');
+const shiftRouter = require('../shiftRouter');
 
 let corsOptions = {
   origin: '*',
