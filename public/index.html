@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="grid3.css">
+    <meta name="description" content="This app allows the user to create a team and manage its working times.">
+    <meta keywords="timeplanner, team builder, time management, employee, shift, horarium">
+    <link rel="stylesheet" href="styles/grid.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Horarium</title>
 </head>
 <header role="banner">
     <nav role="navigation">
@@ -18,96 +20,33 @@
     </nav>
 </header>
 <body>
-        <!-- <select name="emplyoeeList" id="emplyoeeList" alt="select an employee" class='selectionLists'>
-            </select> -->
-    <div id="add-emp" class="empty"></div>
-    <div class="mainPage" id="mainPage">
-    </div>
-<!-- 
-    <section id="login-newUser-page" class="col-12">
-        <h2>Sign In</h2>
-        <section class="row" id="login-newUser-row">
-            <form id="login-form" method="" action="">
-                <fieldset>
-                    <legend></legend>
-                    <label for="username-input">Username:</label>
-                    <input type="text" name="username-input" id="username-input" required="true">
-                    <label for="password-input">Password:</label>
-                    <input type="password" name="password-input" id="password-input" required="true">
-                    <button class="button-blue">Login</button>
-                    <p id="password-username-error"></p>
-                </fieldset>
-            </form>
-        </section>
-        <p class="extra-text">Don't have an account? Create one <b id="to-newUser" tabindex="0" role="button">here</b>!</p>
-    </section>
-
- -->
-
-
-
-
-<!-- ==== employee register entry ==== -->
-
-<!-- <form id="testingForm" action="/employees" method="post"></form> -->
-<!-- <div id="anim">
-<form id="testingForm"></form>
-ID: <span>Test</span>
-First Name:
-    <input placeholder="first name" type="text" id="firstName">
-Last Name:
-    <input placeholder="last name" type="text" id="lastName">
-Gender:
-    <input type="radio" name="gender" value="Female" id="f1">Female</input>
-    <input type="radio" name="gender" value="Male" id="m1">Male</input>
-Working hours:
-    <input type="text" placeholder="working hours" id="workHours">
-    <button type="submit" id="employeeSubmit">Save</button>
-</form>
-</div> -->
-<!-- 
-<div id="anim">
-<form id="employeeSubmitForm">
-    <fieldset class="employee-update-form">
-        First name:<br>
-        <input type="text" name="firstName" value="" placeholder="Jane" required>
-        <br><br>
-        Last name:<br>
-        <input type="text" name="lastName" value="" placeholder="Doe" required>
-        <br><br>
-        Available hours per week: <br>
-        <input type="number" name="hours" value="" placeholder="40" required>
-        <br><br>
-        <div>
-            <input type="radio" name="gender" id="female" value="Female">Female<br>
-            <input type="radio" name="gender" id="male" value="Male">Male<br>
-        </div>
-        <div>
-            <input class="submit-button" id="employeeSubmit" type="submit" value="Submit">
-        </div>
-    </fieldset>
-</form>
-</div>
- -->
-<!-- ========================================================== -->
-<!-- ==== get specific employee ==== -->
-<!-- https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data -->
-<!-- <form action="/employees" method="get">
-    <input type="text" name="id" value="5b1ea258fb6fc033f881b385">
-    <button type="submit">Search</button>
-</form> -->
-
-<!-- ========================================================== -->
-<!-- ========================================================== -->
+    <main>
+        <div id="add-emp" class="empty"></div>
+        <div class="mainPage" id="mainPage"></div>
+    </main>
+    <footer role="contentinfo">
+        <nav role="navigation">
+            <a href="https://www.linkedin.com/in/tarik-mey" aria-label="Creators LinkedIn profile" class="header" alt="LinkedIn icon">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/R1k17" aria-label="Creators GitHub profile" class="header" alt="GitHub icon">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="mailto:tarik-mey@gmx.de" aria-label="Creators Email contact" class="header" alt="Email icon">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </nav>
+    </footer>
 </body>
+
 <script
     src="https://code.jquery.com/jquery-3.3.1.js"
     integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous">
 </script>
-<script type="text/javascript" src="login.js"></script>
-<!-- <script type="text/javascript" src="app.js"></script> -->
-<script type="text/javascript" src="employee_client.js"></script>
-<script type="text/javascript" src="timeTable_client.js"></script>
-<script type="text/javascript" src="shift_client.js"></script>
+<script type="text/javascript" src="scripts/login.js"></script>
+<script type="text/javascript" src="scripts/employee_client.js"></script>
+<script type="text/javascript" src="scripts/timeTable_client.js"></script>
+<script type="text/javascript" src="scripts/shift_client.js"></script>
+<script type="text/javascript" src="scripts/app.js"></script>
 </html>
