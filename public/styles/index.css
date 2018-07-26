@@ -1,0 +1,308 @@
+html {
+    background: #3253A1;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+nav {
+    padding: 2px 2px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+nav > #mainHeader {
+    border-bottom: solid white  1px;
+}
+
+nav > ul {
+    margin: 0 auto;
+    display: inline-block;
+    list-style-type: none;
+}
+
+nav > ul > li {
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+}
+
+.header {
+    display: inline-block;
+    padding: 0px 8px; 
+    color: #E5E6E7;
+}
+
+.day {
+    margin-bottom: 15px;
+    background: #FFFFFF;
+    color: #1A86E0;
+    padding: 5px;
+}
+
+.dayName {
+    text-align: center;
+    display: inline-block;
+    margin: 0;
+    width: -webkit-fill-available;
+    height: 30px;
+    background: #0984e3;
+    padding: 10px;
+    color: #ffffff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.border {
+    border-radius: 5px;
+}
+
+.shiftsContainer {
+    margin: 10px 5px; 
+}
+.shifts-header {
+    margin-bottom: 10px;
+}
+
+.shifts-header > span {
+    padding-right: 10px;
+}
+
+.shiftSlots {
+    padding: 8px 5px;
+    border-top: solid 1px #1A86E0;
+    color: #1A86E0;
+}
+
+.shiftSlots:hover {
+    background: #99C3C8;
+}
+
+.shiftSlots:focus {
+    background: lightgrey;
+}
+
+.shiftParts {
+    color: #1A86E0;
+    padding: 0px 3px;
+    margin: 2px 2px;
+}
+
+.delete-shift-btn {
+    color: #ff7979;
+}
+
+.modify-shift-btn {
+    color: #1A86E0;
+}
+
+.greyBtn {
+    color: white;
+    background: #888A8C;
+    border: #888A8C;
+    text-align: center;
+}
+
+.redBtn {
+    color: white;
+    background: #ff7979;
+    border: #ff7979;
+    text-align: center;
+}
+
+.greenBtn {
+    color: white;
+    background: #1BBC7C;
+    border: #1BBC7C;
+    text-align: center;
+}
+
+.emp-create {
+    color: white;
+    background: #1BBC7C;
+    border: #1BBC7C;
+    text-align: center;
+    border-radius: 5px;
+    margin: 5px auto;
+    display: block;
+    padding: 5px;
+}
+
+.updateBtn {
+    color: white;
+    background: #1BBC7C;
+    border: #1BBC7C;
+}
+
+.submit-form-btn {
+    border-radius: 5px;
+    margin: 5px auto;
+    width: -webkit-fill-available;
+    display: block;
+    padding: 5px;
+}
+
+.add-shift-form-elem {
+    display: block;
+    color: #ffffff;
+
+}
+.add-shift-form-select {
+    margin-bottom: 10px;
+    color: #1A86E0;
+    background: #ffffff;
+    padding: 2px;
+    border-radius: 0;
+}
+
+.add-shift-form-name {
+    color: #1A86E0;
+    margin-bottom: 10px;
+}
+
+.addShiftForm fieldset {
+    color: #ffffff;
+    background: #1A86E0;
+    border: #1A86E0 1px solid;
+    border-radius: 5px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+}
+
+.addShiftForm fieldset legend {
+    padding-top: 30px;
+}
+
+.form-template {
+    color: #1A86E0;
+    background: #ffffff;
+    border: #1A86E0 1px solid;
+    border-radius: 5px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#addShiftFormStyle {
+    margin: 5px auto;
+    text-align: center;
+}
+
+#login-form .form-input-field {
+    margin: 5px auto;
+    text-align: center;
+    display: block;
+}
+
+#update-shift .add-shift-form-select {
+    margin: 5px auto;
+    text-align: center;
+    display: block;
+}
+
+#submit-form .form-input-field {
+    margin: 5px auto;
+    text-align: center;
+    display: block;
+}
+
+#updateForm .form-input-field {
+    margin: 5px auto;
+    text-align: center;
+    display: block;
+}
+
+.form-input-field {
+    border: none;
+    padding: 5px 10px;
+    margin-top: 5px;
+    background: #1A86E0;
+    color: #ffffff;
+}
+
+.account-template {
+    color: #1A86E0;
+    background: #ffffff;
+    border: #1A86E0 1px solid;
+    border-radius: 5px;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.account-elems {
+    display: block;
+    margin-bottom: 10px;
+    color: #ffffff;
+    border: #1A86E0 1px solid;
+    border-radius: 5px;
+    background: #1A86E0;
+    text-align: center;
+}
+
+.account-btns {
+    display: block;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.signIn-elem {
+    display: block;
+    color: #1A86E0;
+    text-align: center;
+    margin: 5px auto;
+}
+
+.login-btn {
+    border-radius: 5px;
+    margin: 5px auto;
+    width: 85px;
+    display: block;
+    padding: 5px 5px;
+    background: #1BBC7C;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+#login-form > fieldset {
+    border: none;
+}
+
+.extra-text {
+    text-align: center;
+}
+
+#submit-form > fieldset {
+    border: none;
+}
+
+.employeeDetails{
+    list-style: none;
+    margin-top: 5px;    
+}
+
+.select-endpoint {
+    text-align: center;
+    background: #ffffff;
+    margin: 0 8px;
+    line-height: 50px;
+    border-radius: 10px;
+    color: #716F8E;
+}
+
+.select-endpoint-icon {
+    margin-bottom: 0;
+    font-size: 30px;
+    height: 15px;
+}
+
+.select-endpoint:hover {
+    background: #2D3474;
+    color: #B8FF30;
+}
+
+.active-header-btn {
+    color: #B8FF30;
+}
+
+#appName {
+    font-size: 30px;
+}

@@ -1,0 +1,61 @@
+.gridContainer {
+    display: grid;
+    grid-template-columns: [first] 15% [line2] 15% [line3] 15% [line4] 35% [end] 20%;
+    grid-template-rows: [first] 50% [last] 50%;
+}
+.gridItems {
+    /* grid-column: 5;
+    grid-row: 1; */
+    place-self: auto;
+}
+
+.gridItem-a {
+    grid-row: first;
+    grid-column: 5;
+    justify-self: center;
+    align-self: center;
+}
+.gridItem-b {
+    grid-row: last;
+    grid-column: 5;
+    justify-self: center;
+    align-self: center;
+}
+
+.gridContainer-home {
+    display: grid;
+    grid-template-columns: [col-1] 25% [col-2] 25% [col-3] 25% [col-4] 25%;
+    grid-template-rows: [line1] 50% [line2] 50%;
+    margin: 100px 0;
+}
+
+.gridItem-emp {
+    grid-row: line1;
+    grid-column-start: col-1;
+    grid-column-end: col-3;
+}
+
+.gridItem-tt {
+    grid-row: line1;
+    grid-column-start: col-3;
+    grid-column-end: right;
+}
+
+/* Non-mobile, grid */
+@media only screen and (min-width: 435px) {
+    .mainPage {
+        width: 400px;
+        margin: 0 auto;
+    }
+    
+    .emp-create {
+        width: 400px;
+        margin: 0 auto;
+    }
+
+
+    nav {
+        margin: 20px auto;
+    }
+
+}
