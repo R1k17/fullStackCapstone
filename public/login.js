@@ -28,13 +28,9 @@ function loginPageListener() {
 	});
 }
 
-// reorganize this header
-//  >> delete the btns and just type in the appName
 function loadHeader() {
 	$('#mainHeader').html(`
-		<p aria-label="about page" alt="Button to get information about the purpose of this app" class="header" id="about-page-btn" tabindex="0"><i class="fa fa-info-circle"></i><br>About</p>
-		<p aria-label="homepage" alt="Button to load the homepage" class="header" id="home-page-btn" tabindex="0"><i class="fa fa-home"></i><br>Home</p>	
-		<p aria-label="login page" alt="Button to restart the login page" class="header" id="login-page-btn" tabindex="0"><i class="fa fa-paper-plane"></i><br>Login</p>
+		<p aria-label="App name" alt="Displaying the app name" class="header" id="appName" tabindex="0"></i><br>Horarium</p>
 	`);
 }
 
@@ -98,7 +94,6 @@ function selectEndpointForm() {
 
 function endpointBtnListener(userData) {
 	$('.gridItem-emp, #employees-page-btn').on('click', function() {
-		console.log('employees');
 		getEmployeesFromAPI(displayAllEmployees);
 		getEmployeesListFromAPI();
 		loadMainHeader(userData);
@@ -106,7 +101,6 @@ function endpointBtnListener(userData) {
 		activateNewEmpBtn();
 	})
 	$('.gridItem-tt, #timeTable-page-btn').on('click', function() {
-		console.log('timeTable');
 		getTimeTablesFromAPI(displayAllTimeTables);
 		getEmployeesListFromAPI();
 		loadMainHeader(userData);
@@ -184,17 +178,9 @@ function activeBtnSwitch() {
 
 function accountPageListener(userData) {
 	$('#account-page-btn').on('click', function() {
-		// set btn active
-		// $()
-		
 		$('#account-page-btn').addClass('header active-header-btn')
-		// set all other btns non-active
-		// load page
 		$('#mainPage').html(accountPageForm(userData));
-		// see account firstName/lastName
-		// see username
-		// logoutBtn
-		//deleteBtn
+		
 		deleteAccountListener(userData);
 		logoutBtnListener();
 		deactivateNewEmpBtn();
@@ -203,10 +189,10 @@ function accountPageListener(userData) {
 
 function loadMainHeader(userData) {
 	$('#mainHeader').html(`
-	<p aria-label="homepage" alt="Button to load the homepage" class="header" id="home-page-btn" tabindex="0"><i class="fa fa-home"></i><br>Home</p>
-	<p aria-label="employees page" alt="Button to load a list of all employees" class="header" id="employees-page-btn"><i class="fa fa-users"></i><br>Team</p>
-	<p aria-label="timetable page" alt="Button to load the timetable" class="header" id="timeTable-page-btn"><i class="fa fa-calendar"></i><br>Schedule</p>
-	<p aria-label="account page" alt="Button to load the account page of the user" class="header" id="account-page-btn" tabindex="0"><i class="fa fa-cog"></i><br>Account</p>
+		<p aria-label="homepage" alt="Button to load the homepage" class="header" id="home-page-btn" tabindex="0"><i class="fa fa-home"></i><br>Home</p>
+		<p aria-label="employees page" alt="Button to load a list of all employees" class="header" id="employees-page-btn"><i class="fa fa-users"></i><br>Team</p>
+		<p aria-label="timetable page" alt="Button to load the timetable" class="header" id="timeTable-page-btn"><i class="fa fa-calendar"></i><br>Schedule</p>
+		<p aria-label="account page" alt="Button to load the account page of the user" class="header" id="account-page-btn" tabindex="0"><i class="fa fa-cog"></i><br>Account</p>
 `);
 	endpointBtnListener(userData);
 	homePageBtnListener(userData);
@@ -319,75 +305,3 @@ function cancelAccountSignUpListener() {
 		signUpPageListener();
 	});
 };
-
-
-
-/* 
-Loading animation http://tobiasahlin.com/spinkit/
-
-<div class="spinner">
-  <div class="rect1"></div>
-  <div class="rect2"></div>
-  <div class="rect3"></div>
-  <div class="rect4"></div>
-  <div class="rect5"></div>
-</div>
-
-==================================================
-==================================================
-CSS
-==================================================
-
-.spinner {
-  margin: 100px auto;
-  width: 50px;
-  height: 40px;
-  text-align: center;
-  font-size: 10px;
-}
-
-.spinner > div {
-  background-color: #333;
-  height: 100%;
-  width: 6px;
-  display: inline-block;
-  
-  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
-  animation: sk-stretchdelay 1.2s infinite ease-in-out;
-}
-
-.spinner .rect2 {
-  -webkit-animation-delay: -1.1s;
-  animation-delay: -1.1s;
-}
-
-.spinner .rect3 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
-}
-
-.spinner .rect4 {
-  -webkit-animation-delay: -0.9s;
-  animation-delay: -0.9s;
-}
-
-.spinner .rect5 {
-  -webkit-animation-delay: -0.8s;
-  animation-delay: -0.8s;
-}
-
-@-webkit-keyframes sk-stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
-  20% { -webkit-transform: scaleY(1.0) }
-}
-
-@keyframes sk-stretchdelay {
-  0%, 40%, 100% { 
-    transform: scaleY(0.4);
-    -webkit-transform: scaleY(0.4);
-  }  20% { 
-    transform: scaleY(1.0);
-    -webkit-transform: scaleY(1.0);
-  }
-}
-*/

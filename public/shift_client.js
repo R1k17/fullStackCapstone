@@ -55,7 +55,7 @@ function displayAllShifts(data) {
     $(`div[id="${shifts.dayId}"]`).find(".shiftsContainer").append(renderShifts(shifts));
   });
   deleteShiftBtn();
-  modifyShiftBtn();
+  modifyShiftBtn(data);
 }
 
 function deleteShiftBtn() {
@@ -67,15 +67,23 @@ function deleteShiftBtn() {
   })
 }
 
-function modifyShiftBtn() {
+function modifyShiftBtn(data) {
   $('.modify-shift-btn').on('click', function() {
-    const dayId = $(this).parent().parent().parent().attr('id')
     const shiftId = $(this).parent().attr('id');
     
     $('#mainPage').html('');
     $('#mainPage').html(renderUpdateShiftForm);
 
-    cancelBtnListener();
+    let selectedShift = 
+    data.find((obj) => {
+      return shiftId === obj.shiftId;
+    });
+
+    $('input[name="startingTime"]').attr('value', selectedShift.start);
+    $('input[name="endingTime"]').attr('value', selectedShift.end);
+    $('input[name="emplyoeeList"]').attr('value', selectedShift.employee);
+
+    cancelBtnListener(user);
     getEmployeesListFromAPI();
     watchShiftUpdateSubmit(shiftId);
   })
@@ -107,22 +115,22 @@ function createShiftBtn(user) {
 
   function renderAddShiftForm() {
     return `
-    <form class="create" action="/shifts" method="post">
+    <form id="addShiftFormStyle" class="create" action="/shifts" method="post">
       <fieldset>
         <legend>Add a shift</legend>
-      Start
-      <br>
-      <input aria-label="Shift begin" class="add-shift-form-name" name="startingTime" placeholder="start time" type="number">
-      <br>
-      End
-      <br>
-        <input aria-label="Shift end" class="add-shift-form-name" name="endingTime" placeholder="end time" type="number">
-      <br>
-      Employee
-      <br>
-      <select aria-label="Select an employee" class="add-shift-form-select selectionLists" name="emplyoeeList" alt="select an employee">
-      </select>
-      <br>
+        Start
+        <br>
+        <input aria-label="Shift begin" class="add-shift-form-name" name="startingTime" placeholder="start time" type="number">
+        <br>
+        End
+        <br>
+          <input aria-label="Shift end" class="add-shift-form-name" name="endingTime" placeholder="end time" type="number">
+        <br>
+        Employee
+        <br>
+        <select aria-label="Select an employee" class="add-shift-form-select selectionLists" name="emplyoeeList" alt="select an employee">
+        </select>
+        <br>
       </fieldset>
       <button aria-label="Add shift button" alt="Button to add a shift" type="submit" class="greenBtn addShift submit-form-btn">Add shift +</button>
     </form>
@@ -132,26 +140,25 @@ function createShiftBtn(user) {
 
   function renderUpdateShiftForm() {
     return `
-    <form class="update" action="/shifts" method="post">
-      <fieldset>
-        <legend>Update the shift</legend>
-      Start
-      <br>
-      <input aria-label="Shift begin" class="add-shift-form-name" name="startingTime" placeholder="start time" type="number">
-      <br>
-      End
-      <br>
-        <input aria-label="Shift end" class="add-shift-form-name" name="endingTime" placeholder="end time" type="number">
-      <br>
-      Employee
-      <br>
-      <select aria-label="Select an employee" class="add-shift-form-select selectionLists" name="emplyoeeList" alt="select an employee">
-      </select>
-      <br>
+    <form id="#update-shift" class="update" action="/shifts" method="post">
+      <fieldset class="form-template">
+        Start
+        <br>
+        <input aria-label="Shift begin" class="form-input-field" name="startingTime" placeholder="start time" type="number">
+        <br>
+        End
+        <br>
+          <input aria-label="Shift end" class="form-input-field" name="endingTime" placeholder="end time" type="number">
+        <br>
+        Employee
+        <br>
+        <select aria-label="Select an employee" class="form-input-field selectionLists" name="emplyoeeList" alt="select an employee">
+        </select>
+        <br>
+        <button aria-label="Update shift button" alt="Button to update a shift" type="submit" class="updateBtn addShift updateShiftBtn submit-form-btn">Update</button>
+        <button aria-label="Cancel updating shift" alt="Button to cancel updating a shift" id="updateShift-cancel" class="cancel-btn submit-form-btn">Cancel</button>
       </fieldset>
-      <button aria-label="Update shift button" alt="Button to update a shift" type="submit" class="updateBtn addShift updateShiftBtn submit-form-btn">Update</button>
-      </form>
-      <button aria-label="Cancel updating shift" alt="Button to cancel updating a shift" id="updateShift-cancel" class="cancel-btn submit-form-btn">Cancel</button>
+    </form>
     `
   }
 
@@ -176,8 +183,6 @@ function createShiftBtn(user) {
   }
   
   function watchShiftUpdateSubmit(shiftId) {
-    console.log(shiftId);
-    
     $(`.update`).on('submit', function(event) {
       event.preventDefault();
       
@@ -185,7 +190,6 @@ function createShiftBtn(user) {
 
       const query = {
         id: shiftId,
-        // dayId: dayId,
         start: $("input[name='startingTime']").val(),
         end: $("input[name='endingTime']").val(),
         hours: shiftLength,
@@ -194,4 +198,3 @@ function createShiftBtn(user) {
     updateShift(shiftId, query)
     })
   }
-

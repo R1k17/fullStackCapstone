@@ -1,4 +1,3 @@
-// TimeTable API Interaction
 function getTimeTablesFromAPI(callback) {
   $.ajax({
     method: 'GET',
@@ -48,9 +47,3 @@ function renderTimeTable(result) {
       </div>
       `
     }
-
-// function startApp() {
-//     watchTimeTableNavBtn();
-// }
-
-// startApp();

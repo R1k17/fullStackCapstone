@@ -1,11 +1,8 @@
 let employees = [];
 let employee = '';
 
-/* API variables */
 const TIMEPLANER_API = 'https://timeplaner.herokuapp.com/';
 
-// ==========================================================
-// Employee API Interaction
 function getEmployeesFromAPI(callback) {
   $.ajax({
     method: 'GET',
@@ -102,26 +99,26 @@ function watchNavBtns() {
 function empSubmitForm() {
   return `
     <form id="employeeSubmitForm">
-      <fieldset class="employee-submit-form">
-        First name:<br>
-        <input aria-label="Firstname of employee" type="text" name="firstName" value="" placeholder="Jane" required>
+      <fieldset class="employee-submit-form form-template">
+        First name<br>
+        <input aria-label="Firstname of employee" class="form-input-field" type="text" name="firstName" value="" placeholder="Jane" required>
         <br><br>
-        Last name:<br>
-        <input aria-label="lastname of employee" type="text" name="lastName" value="" placeholder="Doe" required>
+        Last name<br>
+        <input aria-label="lastname of employee" class="form-input-field" type="text" name="lastName" value="" placeholder="Doe" required>
         <br><br>
-        Available hours per week: <br>
-        <input aria-label="Available hours of employee" type="number" name="hours" value="" placeholder="40" required>
-        <br><br>
+        Available hours per week <br>
+        <input aria-label="Available hours of employee" class="form-input-field" type="number" name="hours" value="" placeholder="40" required>
+        <br>Select the gender<br>
         <div>
-          <input aria-label="Female gender selection" type="radio" name="gender" id="female" value="Female">Female<br>
+          <input aria-label="Female gender selection" class="form-input-field" type="radio" name="gender" id="female" value="Female">Female<br>
           <input aria-label="Male gender selection" type="radio" name="gender" id="male" value="Male">Male<br>
         </div>
         <div>
-          <button aria-label="Save button" alt="Save employee to database" id="create-emp-btn">Save</button>
-          </div>
+          <button aria-label="Save button" alt="Save employee to database" class="greenBtn submit-form-btn submit-button" id="create-emp-btn">Save</button>
+          <button aria-label="Cancel button" class="cancel-btn submit-form-btn" alt="Cancel employee submit" id="submitEmp-cancel" class="cancel-btn submit-form-btn">Cancel</button>
+        </div>
       </fieldset>
     </form>
-    <button aria-label="Cancel button" alt="Cancel employee submit" id="submitEmp-cancel" class="cancel-btn submit-form-btn">Cancel</button>
 `
 }
 
@@ -148,18 +145,12 @@ function newEmpBtnListener() {
 	})
 }
 
-function employeeSubmitBtnListener() {
-  // needed?
-}
-
 function watchEmployeeSubmit() {
   $('#create-emp-btn').on('click', function(event) {
     event.preventDefault();
-    console.log('employeeSubmitForm started');
     
     let bigGender;
     bigGender = $('input[name="gender"]:checked').val();
-    console.log($('input[name="gender"]:checked').val());
     
     const query = {
         first_name: $('input[name="firstName"]').val(),
@@ -167,7 +158,6 @@ function watchEmployeeSubmit() {
         gender: bigGender,
         hours: $('input[name="hours"]').val()
     }
-    console.log(query);
     
     postEmployeesToAPI(query);
   })
@@ -176,7 +166,7 @@ function watchEmployeeSubmit() {
 function employeeListCreator(data){
     employees = data;
     employee = employees[0];
-    console.log(data);
+    
     employeeListMenuCreator();
   }
   
@@ -222,7 +212,6 @@ function employeeListCreator(data){
   }
 
 function updateBtn(data, updateForm) {
-  
   $('.greenBtn').on('click', function() {
     $('.mainPage').html('');
     $('.mainPage').html(updateForm);
@@ -270,21 +259,21 @@ function generateUpdateQuery(employeeId) {
 const updateForm = `
 <form id="updateForm">
     <fieldset class="employee-update-form form-template">
-        First name:<br>
+        First name<br>
         <input aria-label="Employee firstname" class="form-input-field" type="text" name="firstName" value="">
         <br><br>
-        Last name:<br>
+        Last name<br>
         <input aria-label="Employee lastname" class="form-input-field" type="text" name="lastName" value="">
         <br><br>
-        Available hours per week: <br>
+        Available hours per week <br>
         <input aria-label="Employee available hours" class="form-input-field" type="number" name="hours" value="">
-        <br><br>
+        <br>Select the gender<br>
         <div>
             <input aria-label="Employee gender female" type="radio" name="gender" id="female" value="Female">Female<br>
             <input aria-label="Employee gender male" type="radio" name="gender" id="male" value="Male">Male<br>
         </div>
         <div>
-            <input aria-label="Update employee" alt="Button to update the employee" class="greenBtn" submit-form-btn submit-button" id="updateEmployee" type="submit" value="Submit">
+            <input aria-label="Update employee" alt="Button to update the employee" class="greenBtn submit-form-btn submit-button" id="updateEmployee" type="submit" value="Submit">
         </div>
     </fieldset>
 </form>
@@ -334,25 +323,3 @@ function cancelBtnListener(user) {
     loadMainHeader(user);
   })
 }
-
-function startApp() {
-  watchNavBtns();
-  watchEmployeeSubmit();
-  generateUpdateQuery();
-  // updateBtn();
-  // watchTimeTableNavBtn();
-  // ========================
-  loadHeader();
-	// loadLoginForm with the header or on page start?
-	loadLoginForm();
-	loginPageListener();
-	loginListener();
-	homePageBtnListener();
-	// deleteAccountListener()
-	signUpPageListener();
-	// createAccountListener();
-  // cancelAccountSignUpListener()
-  activeBtnSwitch();
-}
-
-$(startApp());

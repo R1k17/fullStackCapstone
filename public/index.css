@@ -1,46 +1,29 @@
 html {
-    /* background: lightcoral; */
-    /* background: #74b9ff; */
-    /* background: #0984e3; */
     background: #3253A1;
     font-family: 'Roboto Condensed', sans-serif;
 }
 
 nav {
-    /* background: lightblue; */
     padding: 2px 2px;
-    border-bottom: solid 2px #D82038;
     margin-bottom: 20px;
-    /* background: #ffffff; */
     text-align: center;
 }
 
+nav > #mainHeader {
+    border-bottom: solid white  1px;
+}
+
 nav > ul {
-    margin: 0;
+    margin: 0 auto;
+    display: inline-block;
+    list-style-type: none;
 }
 
 nav > ul > li {
     display: inline-block;
-    margin-left: 20px;
+    margin: auto;
+    text-align: center;
 }
-
-/* nav ul > li > a {
-    color: #14D8D2;
-} */
-
-/* .navBtn {
-    color: #14D8D2;
-} */
-
-/* .navBtn:hover {
-    background: #14D8D2;
-    color:  black;
-} */
-
-/* nav ul > li > a:hover {
-    background: #14D8D2;
-    color:  black;
-} */
 
 .header {
     display: inline-block;
@@ -76,7 +59,6 @@ nav > ul > li {
     margin: 10px 5px; 
 }
 .shifts-header {
-    /* border-bottom: solid 1px #14D8D2; */
     margin-bottom: 10px;
 }
 
@@ -85,10 +67,7 @@ nav > ul > li {
 }
 
 .shiftSlots {
-    /* display: block; */
-    /* background: #71AD9B; */
     padding: 8px 5px;
-    /* border-top: solid 1px black; */
     border-top: solid 1px #1A86E0;
     color: #1A86E0;
 }
@@ -102,29 +81,16 @@ nav > ul > li {
 }
 
 .shiftParts {
-    /* color: #E5E6E7; */
     color: #1A86E0;
     padding: 0px 3px;
     margin: 2px 2px;
-    /* background: #66A390; */
-    /* border-left: solid 1px black; */
 }
 
-/* .shift-btns {
-    border: solid 1px black;
-    border-radius: 5px;
-    float: right;
-    margin: 0 2px;
-} 
-*/
-
 .delete-shift-btn {
-    /* background-color: red; */
     color: #ff7979;
 }
 
 .modify-shift-btn {
-    /* background: #888A8C; */
     color: #1A86E0;
 }
 
@@ -134,11 +100,6 @@ nav > ul > li {
     border: #888A8C;
     text-align: center;
 }
-/* .cancel-btn {
-    color: white;
-    background: #888A8C;
-    border: #888A8C;
-} */
 
 .redBtn {
     color: white;
@@ -146,12 +107,6 @@ nav > ul > li {
     border: #ff7979;
     text-align: center;
 }
-
-/* .deleteBtn {
-    color: white;
-    background: #ff7979;
-    border: #ff7979;
-} */
 
 .greenBtn {
     color: white;
@@ -178,11 +133,7 @@ nav > ul > li {
 }
 
 .submit-form-btn {
-    /* color: white; */
-    /* background: border-box; */
-    /* background: #1BBC7C; */
     border-radius: 5px;
-    /* border: #1BBC7C; */
     margin: 5px auto;
     width: -webkit-fill-available;
     display: block;
@@ -195,7 +146,7 @@ nav > ul > li {
 
 }
 .add-shift-form-select {
-    display: block;
+    margin-bottom: 10px;
     color: #1A86E0;
     background: #ffffff;
     padding: 2px;
@@ -227,6 +178,12 @@ nav > ul > li {
     border-radius: 5px;
     padding-top: 10px;
     margin-bottom: 10px;
+    text-align: center;
+}
+
+#addShiftFormStyle {
+    margin: 5px auto;
+    text-align: center;
 }
 
 #login-form .form-input-field {
@@ -235,7 +192,19 @@ nav > ul > li {
     display: block;
 }
 
+#update-shift .add-shift-form-select {
+    margin: 5px auto;
+    text-align: center;
+    display: block;
+}
+
 #submit-form .form-input-field {
+    margin: 5px auto;
+    text-align: center;
+    display: block;
+}
+
+#updateForm .form-input-field {
     margin: 5px auto;
     text-align: center;
     display: block;
@@ -326,7 +295,6 @@ nav > ul > li {
 }
 
 .select-endpoint:hover {
-    /* background: #716F8E; */
     background: #2D3474;
     color: #B8FF30;
 }
@@ -335,31 +303,6 @@ nav > ul > li {
     color: #B8FF30;
 }
 
-/* 
-body
-    > background: #6272C0
- */
-
-
-    /* fancy stuff */
-    /* 
-    
-#pointer {
-    width: 200px;
-    height: 40px;
-    position: relative;
-    background: red;
-  }
-  #pointer:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 0;
-    border-left: 20px solid white;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-  }
-    
-    */
+#appName {
+    font-size: 30px;
+}
