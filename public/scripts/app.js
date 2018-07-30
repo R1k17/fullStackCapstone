@@ -8,7 +8,6 @@ function startApp() {
 	loginListener();
 	homePageBtnListener();
 	signUpPageListener();
-  activeBtnSwitch();
 }
 
 $(startApp());
