@@ -8,21 +8,32 @@ function getEmployeesFromAPI(callback) {
     method: 'GET',
     dataType: 'json',
     url: TIMEPLANER_API + 'employees',
-    success: callback,
+    beforeSend: function(xhr) {
+			xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
+		},
+    success: (data) => {
+      refreshToken();
+      displayAllEmployees(data);
+    },
     error: () => console.log('GET employees failed')
   });
 }
 
-function getEmployeesListFromAPI() {
+function getEmployeesListFromAPI(callback) {
   $.ajax({
     method: 'GET',
     dataType: 'json',
     url: TIMEPLANER_API + 'employees',
+    beforeSend: function(xhr) {
+			xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
+		},
     success: (data) => {
               let list = data.map(obj => {
                     return obj.employeeName;
                   });
                   employeeListCreator(list);
+                  refreshToken();
+                  callback;
             },
     error: () => console.log('GET employees failed')
   });
@@ -35,7 +46,11 @@ function postEmployeesToAPI(query) {
     contentType: "application/json",
     data: JSON.stringify(query),
     url: TIMEPLANER_API + 'employees',
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
+    },
     success: () => {
+      refreshToken();
       $('#mainPage').html('');
       getEmployeesFromAPI(displayAllEmployees);
       activateNewEmpBtn();
@@ -51,7 +66,13 @@ function updateEmployee(employeeId, query) {
     contentType: 'application/json',
     data: JSON.stringify(query),
     url: TIMEPLANER_API + 'employees/' + employeeId,
-    success: getEmployeesFromAPI(displayAllEmployees),
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
+    },
+    success: () => {
+      refreshToken();
+      getEmployeesFromAPI(displayAllEmployees);
+    },
     error: () => console.log('PUT employee failed')
   })
 }
@@ -62,7 +83,13 @@ function deleteEmployee(employeeId, getEmployeesFromAPI) {
     dataType: 'json',
     contentType: 'application/json',
     url: TIMEPLANER_API + 'employees/' + employeeId,
-    success: $(`div[id="${employeeId}"]`).remove(),
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
+    },
+    success: () => {
+      refreshToken();
+      $(`div[id="${employeeId}"]`).remove();
+    },
     error: () => console.log('DELETE employee failed')
   });
 }
@@ -90,7 +117,7 @@ function displayAllEmployees(data) {
 }
 
 function watchNavBtns() {
-  $('#employeeListBtn').on('click', function() {
+  $('.gridItem-emp').on('click', function() {
     getEmployeesFromAPI(displayAllEmployees);
     getEmployeesListFromAPI();
   })

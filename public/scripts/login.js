@@ -163,19 +163,6 @@ function homePageBtnListener(userData) {
 	})
 }
 
-function activeBtnSwitch() {
-		switch (true) {
-			case ($('#employees-page-btn').data( 'clicked', true)):
-				return $('#employees-page-btn').addClass('header active-header-btn');
-			case ($('#timeTable-page-btn').data( 'clicked', true)):
-				return $('#timeTable-page-btn').addClass('header active-header-btn');
-			case ($('#home-page-btn').data( 'clicked', true)):
-				return $('#home-page-btn').addClass('header active-header-btn');
-			case ($('#account-page-btn').data( 'clicked', true)):
-			$('#account-page-btn').addClass('header active-header-btn')
-		}
-	}
-
 function accountPageListener(userData) {
 	$('#account-page-btn').on('click', function() {
 		$('#account-page-btn').addClass('header active-header-btn')
@@ -221,7 +208,7 @@ function logIn() {
 
 			const userData = data;
 			loadHomeScreen(userData);
-			
+			watchNavBtns();
 		},
 		error: function() {
 			$('#mainPage').html(loginPageForm());

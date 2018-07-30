@@ -3,7 +3,13 @@ function getTimeTablesFromAPI(callback) {
     method: 'GET',
     dataType: 'json',
     url: TIMEPLANER_API + 'timeTables',
-    success: callback,
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
+    },
+    success: (data) => {
+      refreshToken();
+      displayAllTimeTables(data);
+    },
     error: () => console.log('GET Timetables failed')
   });
 }

@@ -3,7 +3,13 @@ function getShiftsFromAPI(callback) {
       method: 'GET',
       dataType: 'json',
       url: TIMEPLANER_API + 'shifts',
-      success: callback,
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
+      },
+      success: (data) => {
+        refreshToken();
+        displayAllShifts(data);
+    },
       error: () => console.log('GET shifts failed')
     });
   }
@@ -15,10 +21,12 @@ function postShiftToAPI(query, currentDay) {
     contentType: "application/json",
     data: JSON.stringify(query),
     url: TIMEPLANER_API + 'shifts',
-    success: function (data) {
-      $(`div[id="${data.shiftId}"]`).find('.shiftsContainer').append(renderShifts(query))
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
     },
-    success: () => {
+    success: (data) => {
+      refreshToken();
+      $(`div[id="${data.shiftId}"]`).find('.shiftsContainer').append(renderShifts(query))
       getTimeTablesFromAPI(displayAllTimeTables);
       getEmployeesListFromAPI();
       loadMainHeader(user);
@@ -35,7 +43,13 @@ function updateShift(shiftId, query) {
       contentType: 'application/json',
       data: JSON.stringify(query),
       url: TIMEPLANER_API + 'shifts/' + shiftId,
-      success: getTimeTablesFromAPI(displayAllTimeTables),
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
+      },
+      success: () => {
+        refreshToken();
+        getTimeTablesFromAPI(displayAllTimeTables);
+      },
       error: () => console.log('PUT shift failed')
     })
 }
@@ -46,6 +60,12 @@ function deleteShift(shiftId) {
       dataType: 'json',
       contentType: 'application/json',
       url: TIMEPLANER_API + 'shifts/' + shiftId,
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('prjToken')}`);
+      },
+      success: () => {
+        refreshToken();
+      },
       error: () => console.log('DELETE shift failed')
     });
 }
