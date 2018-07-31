@@ -7,7 +7,7 @@ After logging in, you can fully manage your employee list under 'Team' and organ
 # Built With
 * 'Horarium' was build with html, css, javascript, jquery, node.js, Express, and mongoDB.
 
-#Demo
+# Demo
 In case you want to play around with the web app just sign up and login with your newly created account.
 To become your own boss follow this link, https://timeplaner.herokuapp.com/
 
