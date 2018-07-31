@@ -1,7 +1,4 @@
 # Horarium Web App
-
-![Sign in page of Horarium.](./pictures/sign_in.png)
-
 The purpose of Horarium is to provide the user with a list of employees and a timetable to manage the shifts of a team. 
 
 # Description
@@ -15,6 +12,8 @@ In case you want to play around with the web app just sign up and login with you
 To become your own boss follow this link, https://timeplaner.herokuapp.com/
 
 # Screenshots
+Sign in Page:
+![Sign in page of Horarium.](./pictures/sign_in.png)
 Home Page:
 ![Homescreen to chooese between team and schedule.](./pictures/homescreen.png)
 Team Page:
