@@ -4,8 +4,6 @@
     grid-template-rows: [first] 50% [last] 50%;
 }
 .gridItems {
-    /* grid-column: 5;
-    grid-row: 1; */
     place-self: auto;
 }
 
