@@ -21,20 +21,9 @@ function loginPageElement(){
 }
 
 function loginPageListener(){
-	// $('header').on('click', '#login-page-btn', function(event){
 	$('#login-page-btn').on('click', function(){
     $('#mainPage').html(loginPageElement());
-
-		// underlinePageLabel(this);
   });
-  // this func is for keyboard users only
-	// $('header').on('keydown', '#login-page', function(event){
-	// 	if(event.keyCode === 32 || event.keyCode === 13){
-	// 		$('main').html(loginPageElement());
-
-	// 		underlinePageLabel(this);
-	// 	}
-	// });
 }
 
 function loginListener(){
@@ -50,9 +39,6 @@ function loginListener(){
 			type: 'POST',
 			success: function(data){
 				localStorage.setItem('prjToken', data.authToken);
-				// logIn();
-				console.log(data);
-				
 			},
 			error: function(err){
 				$('#password-username-error').html('Sorry, this username or password is incorrect!<br>Please try again.');
@@ -92,18 +78,14 @@ function logIn(){
 }
 
 function loadHeader(){
-  // loadRecentEntriesPage();
-	// underlinePageLabel($('#home-page'));
-	// loadRecentEntries();
 	$('#mainHeader').html(`
-  <p id="about-page-btn" tabindex="0">About</p>
-  <p id="home-page-btn" tabindex="0">Home</p>
-  <p id="login-page-btn" tabindex="0">Login</p>
+		<p id="about-page-btn" tabindex="0">About</p>
+		<p id="home-page-btn" tabindex="0">Home</p>
+		<p id="login-page-btn" tabindex="0">Login</p>
 	`);
 }
 
 function startLogin(){
-  // loadHeader();
 	loginPageListener();
 }
 
