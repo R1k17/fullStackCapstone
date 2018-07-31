@@ -128,15 +128,7 @@ router.post('/', jsonParser, (req, res) => {
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
-// Never expose all your users like below in a prod application
-// we're just doing this so we have a quick way to see
-// if we're creating users. keep in mind, you can also
-// verify this in the Mongo shell.
-// router.get('/', (req, res) => {
 router.get('/', jwtAuth, (req, res) => {
-// router.get('/loggedIn', (req, res) => {
-  // change to router.get('/loggedIn', ...) to match login/login.js line 3?
-
   const token = req.headers.authorization.split(' ')[1];
 	const tokenPayload = jwt.verify(token, JWT_SECRET);
 	const _username = tokenPayload.user.username;
