@@ -274,8 +274,8 @@ function createAccountListener() {
 			success: function(data) {
 				$('#mainPage').html(`
 					<div id="new-account-success">
-						<p class="extra-text">Acount was successfully created!</p>
-						<button alt="Button to start login process" aria-label="login button" class="button-blue" onclick="location.reload()">Login</button>
+						<p class="form-template">Acount was successfully created!</p>
+						<button alt="Button to start login process" aria-label="login button" class="signIn-elem greenBtn login-btn" onclick="location.reload()">Login</button>
 					</div>
 				`);
 			},
