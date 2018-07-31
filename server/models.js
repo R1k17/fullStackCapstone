@@ -1,5 +1,3 @@
-// CREATING SCHEMA
-
 'use strict';
 
 const mongoose = require('mongoose');
