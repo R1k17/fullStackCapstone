@@ -30,6 +30,6 @@ Schedule Page:
 Creating a new shift:
 ![Shift creation form.](./pictures/addingShift_form.png)
 
-#Author
+# Author
 Tarik Mey
 
