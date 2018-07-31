@@ -14,14 +14,19 @@ To become your own boss follow this link, https://timeplaner.herokuapp.com/
 # Screenshots
 Sign in Page:
 ![Sign in page of Horarium.](./pictures/sign_in.png)
+
 Home Page:
 ![Homescreen to chooese between team and schedule.](./pictures/homescreen.png)
+
 Team Page:
 ![Team screen to manage your employees.](./pictures/employee_overview.png)
+
 Creating a new employee:
 ![Emplyoee creation form.](./pictures/employee_creation.png)
+
 Schedule Page:
 ![Schedule screen to assign employees to shifts.](./pictures/shifts_overview.png)
+
 Creating a new shift:
 ![Shift creation form.](./pictures/addingShift_form.png)
 
