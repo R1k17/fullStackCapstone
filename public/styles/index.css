@@ -42,7 +42,8 @@ nav > ul > li {
     text-align: center;
     display: inline-block;
     margin: 0;
-    width: -webkit-fill-available;
+    width: -moz-available;
+    width:  -webkit-fill-available;
     height: 30px;
     background: #0984e3;
     padding: 10px;
@@ -135,6 +136,7 @@ nav > ul > li {
 .submit-form-btn {
     border-radius: 5px;
     margin: 5px auto;
+    width: -moz-available;
     width: -webkit-fill-available;
     display: block;
     padding: 5px;
