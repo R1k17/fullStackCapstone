@@ -14,6 +14,8 @@ const chaiHttp = require('chai-http');
 const {Employee} = require('../server/models');
 const {app, runServer, closeServer} = require('../server');
 const {TEST_DATABASE_URL} = require('../config');
+const {User} = require('../users')
+
 const expect = chai.expect;
 
 chai.use(chaiHttp);
