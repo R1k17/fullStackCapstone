@@ -1,10 +1,5 @@
 'use strict';
-/* 
-Use this link for authenticating the tests
-https://courses.thinkful.com/node-001v5/assignment/3.1.3
 
-
-*/
 const faker = require('faker');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -54,11 +49,7 @@ describe('Main url', function(){
         return runServer(TEST_DATABASE_URL);
     })
 
-    // beforeEach(function() {
-    //     return seedEmployeeData();
-    // })
     beforeEach(function() {
-// =============
 		return User.hashPassword(password).then(password =>
             User.create({
                 username,
@@ -72,10 +63,10 @@ describe('Main url', function(){
         })
         .then(function(res) {
             jwt = res.body.authToken;
-        return sendEmployeeData()
+        return seedEmployeeData()
         })
     });
-// =============
+    
     afterEach(function() {
         return tearDownDb();
     })
@@ -88,9 +79,7 @@ describe('Main url', function(){
         it('should check if main url runs', function() {
             return chai.request(app)
             .get('/')
-// =============
             .set('Authorization', `Bearer ${jwt}`)
-// =============
             .then(function(res) {
                 expect(res).to.have.status(200);
             });
@@ -99,6 +88,7 @@ describe('Main url', function(){
         it('should list employess on GET', function() {
             return chai.request(app)
             .get('/employees')
+            .set('Authorization', `Bearer ${jwt}`)
             .then(function(res) {
                 expect(res).to.have.status(200);
             });
@@ -111,6 +101,7 @@ describe('Main url', function(){
 
             return chai.request(app)
             .post('/employees')
+            .set('Authorization', `Bearer ${jwt}`)
             .send(newEmployee)
             .then(function(res) {
                 expect(res).to.have.status(201);
@@ -146,6 +137,7 @@ describe('Main url', function(){
                 updateData.id = employee.id;
                 return chai.request(app)
                 .put(`/employees/${employee.id}`)
+                .set('Authorization', `Bearer ${jwt}`)
                 .send(updateData);
             })
             .then(function(res) {
