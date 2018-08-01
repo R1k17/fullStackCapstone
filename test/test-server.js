@@ -1,5 +1,10 @@
 'use strict';
+/* 
+Use this link for authenticating the tests
+https://courses.thinkful.com/node-001v5/assignment/3.1.3
 
+
+*/
 const faker = require('faker');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -12,6 +17,12 @@ const {TEST_DATABASE_URL} = require('../config');
 const expect = chai.expect;
 
 chai.use(chaiHttp);
+
+const username = 'Tester';
+const password = "testing1234";
+const firstName = "The";
+const lastName = "Tester";
+let jwt;
 
 function seedEmployeeData() {
     console.info('seeding employee data');
@@ -41,10 +52,28 @@ describe('Main url', function(){
         return runServer(TEST_DATABASE_URL);
     })
 
+    // beforeEach(function() {
+    //     return seedEmployeeData();
+    // })
     beforeEach(function() {
-        return seedEmployeeData();
-    })
-
+// =============
+		return User.hashPassword(password).then(password =>
+            User.create({
+                username,
+                password
+            })
+        )
+        .then(function() {
+            return chai.request(app)
+            .post('/api/auth/login')
+            .send({username, password})
+        })
+        .then(function(res) {
+            jwt = res.body.authToken;
+        return sendEmployeeData()
+        })
+    });
+// =============
     afterEach(function() {
         return tearDownDb();
     })
@@ -57,6 +86,9 @@ describe('Main url', function(){
         it('should check if main url runs', function() {
             return chai.request(app)
             .get('/')
+// =============
+            .set('Authorization', `Bearer ${jwt}`)
+// =============
             .then(function(res) {
                 expect(res).to.have.status(200);
             });
