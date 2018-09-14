@@ -82,8 +82,10 @@ function deleteShiftBtn() {
   $(`.delete-shift-btn`).on('click', function() {
     const shiftId = $(this).parent().attr('id');
     
-    deleteShift(shiftId);
-    $(`div[id="${shiftId}"]`).remove();
+    if(confirm(`You are about to delete the current shift! Are you sure you want to delete it?`)){
+      deleteShift(shiftId);
+      $(`div[id="${shiftId}"]`).remove();
+    }
   })
 }
 
@@ -98,7 +100,7 @@ function modifyShiftBtn(data) {
     data.find((obj) => {
       return shiftId === obj.shiftId;
     });
-
+    
     $('input[name="startingTime"]').attr('value', selectedShift.start);
     $('input[name="endingTime"]').attr('value', selectedShift.end);
     $('input[name="emplyoeeList"]').attr('value', selectedShift.employee);
@@ -140,11 +142,11 @@ function createShiftBtn(user) {
         <legend>Add a shift</legend>
         Start
         <br>
-        <input aria-label="Shift begin" class="add-shift-form-name" name="startingTime" placeholder="start time" type="number">
+        <input aria-label="Shift begin" max= 23 min=0 class="add-shift-form-name" name="startingTime" placeholder="start time" type="number">
         <br>
         End
         <br>
-          <input aria-label="Shift end" class="add-shift-form-name" name="endingTime" placeholder="end time" type="number">
+          <input aria-label="Shift end" class="add-shift-form-name" name="endingTime" max=24 min=1 placeholder="end time" type="number">
         <br>
         Employee
         <br>
@@ -164,11 +166,11 @@ function createShiftBtn(user) {
       <fieldset class="form-template">
         Start
         <br>
-        <input aria-label="Shift begin" class="form-input-field" name="startingTime" placeholder="start time" type="number">
+        <input aria-label="Shift begin" class="form-input-field" max= 23 min=0 name="startingTime" placeholder="start time" type="number">
         <br>
         End
         <br>
-          <input aria-label="Shift end" class="form-input-field" name="endingTime" placeholder="end time" type="number">
+          <input aria-label="Shift end" class="form-input-field" max=24 min=1 name="endingTime" placeholder="end time" type="number">
         <br>
         Employee
         <br>
