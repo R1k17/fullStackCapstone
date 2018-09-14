@@ -2,8 +2,11 @@ function startApp() {
   watchNavBtns();
   watchEmployeeSubmit();
   generateUpdateQuery();
-  loadHeader();
-	loadLoginForm();
+
+	landingPageHeader();
+	loadLandingPage();
+	landingPageListeners()
+	
 	loginPageListener();
 	loginListener();
 	homePageBtnListener();
