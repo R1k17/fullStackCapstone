@@ -99,7 +99,6 @@ function renderEmployee(result) {
     <div class="day border" id="${result.id}">
       <h2 class="dayName">${result.employeeName}</h2>
       <ul class="employeeDetails">
-        <li aria-label="Employee id">ID: ${result.id}</li>
         <li aria-label="Employee gender">Gender: ${result.gender}</li>
         <li aria-label="Available hours">Hours: ${result.hours}</li>
       </ul>
