@@ -36,6 +36,7 @@ function loadHeader() {
 
 function loadLoginForm() {
 	$('#mainPage').html(loginPageForm());
+	signUpPageListener();
 }
 
 function loginListener() {
@@ -117,8 +118,8 @@ function accountPageForm(userData) {
 			<span alt="Showing Username of logged in user" aria-label="username" class="account-elems">Username: ${userData.username}</span>
 			<span alt="Showing users firstname" aria-label="firstname" class="account-elems">Firstname: ${userData.firstName}</span>
 			<span alt="Showing users lastname" aria-label="lastname" class="account-elems">Lastname: ${userData.lastName}</span>
-			<span alt="Delete button to delete user" aria-label="Delete user" class="account-btns submit-form-btn redBtn" id="delete-account-btn">delete</span>
-			<span alt="Logout button" aria-label="Logout button" class="account-btns submit-form-btn greyBtn" id="logout-account-btn">logout</span>
+			<button alt="Delete button to delete user" aria-label="Delete user" class="account-btns submit-form-btn redBtn" id="delete-account-btn">delete</button>
+			<button alt="Logout button" aria-label="Logout button" class="account-btns submit-form-btn greyBtn" id="logout-account-btn">logout</button>
 		</div>
 	</div>
 	`
@@ -212,6 +213,7 @@ function logIn() {
 		},
 		error: function() {
 			$('#mainPage').html(loginPageForm());
+			signUpPageListener();
 		}
 	})
 }
@@ -228,7 +230,7 @@ function signUpPageListener() {
 function signUpForm() {
 	return `
 			<h2 class="signIn-elem">Sign Up</h2>
-			<section id="signUpnewUser">
+			<section id="signUpnewUser" class="form-template">
 				<form id="submit-form" method="" action="">
 					<fieldset>
 						<legend></legend>
@@ -272,12 +274,10 @@ function createAccountListener() {
 				password: $('[name="password"]').val()
 			}),
 			success: function(data) {
-				$('#mainPage').html(`
-					<div id="new-account-success">
-						<p class="form-template">Acount was successfully created!</p>
-						<button alt="Button to start login process" aria-label="login button" class="signIn-elem greenBtn login-btn" onclick="location.reload()">Login</button>
-					</div>
-				`);
+				if(confirm("Your account was successfully created. Enjoy planning your team schedule!")) {
+					loadLoginForm();
+					loginListener();
+				}
 			},
 			error: function(err) {
 				$('#password-username-error').html('Sorry, this username is taken or the password is invalid. <br>Passwords should be a minimum of 10 characters in length.');
@@ -289,6 +289,55 @@ function createAccountListener() {
 function cancelAccountSignUpListener() {
 	$('#cancel-button').on('click', function() {
 		$('#mainPage').html(loadLoginForm());
-		signUpPageListener();
+		loadLandingPage();
+		landingPageListeners();
 	});
 };
+
+// ===== Landing page ======
+function landingPageForm(){
+	return `
+		<div id="landing-page" class="landing-page-container">
+			<section class="landing-page">
+				<h2>HORARIUM.</h2>
+				<h2>CREATING. UPDATING. REVIEWING.</h2> 
+				<h2>A BETTER WAY TO PLAN SHIFTS.</h2>
+				<button id="landing-page-login-btn">GET STARTED</button>
+			</section>
+			<section class="landing-page">
+				<p>The digital time planning tool for you and your team. Save time by managing your teams shifts whenever and wherever you want. Let horarium help you to be fully charged for all your other duties.</p>
+			</section>
+		</div>
+	`
+}
+
+function loadLandingPage() {
+	$("#mainPage").html(landingPageForm());
+}
+
+function landingPageListeners() {
+	$("#landing-page-login-btn").on("click", function() {
+		$("#mainPage").html(signUpForm());
+		cancelAccountSignUpListener();
+		createAccountListener();
+	})
+
+	$("#sign-in-btn").on("click", function() {
+		$("#mainPage").html(loadLoginForm());
+		loginListener();
+	})
+
+	$("#sign-up-btn").on("click", function() {
+		$("#mainPage").html(signUpForm());
+		cancelAccountSignUpListener();
+		createAccountListener();
+	})
+}
+
+function landingPageHeader() {
+	$("#mainHeader").html(`
+	<span id="app-title" class="logo landing-page-header">horarium</span>
+	<span aria-label="sign in" alt="Button to sign into the app" class="header landing-page-header" id="sign-in-btn" tabindex="0">SIGN IN</span>
+	<span aria-label="sign up" alt="Button to sign up for the app" class="header landing-page-header" id="sign-up-btn">SIGN UP</span>
+`)
+}
