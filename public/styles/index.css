@@ -31,6 +31,37 @@ nav > ul > li {
     color: #E5E6E7;
 }
 
+.logo {
+    display: inline-block;
+    padding: 0px 8px; 
+    color: #E5E6E7;
+}
+
+button {
+    cursor: pointer;
+}
+
+.landing-page-container {
+    margin-top: 50px;
+}
+
+.landing-page {
+    color: #E5E6E7;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.landing-page-container > section {
+    border-bottom: solid 1px #E5E6E7;
+}
+
+#landing-page-login-btn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
 .day {
     margin-bottom: 15px;
     background: #FFFFFF;
@@ -75,6 +106,7 @@ nav > ul > li {
 
 .shiftSlots:hover {
     background: #99C3C8;
+    cursor: pointer;
 }
 
 .shiftSlots:focus {
@@ -245,6 +277,16 @@ nav > ul > li {
     margin-bottom: 10px;
 }
 
+#sign-in-btn {
+    margin-left: 40px;
+}
+
+.header:hover {
+    color: #3253A1;
+    background: #E5E6E7;
+    cursor: pointer;
+}
+
 .signIn-elem {
     display: block;
     color: #1A86E0;
@@ -299,6 +341,7 @@ nav > ul > li {
 .select-endpoint:hover {
     background: #2D3474;
     color: #B8FF30;
+    cursor: pointer;
 }
 
 .active-header-btn {
